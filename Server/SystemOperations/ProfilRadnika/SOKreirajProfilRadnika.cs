@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 
 namespace Server.SystemOperations.ProfilRadnika
 {
-    internal class SOKreirajProfilRadnika : SOBase
-    {
-        internal IEntity result;
-        private Common.Domain.ProfilRadnika radnik;
+	internal class SOKreirajProfilRadnika : SOBase
+	{
+		internal IEntity result;
+		private Common.Domain.ProfilRadnika radnik;
 
-        public SOKreirajProfilRadnika(Common.Domain.ProfilRadnika radnik)
-        {
-            this.radnik = radnik;
-        }
+		public SOKreirajProfilRadnika(Common.Domain.ProfilRadnika radnik)
+		{
+			this.radnik = radnik;
+		}
 
-        protected override void ExecuteConcreteOperation()
-        {
-            broker.Insert(radnik);
-            result = broker.GetEntityById(radnik);
-        }
-    }
+		protected override async Task ExecuteConcreteOperationAsync()
+		{
+			await broker.InsertAsync(radnik);
+			result = await broker.GetEntityByIdAsync(radnik);
+		}
+	}
 }

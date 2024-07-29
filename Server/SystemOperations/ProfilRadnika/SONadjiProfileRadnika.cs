@@ -7,21 +7,21 @@ using System.Threading.Tasks;
 
 namespace Server.SystemOperations.ProfilRadnika
 {
-    internal class SONadjiProfileRadnika : SOBase
-    {
-        private Common.Domain.ProfilRadnika profilRadnika;
-        private string filter;
-        public List<IEntity> result;
+	internal class SONadjiProfileRadnika : SOBase
+	{
+		private Common.Domain.ProfilRadnika profilRadnika;
+		private string filter;
+		public List<IEntity> result;
 
-        public SONadjiProfileRadnika(Common.Domain.ProfilRadnika profilRadnika, string filter)
-        {
-            this.profilRadnika = profilRadnika;
-            this.filter = filter;
-        }
+		public SONadjiProfileRadnika(Common.Domain.ProfilRadnika profilRadnika, string filter)
+		{
+			this.profilRadnika = profilRadnika;
+			this.filter = filter;
+		}
 
-        protected override void ExecuteConcreteOperation()
-        {
-            result = broker.ReadAllWithFilter(profilRadnika, filter);
-        }
-    }
+		protected override async Task ExecuteConcreteOperationAsync()
+		{
+			result = await broker.ReadAllWithFilterAsync(profilRadnika, filter);
+		}
+	}
 }

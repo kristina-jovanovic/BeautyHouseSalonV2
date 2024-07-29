@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace Server.SystemOperations.ZahtevZaRezervacijuTermina
 {
-    internal class SOUcitajListuZahtevaZaRezervacijuTermina : SOBase
-    {
-        private Common.Domain.ZahtevZaRezervacijuTermina z;
-        public List<IEntity> result;
-        public SOUcitajListuZahtevaZaRezervacijuTermina(Common.Domain.ZahtevZaRezervacijuTermina z)
-        {
-            this.z = z;
-        }
+	internal class SOUcitajListuZahtevaZaRezervacijuTermina : SOBase
+	{
+		private Common.Domain.ZahtevZaRezervacijuTermina z;
+		public List<IEntity> result;
+		public SOUcitajListuZahtevaZaRezervacijuTermina(Common.Domain.ZahtevZaRezervacijuTermina z)
+		{
+			this.z = z;
+		}
 
-        protected override void ExecuteConcreteOperation()
-        {
-            result = broker.GetEntitiesById(z,StatusZahteva.NaCekanju);
-        }
-    }
+		protected override async Task ExecuteConcreteOperationAsync()
+		{
+			result = await broker.GetEntitiesByIdAsync(z, StatusZahteva.NaCekanju);
+		}
+	}
 }

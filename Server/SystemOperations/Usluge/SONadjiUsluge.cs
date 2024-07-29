@@ -19,9 +19,9 @@ namespace Server.SystemOperations
             this.filter = filter;
         }
 
-        protected override void ExecuteConcreteOperation()
+        protected override async Task ExecuteConcreteOperationAsync()
         {
-            result = broker.ReadAllWithFilter(usluga, filter);
+            result =await broker.ReadAllWithFilterAsync(usluga, filter);
         }
     }
 }

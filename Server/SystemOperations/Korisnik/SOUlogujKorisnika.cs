@@ -17,9 +17,9 @@ namespace Server.SystemOperations
         {
             this.k = k;
         }
-        protected override void ExecuteConcreteOperation()
+        protected override async Task ExecuteConcreteOperationAsync()
         {
-            result = broker.GetEntityById(k);
+            result = await broker.GetEntityByIdAsync(k);
             if(result != null)
             {
                 Korisnik dobijeniKorisnik = (Korisnik)result;

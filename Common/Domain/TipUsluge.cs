@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -44,10 +44,10 @@ namespace Common.Domain
         {
             throw new NotImplementedException();
         }
-        public List<IEntity> GetReaderList(SqlDataReader reader)
+        public async Task<List<IEntity>> GetReaderListAsync(SqlDataReader reader)
         {
             List<IEntity> tipoviUsluga = new List<IEntity>();
-            while (reader.Read())
+            while (await reader.ReadAsync())
             {
                 TipUsluge tipUsluge = new TipUsluge();
                 tipUsluge.TipUslugeID = (int)reader["TipUslugeID"];
@@ -57,7 +57,7 @@ namespace Common.Domain
             return tipoviUsluga;
         }
 
-        public IEntity GetReaderResult(SqlDataReader reader)
+        public Task<IEntity> GetReaderResultAsync(SqlDataReader reader)
         {
             throw new NotImplementedException();
         }

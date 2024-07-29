@@ -7,33 +7,33 @@ using System.Threading.Tasks;
 
 namespace Server.SystemOperations
 {
-    public abstract class SOBase
-    {
-        protected Broker broker;
-        public SOBase()
-        {
-            broker = new Broker();
-        }
-        public void ExecuteTemplate()
-        {
-            try
-            {
-                broker.OpenConnection();
-                broker.BeginTransaction();
-                ExecuteConcreteOperation();
-                broker.Commit();
-            }
-            catch (Exception ex)
-            {
-                broker.Rollback();
-                throw ex;
-            }
-            finally
-            {
-                broker.CloseConnection();
-            }
-        }
+	public abstract class SOBase
+	{
+		protected Broker broker;
+		public SOBase()
+		{
+			broker = new Broker();
+		}
+		public async Task ExecuteTemplate()
+		{
+			try
+			{
+				await broker.OpenConnectionAsync();
+				await broker.BeginTransactionAsync();
+				await ExecuteConcreteOperationAsync();
+				await broker.CommitAsync();
+			}
+			catch (Exception ex)
+			{
+				await broker.RollbackAsync();
+				throw ex;
+			}
+			finally
+			{
+				await broker.CloseConnectionAsync();
+			}
+		}
 
-        protected abstract void ExecuteConcreteOperation();
-    }
+		protected abstract Task ExecuteConcreteOperationAsync();
+	}
 }

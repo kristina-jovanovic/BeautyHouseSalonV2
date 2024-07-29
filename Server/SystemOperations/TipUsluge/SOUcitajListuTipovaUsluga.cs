@@ -17,9 +17,9 @@ namespace Server.SystemOperations.TipUsluge
             this.tipUsluge = tipUsluge;
         }
 
-        protected override void ExecuteConcreteOperation()
+        protected override async Task ExecuteConcreteOperationAsync()
         {
-            result = broker.ReadAll(tipUsluge);
+            result = await broker.ReadAllAsync(tipUsluge);
         }
     }
 }

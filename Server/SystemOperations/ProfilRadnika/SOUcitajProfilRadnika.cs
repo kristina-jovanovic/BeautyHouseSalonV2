@@ -16,9 +16,9 @@ namespace Server.SystemOperations.ProfilRadnika
             this.radnik = radnik;
         }
 
-        protected override void ExecuteConcreteOperation()
+        protected override async Task ExecuteConcreteOperationAsync()
         {
-            result = broker.GetEntityById(radnik);
+            result = await broker.GetEntityByIdAsync(radnik);
         }
     }
 }

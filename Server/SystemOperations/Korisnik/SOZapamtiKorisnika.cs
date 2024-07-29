@@ -15,12 +15,12 @@ namespace Server.SystemOperations
         {
             this.korisnik = korisnik;
         }
-        protected override void ExecuteConcreteOperation()
+        protected override async Task ExecuteConcreteOperationAsync()
         {
             try
             {
-                broker.Insert(korisnik);
-                result = broker.GetEntityById(korisnik);
+                await broker.InsertAsync(korisnik);
+                result = await broker.GetEntityByIdAsync(korisnik);
             }
             catch (Exception)
             {

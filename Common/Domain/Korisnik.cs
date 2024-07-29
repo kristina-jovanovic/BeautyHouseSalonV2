@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Security.Policy;
 using System.Text;
@@ -47,14 +47,14 @@ namespace Common.Domain
             throw new NotImplementedException();
         }
 
-        public List<IEntity> GetReaderList(SqlDataReader reader)
+        public Task<List<IEntity>> GetReaderListAsync(SqlDataReader reader)
         {
             throw new NotImplementedException();
         }
 
-        public IEntity GetReaderResult(SqlDataReader reader)
+        public async Task<IEntity> GetReaderResultAsync(SqlDataReader reader)
         {
-            if (reader.Read())
+            if (await reader.ReadAsync())
             {
                 Korisnik korisnik = new Korisnik();
                 korisnik.KorisnikID = (int)reader["KorisnikID"];

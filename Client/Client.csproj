@@ -188,12 +188,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{5977149D-9B92-4E1E-96F7-5B558E205C8D}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Resources\BeautyHouse pozadina.png" />
     <Content Include="Resources\makeover.png" />
   </ItemGroup>

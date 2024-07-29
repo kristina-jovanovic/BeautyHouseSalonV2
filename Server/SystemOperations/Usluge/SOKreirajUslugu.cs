@@ -17,12 +17,12 @@ namespace Server.SystemOperations
             this.usluga = usluga;
         }
 
-        protected override void ExecuteConcreteOperation()
+        protected override async Task ExecuteConcreteOperationAsync()
         {
             try
             {
-                broker.Insert(usluga);
-                result = broker.GetEntityById(usluga);
+                await broker.InsertAsync(usluga);
+                result = await broker.GetEntityByIdAsync(usluga);
             }
             catch (Exception)
             {

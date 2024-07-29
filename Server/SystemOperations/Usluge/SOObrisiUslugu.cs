@@ -17,11 +17,11 @@ namespace Server.SystemOperations.Usluge
             this.usluga = usluga;
         }
 
-        protected override void ExecuteConcreteOperation()
+        protected override async Task ExecuteConcreteOperationAsync()
         {
             try
             {
-                broker.Delete(usluga);
+                await broker.DeleteAsync(usluga);
                 result = true;
             }
             catch (Exception)

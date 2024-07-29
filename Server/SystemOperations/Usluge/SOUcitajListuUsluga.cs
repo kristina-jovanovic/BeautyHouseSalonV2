@@ -17,9 +17,9 @@ namespace Server.SystemOperations.Usluge
             this.usluga = usluga;
         }
 
-        protected override void ExecuteConcreteOperation()
+        protected override async Task ExecuteConcreteOperationAsync()
         {
-            result = broker.ReadAll(usluga);
+            result = await broker.ReadAllAsync(usluga);
         }
     }
 }

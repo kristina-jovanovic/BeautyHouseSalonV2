@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,19 +43,19 @@ namespace Common.Domain
             throw new NotImplementedException();
         }
 
-        public List<IEntity> GetReaderList(SqlDataReader reader)
+        public async Task<List<IEntity>> GetReaderListAsync(SqlDataReader reader)
         {
             List<IEntity> list = new List<IEntity>();
-            while (reader.Read())
+            while (await reader.ReadAsync())
             {
                 list.Add(ReadFromReader(reader));
             }
             return list;
         }
 
-        public IEntity GetReaderResult(SqlDataReader reader)
+        public async Task<IEntity> GetReaderResultAsync(SqlDataReader reader)
         {
-            if (reader.Read())
+            if (await reader.ReadAsync())
             {
                 return ReadFromReader(reader);
             }

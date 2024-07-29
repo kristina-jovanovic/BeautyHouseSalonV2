@@ -7,20 +7,19 @@ using System.Threading.Tasks;
 
 namespace Server.SystemOperations.ProfilRadnika
 {
-    internal class SOUcitajListuProfilaRadnika : SOBase
-    {
-        private Common.Domain.ProfilRadnika profilRadnika;
-        public List<IEntity> result;
+	internal class SOUcitajListuProfilaRadnika : SOBase
+	{
+		private Common.Domain.ProfilRadnika profilRadnika;
+		public List<IEntity> result;
 
-        public SOUcitajListuProfilaRadnika(Common.Domain.ProfilRadnika profilRadnika)
-        {
-            this.profilRadnika = profilRadnika;
-        }
+		public SOUcitajListuProfilaRadnika(Common.Domain.ProfilRadnika profilRadnika)
+		{
+			this.profilRadnika = profilRadnika;
+		}
 
-        protected override void ExecuteConcreteOperation()
-        {
-             result = broker.ReadAll(profilRadnika);
-
-        }
-    }
+		protected override async Task ExecuteConcreteOperationAsync()
+		{
+			result = await broker.ReadAllAsync(profilRadnika);
+		}
+	}
 }

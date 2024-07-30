@@ -22,8 +22,8 @@ namespace Common.Domain
 
         public string PrimaryKey => $"UslugaID={UslugaID}";
 
-        //public string GetById => $"Naziv='{Naziv}' OR UslugaID={UslugaID}";
-        public string GetById => $"Naziv='{Naziv}'";
+        public string GetById => $"Naziv='{Naziv}' OR UslugaID={UslugaID}"; //PROMENJENO
+        //public string GetById => $"Naziv='{Naziv}'"; 
 
         public string JoinQuery => "u JOIN TipUsluge tu ON u.TipUsluge=tu.TipUslugeID";
 

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DBBroker
 {
@@ -16,7 +17,8 @@ namespace DBBroker
 
 		public DBConnection()
 		{
-			connection = new SqlConnection(ConfigurationManager.ConnectionStrings["BeautyHouseBaza"].ConnectionString);
+			//connection = new SqlConnection(ConfigurationManager.ConnectionStrings["BeautyHouseBaza"].ConnectionString);
+			connection = new SqlConnection("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = BeautyHouseBaza; Integrated Security = True;");
 		}
 
 		public async Task OpenConnectionAsync()

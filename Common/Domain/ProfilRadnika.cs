@@ -23,7 +23,8 @@ namespace Common.Domain
 
         public string PrimaryKey => RadnikID.ToString();
 
-        public string GetById => $"Ime='{Ime}' and Prezime='{Prezime}'";
+        //dodato or radnikid
+        public string GetById => $"(Ime='{Ime}' and Prezime='{Prezime}') or RadnikID={RadnikID}";
 
         public string JoinQuery => "pr JOIN TipUsluge tu ON pr.TipUsluge=tu.TipUslugeID";
 

@@ -96,7 +96,7 @@ namespace Client.GUIControllers
             ucReg.DtpDatumRodj.Value = DateTime.Now;
         }
 
-        private void BtnRegistrujSe_Click(object sender, EventArgs e)
+        private async void BtnRegistrujSe_Click(object sender, EventArgs e)
         {
             try
             {
@@ -114,7 +114,7 @@ namespace Client.GUIControllers
                     kor.DatumRodjenja = ucReg.DtpDatumRodj.Value;
                     kor.Vlasnik = false;
 
-                    korisnik = Communication.Instance.Registracija(kor);
+                    korisnik = await Communication.Instance.RegistracijaAsync(kor);
 
                     if (korisnik == null)
                     {
@@ -151,13 +151,13 @@ namespace Client.GUIControllers
             frmLogin.ChangePanel(ucLogin);
         }
 
-        private void BtnPrijava_Click(object sender, EventArgs e)
+        private async void BtnPrijava_Click(object sender, EventArgs e)
         {
             try
             {
                 if (IsValid(TipProvere.Login))
                 {
-                    korisnik = Communication.Instance.Login(ucLogin.TxtKorisnickoIme.Text, ucLogin.TxtLozinka.Text);
+                    korisnik = await Communication.Instance.LoginAsync(ucLogin.TxtKorisnickoIme.Text, ucLogin.TxtLozinka.Text);
 
                     if (korisnik == null)
                     {

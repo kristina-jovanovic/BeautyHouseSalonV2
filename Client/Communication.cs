@@ -12,584 +12,589 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using static System.Net.WebRequestMethods;
 
 namespace Client
 {
-    public class Communication
-    {
-        private static Communication instance;
-        public static Communication Instance
-        {
-            get
-            {
-                if (instance == null) instance = new Communication();
-                return instance;
-            }
-        }
-        private Communication() { }
+	public class Communication
+	{
+		private static Communication instance;
+		public static Communication Instance
+		{
+			get
+			{
+				if (instance == null) instance = new Communication();
+				return instance;
+			}
+		}
+		private Communication() { }
 
-        Socket socket;
-        Sender sender;
-        Receiver receiver;
-        Request request;
-        Response response;
+		Socket socket;
+		Sender sender;
+		Receiver receiver;
+		Request request;
+		Response response;
 
-        private void Connect()
-        {
-            //try
-            //{
-            //    if (socket == null || !socket.Connected)
-            //    {
-            //        socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            //        socket.Connect(ConfigurationManager.AppSettings["ip"], int.Parse(ConfigurationManager.AppSettings["port"]));
-            //        //Debug.WriteLine("KLIJENT POVEZAN");
-            //        sender = new Sender(socket);
-            //        receiver = new Receiver(socket);
-            //        request = new Request();
-            //    }
-            //    return true;
-            //}
-            //catch (SocketException)
-            //{
-            //    return false;
-            //}
+		private async Task ConnectAsync()
+		{
+			//try
+			//{
+			//    if (socket == null || !socket.Connected)
+			//    {
+			//        socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+			//        socket.Connect(ConfigurationManager.AppSettings["ip"], int.Parse(ConfigurationManager.AppSettings["port"]));
+			//        //Debug.WriteLine("KLIJENT POVEZAN");
+			//        sender = new Sender(socket);
+			//        receiver = new Receiver(socket);
+			//        request = new Request();
+			//    }
+			//    return true;
+			//}
+			//catch (SocketException)
+			//{
+			//    return false;
+			//}
 
-            if (socket == null || !socket.Connected)
-            {
-                socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                socket.Connect(ConfigurationManager.AppSettings["ip"], int.Parse(ConfigurationManager.AppSettings["port"]));
-                //Debug.WriteLine("KLIJENT POVEZAN");
-                sender = new Sender(socket);
-                receiver = new Receiver(socket);
-                request = new Request();
-            }
-        }
+			if (socket == null || !socket.Connected)
+			{
+				socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+				await socket.ConnectAsync(ConfigurationManager.AppSettings["ip"], int.Parse(ConfigurationManager.AppSettings["port"]));
+				//Debug.WriteLine("KLIJENT POVEZAN");
+				sender = new Sender(socket);
+				receiver = new Receiver(socket);
+				request = new Request();
+			}
+		}
 
-        public void Close()
-        {
-            socket?.Close();
-        }
+		public void Close()
+		{
+			socket?.Close();
+		}
 
-        public Korisnik Login(string username, string password)
-        {
-            try
-            {
-                Connect();
-                Korisnik korisnik = new Korisnik();
-                korisnik.KorisnickoIme = username;
-                korisnik.Lozinka = password;
-                request.Operation = Operation.Login;
-                request.Argument = korisnik;
-                sender.Send(request);
+		public async Task<Korisnik> LoginAsync(string username, string password)
+		{
+			try
+			{
+				await ConnectAsync();
+				Korisnik korisnik = new Korisnik();
+				korisnik.KorisnickoIme = username;
+				korisnik.Lozinka = password;
+				request.Operation = Operation.Login;
+				request.Argument = korisnik;
+				await sender.SendAsync(request);
 
-                response = (Response)receiver.Receive();
-                if (response.IsSuccessfull == false)
-                {
-                    return null;
-                }
-                else
-                {
-                    return (Korisnik)response.Result;
-                }
-            }
-            catch (IOException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-            catch (SocketException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-        }
+				response = await receiver.ReceiveAsync<Response>();
+				if (response.IsSuccessfull == false)
+				{
+					return null;
+				}
+				else
+				{
+					return Transformer.TransformisiJson<Korisnik>(response.Result);
+				}
+			}
+			catch (IOException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+			catch (SocketException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+		}
 
-        public Korisnik Registracija(Korisnik k)
-        {
-            try
-            {
-                Connect();
-                request.Operation = Operation.Registracija;
-                request.Argument = k;
-                sender.Send(request);
+		public async Task<Korisnik> RegistracijaAsync(Korisnik k)
+		{
+			try
+			{
+				await ConnectAsync();
+				request.Operation = Operation.Registracija;
+				request.Argument = k;
+				await sender.SendAsync(request);
 
-                response = (Response)receiver.Receive();
-                if (response.IsSuccessfull == false)
-                {
-                    return null;
-                }
-                else
-                {
-                    return (Korisnik)response.Result;
-                }
-            }
-            catch (IOException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-            catch (SocketException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-        }
+				response = await receiver.ReceiveAsync<Response>();
+				if (response.IsSuccessfull == false)
+				{
+					return null;
+				}
+				else
+				{
+					return Transformer.TransformisiJson<Korisnik>(response.Result);
+				}
+			}
+			catch (IOException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+			catch (SocketException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+		}
 
-        internal List<TipUsluge> VratiTipoveUsluga()
-        {
-            try
-            {
-                Connect();
-                request.Operation = Operation.VratiTipoveUsluga;
-                sender.Send(request);
+		internal async Task<List<TipUsluge>> VratiTipoveUslugaAsync()
+		{
+			try
+			{
+				await ConnectAsync();
+				request.Operation = Operation.VratiTipoveUsluga;
+				request.Argument = null;
+				await sender.SendAsync(request);
 
-                response = (Response)receiver.Receive();
-                if (response.IsSuccessfull == false)
-                {
-                    return null;
-                }
-                else
-                {
-                    return (List<TipUsluge>)response.Result;
-                }
-            }
-            catch (IOException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-            catch (SocketException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-        }
+				response = await receiver.ReceiveAsync<Response>();
+				if (response.IsSuccessfull == false)
+				{
+					return null;
+				}
+				else
+				{
+					return Transformer.TransformisiJson<List<TipUsluge>>(response.Result);
 
-        internal Usluga KreirajNovuUslugu(Usluga usluga)
-        {
-            try
-            {
-                Connect();
-                Request request = new Request();
-                request.Argument = usluga;
-                request.Operation = Operation.DodajUslugu;
-                sender.Send(request);
+				}
+			}
+			catch (IOException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+			catch (SocketException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+		}
 
-                Response response = (Response)receiver.Receive();
-                if (response.IsSuccessfull == false)
-                {
-                    return null;
-                }
-                else
-                {
-                    return (Usluga)response.Result;
-                }
-            }
-            catch (IOException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-            catch (SocketException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-        }
+		internal async Task<Usluga> KreirajNovuUsluguAsync(Usluga usluga)
+		{
+			try
+			{
+				await ConnectAsync();
+				Request request = new Request();
+				request.Argument = usluga;
+				request.Operation = Operation.DodajUslugu;
+				await sender.SendAsync(request);
 
-        public List<Usluga> VratiUsluge(string filter)
-        {
-            try
-            {
-                Connect();
-                if (filter != "")
-                {
-                    request.Argument = filter;
-                    request.Operation = Operation.NadjiUslugeFilter;
-                }
-                else
-                {
-                    request.Operation = Operation.VratiUsluge;
-                }
-                sender.Send(request);
+				Response response = await receiver.ReceiveAsync<Response>();
+				if (response.IsSuccessfull == false)
+				{
+					return null;
+				}
+				else
+				{
+					return Transformer.TransformisiJson<Usluga>(response.Result);
+				}
+			}
+			catch (IOException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+			catch (SocketException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+		}
 
-                response = (Response)receiver.Receive();
-                if (response.IsSuccessfull == false)
-                {
-                    return null;
-                }
-                else
-                {
-                    return (List<Usluga>)response.Result;
-                }
-            }
-            catch (IOException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-            catch (SocketException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-        }
+		public async Task<List<Usluga>> VratiUslugeAsync(string filter)
+		{
+			try
+			{
+				await ConnectAsync();
+				if (filter != "")
+				{
+					request.Argument = filter;
+					request.Operation = Operation.NadjiUslugeFilter;
+				}
+				else
+				{
+					request.Operation = Operation.VratiUsluge;
+					request.Argument = null;
+				}
+				await sender.SendAsync(request);
 
-        public Usluga UcitajUslugu(Usluga usluga)
-        {
-            try
-            {
-                Connect();
-                request.Argument = usluga;
-                request.Operation = Operation.UcitajUslugu;
-                sender.Send(request);
+				response = await receiver.ReceiveAsync<Response>();
+				if (response.IsSuccessfull == false)
+				{
+					return null;
+				}
+				else
+				{
+					return Transformer.TransformisiJson<List<Usluga>>(response.Result);
+				}
+			}
+			catch (IOException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+			catch (SocketException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+		}
 
-                response = (Response)receiver.Receive();
-                if (response.IsSuccessfull == false)
-                {
-                    return null;
-                }
-                else
-                {
-                    return (Usluga)response.Result;
-                }
-            }
-            catch (IOException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-            catch (SocketException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-        }
+		public async Task<Usluga> UcitajUsluguAsync(Usluga usluga)
+		{
+			try
+			{
+				await ConnectAsync();
+				request.Argument = usluga;
+				request.Operation = Operation.UcitajUslugu;
+				await sender.SendAsync(request);
 
-        internal Usluga IzmeniUslugu(Usluga usluga)
-        {
-            try
-            {
-                Connect();
-                request.Argument = usluga;
-                request.Operation = Operation.IzmeniUslugu;
-                sender.Send(request);
+				response = await receiver.ReceiveAsync<Response>();
+				if (response.IsSuccessfull == false)
+				{
+					return null;
+				}
+				else
+				{
+					return Transformer.TransformisiJson<Usluga>(response.Result);
+				}
+			}
+			catch (IOException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+			catch (SocketException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+		}
 
-                response = (Response)receiver.Receive();
-                if (response.IsSuccessfull == false)
-                {
-                    return null;
-                }
-                else
-                {
-                    return (Usluga)response.Result;
-                }
-            }
-            catch (IOException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-            catch (SocketException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-        }
+		internal async Task<Usluga> IzmeniUsluguAsync(Usluga usluga)
+		{
+			try
+			{
+				await ConnectAsync();
+				request.Argument = usluga;
+				request.Operation = Operation.IzmeniUslugu;
+				await sender.SendAsync(request);
 
-        internal bool ObrisiUslugu(Usluga usluga)
-        {
-            try
-            {
-                Connect();
-                request.Argument = usluga;
-                request.Operation = Operation.ObrisiUslugu;
-                sender.Send(request);
+				response = await receiver.ReceiveAsync<Response>();
+				if (response.IsSuccessfull == false)
+				{
+					return null;
+				}
+				else
+				{
+					return Transformer.TransformisiJson<Usluga>(response.Result);
+				}
+			}
+			catch (IOException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+			catch (SocketException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+		}
 
-                response = (Response)receiver.Receive();
-                if (response.IsSuccessfull == false)
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            catch (IOException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-            catch (SocketException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-        }
+		internal async Task<bool> ObrisiUsluguAsync(Usluga usluga)
+		{
+			try
+			{
+				await ConnectAsync();
+				request.Argument = usluga;
+				request.Operation = Operation.ObrisiUslugu;
+				await sender.SendAsync(request);
 
-        internal ProfilRadnika KreirajProfilRadnika(ProfilRadnika radnik)
-        {
-            try
-            {
-                Connect();
-                request.Argument = radnik;
-                request.Operation = Operation.DodajProfilRadnika;
-                sender.Send(request);
+				response = await receiver.ReceiveAsync<Response>();
+				if (response.IsSuccessfull == false)
+				{
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+			}
+			catch (IOException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+			catch (SocketException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+		}
 
-                response = (Response)receiver.Receive();
-                if (response.IsSuccessfull == false)
-                {
-                    return null;
-                }
-                else
-                {
-                    return (ProfilRadnika)response.Result;
-                }
-            }
-            catch (IOException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-            catch (SocketException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-        }
+		internal async Task<ProfilRadnika> KreirajProfilRadnikaAsync(ProfilRadnika radnik)
+		{
+			try
+			{
+				await ConnectAsync();
+				request.Argument = radnik;
+				request.Operation = Operation.DodajProfilRadnika;
+				await sender.SendAsync(request);
 
-        internal List<ProfilRadnika> VratiProfileRadnika(string filter)
-        {
-            try
-            {
-                Connect();
-                if (filter != "")
-                {
-                    request.Argument = filter;
-                    request.Operation = Operation.NadjiProfileRadnikaFilter;
-                }
-                else
-                {
-                    request.Operation = Operation.VratiProfileRadnika;
-                }
-                sender.Send(request);
+				response = await receiver.ReceiveAsync<Response>();
+				if (response.IsSuccessfull == false)
+				{
+					return null;
+				}
+				else
+				{
+					return Transformer.TransformisiJson<ProfilRadnika>(response.Result);
+				}
+			}
+			catch (IOException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+			catch (SocketException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+		}
 
-                response = (Response)receiver.Receive();
-                if (response.IsSuccessfull == false)
-                {
-                    return null;
-                }
-                else
-                {
-                    return (List<ProfilRadnika>)response.Result;
-                }
-            }
-            catch (IOException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-            catch (SocketException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-        }
+		internal async Task<List<ProfilRadnika>> VratiProfileRadnikaAsync(string filter)
+		{
+			try
+			{
+				await ConnectAsync();
+				if (filter != "")
+				{
+					request.Argument = filter;
+					request.Operation = Operation.NadjiProfileRadnikaFilter;
+				}
+				else
+				{
+					request.Operation = Operation.VratiProfileRadnika;
+					request.Argument = null;
+				}
+				await sender.SendAsync(request);
 
-        internal ProfilRadnika UcitajProfilRadnika(ProfilRadnika radnik)
-        {
-            try
-            {
-                Connect();
-                request.Argument = radnik;
-                request.Operation = Operation.UcitajProfilRadnika;
-                sender.Send(request);
+				response = await receiver.ReceiveAsync<Response>();
+				if (response.IsSuccessfull == false)
+				{
+					return null;
+				}
+				else
+				{
+					return Transformer.TransformisiJson<List<ProfilRadnika>>(response.Result);
+				}
+			}
+			catch (IOException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+			catch (SocketException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+		}
 
-                response = (Response)receiver.Receive();
-                if (response.IsSuccessfull == false)
-                {
-                    return null;
-                }
-                else
-                {
-                    return (ProfilRadnika)response.Result;
-                }
-            }
-            catch (IOException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-            catch (SocketException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-        }
+		internal async Task<ProfilRadnika> UcitajProfilRadnikaAsync(ProfilRadnika radnik)
+		{
+			try
+			{
+				await ConnectAsync();
+				request.Argument = radnik;
+				request.Operation = Operation.UcitajProfilRadnika;
+				await sender.SendAsync(request);
 
-        internal bool ProveriRaspolozivostTermina(ZahtevZaRezervacijuTermina zahtev)
-        {
-            try
-            {
-                Connect();
-                request.Argument = zahtev;
-                request.Operation = Operation.ProveriRaspolozivostTermina;
-                sender.Send(request);
+				response = await receiver.ReceiveAsync<Response>();
+				if (response.IsSuccessfull == false)
+				{
+					return null;
+				}
+				else
+				{
+					return Transformer.TransformisiJson<ProfilRadnika>(response.Result);
+				}
+			}
+			catch (IOException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+			catch (SocketException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+		}
 
-                response = (Response)receiver.Receive();
-                if (response.IsSuccessfull == false)
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            catch (IOException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-            catch (SocketException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-        }
-        internal List<ZahtevZaRezervacijuTermina> KreirajZahteveZaRezTermina(List<ZahtevZaRezervacijuTermina> zahtevi)
-        {
-            try
-            {
-                Connect();
-                request.Argument = zahtevi;
-                request.Operation = Operation.DodajZahteve;
-                sender.Send(request);
+		internal async Task<bool> ProveriRaspolozivostTerminaAsync(ZahtevZaRezervacijuTermina zahtev)
+		{
+			try
+			{
+				await ConnectAsync();
+				request.Argument = zahtev;
+				request.Operation = Operation.ProveriRaspolozivostTermina;
+				await sender.SendAsync(request);
 
-                response = (Response)receiver.Receive();
-                if (response.IsSuccessfull == false)
-                {
-                    return null;
-                }
-                else
-                {
-                    return (List<ZahtevZaRezervacijuTermina>)response.Result;
-                }
-            }
-            catch (IOException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-            catch (SocketException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-        }
+				response = await receiver.ReceiveAsync<Response>();
+				if (response.IsSuccessfull == false)
+				{
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+			}
+			catch (IOException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+			catch (SocketException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+		}
+		internal async Task<List<ZahtevZaRezervacijuTermina>> KreirajZahteveZaRezTerminaAsync(List<ZahtevZaRezervacijuTermina> zahtevi)
+		{
+			try
+			{
+				await ConnectAsync();
+				request.Argument = zahtevi;
+				request.Operation = Operation.DodajZahteve;
+				await sender.SendAsync(request);
 
-        internal List<ZahtevZaRezervacijuTermina> VratiZahteve(ProfilRadnika radnik)
-        {
-            try
-            {
-                Connect();
-                request.Argument = radnik;
-                request.Operation = Operation.NadjiZahteveZaRadnika;
-                sender.Send(request);
+				response = await receiver.ReceiveAsync<Response>();
+				if (response.IsSuccessfull == false)
+				{
+					return null;
+				}
+				else
+				{
+					return Transformer.TransformisiJson<List<ZahtevZaRezervacijuTermina>>(response.Result);
+				}
+			}
+			catch (IOException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+			catch (SocketException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+		}
 
-                response = (Response)receiver.Receive();
-                if (response.IsSuccessfull == false)
-                {
-                    return null;
-                }
-                else
-                {
-                    return (List<ZahtevZaRezervacijuTermina>)response.Result;
-                }
-            }
-            catch (IOException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-            catch (SocketException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-        }
+		internal async Task<List<ZahtevZaRezervacijuTermina>> VratiZahteveAsync(ProfilRadnika radnik)
+		{
+			try
+			{
+				await ConnectAsync();
+				request.Argument = radnik;
+				request.Operation = Operation.NadjiZahteveZaRadnika;
+				await sender.SendAsync(request);
 
-        internal List<ZahtevZaRezervacijuTermina> VratiZahteve(ZahtevZaRezervacijuTermina zahtev)
-        {
-            try
-            {
-                Connect();
-                request.Argument = zahtev;
-                request.Operation = Operation.NadjiZahteve;
-                sender.Send(request);
+				response = await receiver.ReceiveAsync<Response>();
+				if (response.IsSuccessfull == false)
+				{
+					return null;
+				}
+				else
+				{
+					return Transformer.TransformisiJson<List<ZahtevZaRezervacijuTermina>>(response.Result);
+				}
+			}
+			catch (IOException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+			catch (SocketException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+		}
 
-                response = (Response)receiver.Receive();
-                if (response.IsSuccessfull == false)
-                {
-                    return null;
-                }
-                else
-                {
-                    return (List<ZahtevZaRezervacijuTermina>)response.Result;
-                }
-            }
-            catch (IOException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-            catch (SocketException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-        }
+		internal async Task<List<ZahtevZaRezervacijuTermina>> VratiZahteveAsync(ZahtevZaRezervacijuTermina zahtev)
+		{
+			try
+			{
+				await ConnectAsync();
+				request.Argument = zahtev;
+				request.Operation = Operation.NadjiZahteve;
+				await sender.SendAsync(request);
 
-        internal List<ZahtevZaRezervacijuTermina> ZakaziTermine(List<ZahtevZaRezervacijuTermina> zahtevi, StatusZahteva status)
-        {
-            try
-            {
-                Connect();
-                request.Argument = zahtevi;
-                if (status == StatusZahteva.Odobren)
-                {
-                    request.Operation = Operation.OdobriTermine;
-                }
-                else if (status == StatusZahteva.Odbijen)
-                {
-                    request.Operation = Operation.OdbijTermine;
-                }
-                sender.Send(request);
+				response = await receiver.ReceiveAsync<Response>();
+				if (response.IsSuccessfull == false)
+				{
+					return null;
+				}
+				else
+				{
+					return Transformer.TransformisiJson<List<ZahtevZaRezervacijuTermina>>(response.Result);
+				}
+			}
+			catch (IOException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+			catch (SocketException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+		}
 
-                response = (Response)receiver.Receive();
-                if (response.IsSuccessfull == false)
-                {
-                    return null;
-                }
-                else
-                {
-                    return (List<ZahtevZaRezervacijuTermina>)response.Result;
-                }
-            }
-            catch (IOException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-            catch (SocketException ex)
-            {
-                Debug.WriteLine(">>>client>>>" + ex.Message);
-                throw ex;
-            }
-        }
+		internal async Task<List<ZahtevZaRezervacijuTermina>> ZakaziTermineAsync(List<ZahtevZaRezervacijuTermina> zahtevi, StatusZahteva status)
+		{
+			try
+			{
+				await ConnectAsync();
+				request.Argument = zahtevi;
+				if (status == StatusZahteva.Odobren)
+				{
+					request.Operation = Operation.OdobriTermine;
+				}
+				else if (status == StatusZahteva.Odbijen)
+				{
+					request.Operation = Operation.OdbijTermine;
+				}
+				await sender.SendAsync(request);
 
-    }
+				response = await receiver.ReceiveAsync<Response>();
+				if (response.IsSuccessfull == false)
+				{
+					return null;
+				}
+				else
+				{
+					return Transformer.TransformisiJson<List<ZahtevZaRezervacijuTermina>>(response.Result);
+				}
+			}
+			catch (IOException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+			catch (SocketException ex)
+			{
+				Debug.WriteLine(">>>client>>>" + ex.Message);
+				throw ex;
+			}
+		}
+
+	}
 }

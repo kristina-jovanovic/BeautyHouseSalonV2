@@ -153,7 +153,7 @@ namespace Client.GUIControllers
             }
         }
 
-        private void BtnDodaj_Click(object sender, EventArgs e)
+        private async void BtnDodaj_Click(object sender, EventArgs e)
         {
             if (IsValid())
             {
@@ -168,7 +168,7 @@ namespace Client.GUIControllers
 
                 try
                 {
-                    if (Communication.Instance.ProveriRaspolozivostTermina(zahtev))
+                    if (await Communication.Instance.ProveriRaspolozivostTerminaAsync(zahtev))
                     {
                         zahtevi.Add(zahtev);
                         ucZahtev.CbRadnik.SelectedIndex = -1;
@@ -227,7 +227,7 @@ namespace Client.GUIControllers
             }
             try
             {
-                if (Communication.Instance.KreirajZahteveZaRezTermina(zahtevi.ToList<ZahtevZaRezervacijuTermina>()) == null)
+                if (Communication.Instance.KreirajZahteveZaRezTerminaAsync(zahtevi.ToList<ZahtevZaRezervacijuTermina>()) == null)
                 {
                     MessageBox.Show("Sistem ne može da kreira zahteve za rezervaciju termina.", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -280,12 +280,12 @@ namespace Client.GUIControllers
             return valid;
         }
 
-        private void PopuniComboBox()
+        private async void PopuniComboBox()
         {
             try
             {
                 //cb tip usluge
-                List<TipUsluge> tipoviUsluge = Communication.Instance.VratiTipoveUsluga();
+                List<TipUsluge> tipoviUsluge = await Communication.Instance.VratiTipoveUslugaAsync();
                 ucZahtev.CbTipUsluge.DataSource = tipoviUsluge;
                 //ucZahtev.CbTipUsluge.SelectedIndex = -1;
 
@@ -337,12 +337,12 @@ namespace Client.GUIControllers
             }
         }
 
-        private void RefreshUsluge()
+        private async void RefreshUsluge()
         {
             try
             {
                 ucZahtev.CbUsluga.DataSource = null;
-                List<Usluga> usluge = Communication.Instance.VratiUsluge(ucZahtev.CbTipUsluge.SelectedItem.ToString());
+                List<Usluga> usluge = await Communication.Instance.VratiUslugeAsync(ucZahtev.CbTipUsluge.SelectedItem.ToString());
                 ucZahtev.CbUsluga.DataSource = usluge;
             }
             catch (IOException)
@@ -355,12 +355,12 @@ namespace Client.GUIControllers
             }
         }
 
-        private void RefreshRadnici()
+        private async void RefreshRadnici()
         {
             try
             {
                 ucZahtev.CbRadnik.DataSource = null;
-                List<ProfilRadnika> radnici = Communication.Instance.VratiProfileRadnika(ucZahtev.CbTipUsluge.SelectedItem.ToString());
+                List<ProfilRadnika> radnici = await Communication.Instance.VratiProfileRadnikaAsync(ucZahtev.CbTipUsluge.SelectedItem.ToString());
                 ucZahtev.CbRadnik.DataSource = radnici;
             }
             catch (IOException)
@@ -399,7 +399,7 @@ namespace Client.GUIControllers
             try
             {
                 //dodaj da li ste sigurni
-                if (Communication.Instance.ZakaziTermine(zahteviZaSlanje.ToList<ZahtevZaRezervacijuTermina>(), StatusZahteva.Odobren) == null)
+                if (Communication.Instance.ZakaziTermineAsync(zahteviZaSlanje.ToList<ZahtevZaRezervacijuTermina>(), StatusZahteva.Odobren) == null)
                 {
                     MessageBox.Show("Sistem ne može da izvrši odobravanje zahteve.", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -445,7 +445,7 @@ namespace Client.GUIControllers
             //dodaj da li ste sigurni
             try
             {
-                if (Communication.Instance.ZakaziTermine(zahteviZaSlanje.ToList<ZahtevZaRezervacijuTermina>(), StatusZahteva.Odbijen) == null)
+                if (Communication.Instance.ZakaziTermineAsync(zahteviZaSlanje.ToList<ZahtevZaRezervacijuTermina>(), StatusZahteva.Odbijen) == null)
                 {
                     MessageBox.Show("Sistem ne može da izvrši odbijanje zahteva.", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -467,11 +467,11 @@ namespace Client.GUIControllers
             }
         }
 
-        private void PopuniComboBoxPretrazivanje()
+        private async void PopuniComboBoxPretrazivanje()
         {
             try
             {
-                List<ProfilRadnika> radnici = Communication.Instance.VratiProfileRadnika("");
+                List<ProfilRadnika> radnici = await Communication.Instance.VratiProfileRadnikaAsync("");
                 ucZakazivanje.CbRadnik.DataSource = radnici;
                 UcitajDGV();
                 UcitajDgvZaSlanje();
@@ -511,11 +511,11 @@ namespace Client.GUIControllers
             ucZakazivanje.DgvZahtevi.Columns["Aliaces"].Visible = false;
         }
 
-        private void UcitajDGV()
+        private async void UcitajDGV()
         {
             try
             {
-                zahtevi = new BindingList<ZahtevZaRezervacijuTermina>(Communication.Instance.VratiZahteve((ProfilRadnika)ucZakazivanje.CbRadnik.SelectedItem));
+                zahtevi = new BindingList<ZahtevZaRezervacijuTermina>(await Communication.Instance.VratiZahteveAsync((ProfilRadnika)ucZakazivanje.CbRadnik.SelectedItem));
                 ucZakazivanje.DgvPodaci.DataSource = zahtevi;
                 ucZakazivanje.DgvPodaci.AutoGenerateColumns = false;
                 ucZakazivanje.DgvPodaci.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -552,12 +552,12 @@ namespace Client.GUIControllers
             RefreshDGV();
         }
 
-        private void RefreshDGV()
+        private async void RefreshDGV()
         {
             try
             {
                 ucZakazivanje.DgvPodaci.DataSource = null;
-                zahtevi = new BindingList<ZahtevZaRezervacijuTermina>(Communication.Instance.VratiZahteve((ProfilRadnika)ucZakazivanje.CbRadnik.SelectedItem));
+                zahtevi = new BindingList<ZahtevZaRezervacijuTermina>(await Communication.Instance.VratiZahteveAsync((ProfilRadnika)ucZakazivanje.CbRadnik.SelectedItem));
                 ucZakazivanje.DgvPodaci.DataSource = zahtevi;
             }
             catch (IOException)

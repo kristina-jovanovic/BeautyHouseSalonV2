@@ -33,23 +33,23 @@ namespace Common.Domain
 
         public string JoinQuery => "";
 
-        public string UpdateQuery => throw new NotImplementedException();
+        public string UpdateQuery => null;
 
         public string Aliaces => "";
 
         public string FilterQuery(string filter)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public string FilterQueryStatus(StatusZahteva status)
         {
-            throw new NotImplementedException();
-        }
+			return null;
+		}
 
-        public Task<List<IEntity>> GetReaderListAsync(SqlDataReader reader)
+		public Task<List<IEntity>> GetReaderListAsync(SqlDataReader reader)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public async Task<IEntity> GetReaderResultAsync(SqlDataReader reader)

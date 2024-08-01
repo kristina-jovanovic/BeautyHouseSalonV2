@@ -1,195 +1,53 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7D2555FF-05BD-406B-ADBC-F8521E56BAFE}</ProjectGuid>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Client</RootNamespace>
-    <AssemblyName>Client</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Communication.cs" />
-    <Compile Include="Forms\FrmLogin.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FrmLogin.Designer.cs">
-      <DependentUpon>FrmLogin.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FrmMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FrmMain.Designer.cs">
-      <DependentUpon>FrmMain.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\MessageBoxManager.cs" />
-    <Compile Include="GUIControllers\LoginController.cs" />
-    <Compile Include="GUIControllers\MainController.cs" />
-    <Compile Include="GUIControllers\ProfilRadnikaController.cs" />
-    <Compile Include="GUIControllers\UslugaController.cs" />
-    <Compile Include="GUIControllers\ZahtevController.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserControls\UCMode.cs" />
-    <Compile Include="UserControls\UCProfilRadnika\UCKreirajProfilRadnika.cs">
+    <Compile Update="UserControls\UCProfilRadnika\UCKreirajProfilRadnika.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UCProfilRadnika\UCKreirajProfilRadnika.Designer.cs">
-      <DependentUpon>UCKreirajProfilRadnika.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\UCProfilRadnika\UCProfilRadnikaPrikaz.cs">
+    <Compile Update="UserControls\UCProfilRadnika\UCProfilRadnikaPrikaz.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UCProfilRadnika\UCProfilRadnikaPrikaz.Designer.cs">
-      <DependentUpon>UCProfilRadnikaPrikaz.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\UCUsluga\UCUsluga.cs">
+    <Compile Update="UserControls\UCUsluga\UCUsluga.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UCUsluga\UCUsluga.Designer.cs">
-      <DependentUpon>UCUsluga.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\UCLogin\UCLogin.cs">
+    <Compile Update="UserControls\UCLogin\UCLogin.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UCLogin\UCLogin.Designer.cs">
-      <DependentUpon>UCLogin.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\UCMeni\UCMeniKorisnik.cs">
+    <Compile Update="UserControls\UCMeni\UCMeniKorisnik.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UCMeni\UCMeniKorisnik.Designer.cs">
-      <DependentUpon>UCMeniKorisnik.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\UCMeni\UCMeniVlasnik.cs">
+    <Compile Update="UserControls\UCMeni\UCMeniVlasnik.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UCMeni\UCMeniVlasnik.Designer.cs">
-      <DependentUpon>UCMeniVlasnik.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\UCPretrazivanje\UCPretrazivanje.cs">
+    <Compile Update="UserControls\UCPretrazivanje\UCPretrazivanje.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UCPretrazivanje\UCPretrazivanje.Designer.cs">
-      <DependentUpon>UCPretrazivanje.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\UCLogin\UCRegistracija.cs">
+    <Compile Update="UserControls\UCLogin\UCRegistracija.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UCLogin\UCRegistracija.Designer.cs">
-      <DependentUpon>UCRegistracija.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\UCZahtevZaRezTermina\UCZahtev.cs">
+    <Compile Update="UserControls\UCZahtevZaRezTermina\UCZahtev.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UCZahtevZaRezTermina\UCZahtev.Designer.cs">
-      <DependentUpon>UCZahtev.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\UCZahtevZaRezTermina\UCZakazivanje.cs">
+    <Compile Update="UserControls\UCZahtevZaRezTermina\UCZakazivanje.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControls\UCZahtevZaRezTermina\UCZakazivanje.Designer.cs">
-      <DependentUpon>UCZakazivanje.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Forms\FrmLogin.resx">
-      <DependentUpon>FrmLogin.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmMain.resx">
-      <DependentUpon>FrmMain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="UserControls\UCProfilRadnika\UCKreirajProfilRadnika.resx">
-      <DependentUpon>UCKreirajProfilRadnika.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UCProfilRadnika\UCProfilRadnikaPrikaz.resx">
-      <DependentUpon>UCProfilRadnikaPrikaz.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UCUsluga\UCUsluga.resx">
-      <DependentUpon>UCUsluga.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UCLogin\UCLogin.resx">
-      <DependentUpon>UCLogin.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UCMeni\UCMeniKorisnik.resx">
-      <DependentUpon>UCMeniKorisnik.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UCMeni\UCMeniVlasnik.resx">
-      <DependentUpon>UCMeniVlasnik.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UCPretrazivanje\UCPretrazivanje.resx">
-      <DependentUpon>UCPretrazivanje.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UCLogin\UCRegistracija.resx">
-      <DependentUpon>UCRegistracija.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UCZahtevZaRezTermina\UCZahtev.resx">
-      <DependentUpon>UCZahtev.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserControls\UCZahtevZaRezTermina\UCZakazivanje.resx">
-      <DependentUpon>UCZakazivanje.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\BeautyHouse pozadina.png" />
     <Content Include="Resources\makeover.png" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
+  </ItemGroup>
 </Project>

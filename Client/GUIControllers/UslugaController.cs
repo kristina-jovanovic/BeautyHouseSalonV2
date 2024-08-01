@@ -46,7 +46,7 @@ namespace Client.GUIControllers
                 ucUsluga.BtnSacuvaj.Click += BtnSacuvaj_Click;
             }
         }
-        private void BtnSacuvaj_Click(object sender, EventArgs e)
+        private async void BtnSacuvaj_Click(object sender, EventArgs e)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace Client.GUIControllers
                         usluga.TrajanjeUMinutima = int.Parse(ucUsluga.TxtTrajanje.Text);
                         usluga.TipUsluge = (TipUsluge)ucUsluga.CbTipUsluge.SelectedItem;
 
-                        Usluga novaUsluga = Communication.Instance.KreirajNovuUslugu(usluga);
+                        Usluga novaUsluga = await Communication.Instance.KreirajNovuUsluguAsync(usluga);
                         if (novaUsluga != null)
                         {
                             MessageBoxManager.Cancel = "Prikaži";
@@ -98,7 +98,7 @@ namespace Client.GUIControllers
                         usluga.TrajanjeUMinutima = int.Parse(ucUsluga.TxtTrajanje.Text);
                         usluga.TipUsluge = (TipUsluge)ucUsluga.CbTipUsluge.SelectedItem;
 
-                        if (Communication.Instance.IzmeniUslugu(usluga) != null)
+                        if (Communication.Instance.IzmeniUsluguAsync(usluga) != null)
                         {
                             MessageBox.Show("Sistem je izmenio uslugu.", "Uspešno");
 
@@ -125,7 +125,7 @@ namespace Client.GUIControllers
 
         }
 
-        private void UslugaVecPostoji(string operacija)
+        private async void UslugaVecPostoji(string operacija)
         {
             try
             {
@@ -143,7 +143,7 @@ namespace Client.GUIControllers
                 }
                 else if (res == DialogResult.No)
                 {
-                    usluga = Communication.Instance.UcitajUslugu(usluga);
+                    usluga = await Communication.Instance.UcitajUsluguAsync(usluga);
                     PrikaziUslugu(usluga);
                     ucUsluga.BtnNazad.Visible = false;
                     ucUsluga.BtnIzmeni.PerformClick();
@@ -213,11 +213,11 @@ namespace Client.GUIControllers
         }
         #endregion
 
-        private void PopuniComboBox()
+        private async void PopuniComboBox()
         {
             try
             {
-                List<TipUsluge> tipoviUsluga = Communication.Instance.VratiTipoveUsluga();
+                List<TipUsluge> tipoviUsluga = await Communication.Instance.VratiTipoveUslugaAsync();
                 ucUsluga.CbTipUsluge.DataSource = tipoviUsluga;
                 ucUsluga.CbTipUsluge.SelectedIndex = -1;
             }
@@ -246,7 +246,7 @@ namespace Client.GUIControllers
 
         }
 
-        private void BtnIzaberi_Click(object sender, EventArgs e)
+        private async void BtnIzaberi_Click(object sender, EventArgs e)
         {
             if (ucPretrazivanjeUsluga.DgvPodaci.SelectedCells.Count == 0)
             {
@@ -258,7 +258,7 @@ namespace Client.GUIControllers
 
             try
             {
-                usluga = Communication.Instance.UcitajUslugu(usluga);
+                usluga = await Communication.Instance.UcitajUsluguAsync(usluga);
                 if (usluga == null)
                 {
                     MessageBox.Show("Sistem ne može da učita uslugu.", "Greška");
@@ -315,7 +315,7 @@ namespace Client.GUIControllers
             }
         }
 
-        private void BtnObrisi_Click(object sender, EventArgs e)
+        private async void BtnObrisi_Click(object sender, EventArgs e)
         {
             MessageBoxManager.Yes = "Da";
             MessageBoxManager.No = "Ne";
@@ -325,7 +325,7 @@ namespace Client.GUIControllers
             {
                 try
                 {
-                    if (Communication.Instance.ObrisiUslugu(usluga))
+                    if (await Communication.Instance.ObrisiUsluguAsync(usluga))
                     {
                         MessageBox.Show("Sistem je obrisao uslugu.", "Uspešno");
                         ucUsluga.BtnNazad.PerformClick();
@@ -366,12 +366,12 @@ namespace Client.GUIControllers
             ucUsluga.CbTipUsluge.SelectedItem = usluga.TipUsluge;
         }
 
-        private void TxtPretraga_TextChanged(object sender, EventArgs e)
+        private async void TxtPretraga_TextChanged(object sender, EventArgs e)
         {
             try
             {
                 ucPretrazivanjeUsluga.DgvPodaci.DataSource = null;
-                usluge = new BindingList<Usluga>(Communication.Instance.VratiUsluge(ucPretrazivanjeUsluga.TxtPretraga.Text));
+                usluge = new BindingList<Usluga>(await Communication.Instance.VratiUslugeAsync(ucPretrazivanjeUsluga.TxtPretraga.Text));
                 ucPretrazivanjeUsluga.DgvPodaci.DataSource = usluge;
             }
             catch (IOException)
@@ -384,11 +384,11 @@ namespace Client.GUIControllers
             }
         }
 
-        private void UcitajDGV()
+        private async void UcitajDGV()
         {
             try
             {
-                usluge = new BindingList<Usluga>(Communication.Instance.VratiUsluge(ucPretrazivanjeUsluga.TxtPretraga.Text));
+                usluge = new BindingList<Usluga>(await Communication.Instance.VratiUslugeAsync(ucPretrazivanjeUsluga.TxtPretraga.Text));
                 ucPretrazivanjeUsluga.DgvPodaci.DataSource = usluge;
                 ucPretrazivanjeUsluga.DgvPodaci.AutoGenerateColumns = false;
                 ucPretrazivanjeUsluga.DgvPodaci.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;

@@ -28,7 +28,7 @@ namespace Common.Domain
 
         public string JoinQuery => "pr JOIN TipUsluge tu ON pr.TipUsluge=tu.TipUslugeID";
 
-        public string UpdateQuery => throw new NotImplementedException();
+        public string UpdateQuery => null;
 
         public string Aliaces => "";
 
@@ -41,7 +41,7 @@ namespace Common.Domain
 
         public string FilterQueryStatus(StatusZahteva status)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public async Task<List<IEntity>> GetReaderListAsync(SqlDataReader reader)

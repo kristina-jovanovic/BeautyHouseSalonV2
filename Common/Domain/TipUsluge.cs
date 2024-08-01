@@ -20,11 +20,11 @@ namespace Common.Domain
 
         public string PrimaryKey => TipUslugeID.ToString();
 
-        public string GetById => throw new NotImplementedException();
+        public string GetById => null;
 
         public string JoinQuery => "";
 
-        public string UpdateQuery => throw new NotImplementedException();
+        public string UpdateQuery => null;
         public string Aliaces => "";
 
 
@@ -37,12 +37,12 @@ namespace Common.Domain
 
         public string FilterQuery(string filter)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public string FilterQueryStatus(StatusZahteva status)
         {
-            throw new NotImplementedException();
+            return null;
         }
         public async Task<List<IEntity>> GetReaderListAsync(SqlDataReader reader)
         {
@@ -59,7 +59,7 @@ namespace Common.Domain
 
         public Task<IEntity> GetReaderResultAsync(SqlDataReader reader)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public override string ToString()

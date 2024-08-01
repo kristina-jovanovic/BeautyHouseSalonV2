@@ -4,48 +4,107 @@ using System.Net.Sockets;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Common.Communication
 {
-    public class Receiver
-    {
-        NetworkStream stream;
-        Socket socket;
-        public Receiver(Socket socket)
-        {
-            this.socket = socket;
-            stream = new NetworkStream(socket);
-        }
-        public async Task<object> ReceiveAsync()
-        {
-            try
-            {
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    byte[] buffer = new byte[1024];
-                    int bytesRead;
-                    while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
-                    {
-                        ms.Write(buffer, 0, bytesRead);
-                    }
-                    string json = Encoding.UTF8.GetString(ms.ToArray());
-                    return JsonSerializer.Deserialize<object>(json);
+	public class Receiver
+	{
+		NetworkStream stream;
+		Socket socket;
+		public Receiver(Socket socket)
+		{
+			this.socket = socket;
+			stream = new NetworkStream(socket);
+		}
+		public async Task<T> ReceiveAsync<T>()
+		{
+			try
+			{
+				//using (MemoryStream ms = new MemoryStream())
+				//{
+				//    byte[] buffer = new byte[1024];
+				//    int bytesRead;
+				//    while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+				//    {
+				//        ms.Write(buffer, 0, bytesRead);
+				//    }
+				//    string json = Encoding.UTF8.GetString(ms.ToArray());
+				//    return JsonSerializer.Deserialize<object>(json);
 
-                }
-            }
-            catch (SerializationException ex)
-            {
-                Debug.WriteLine(">>>receiver>>>" + ex.Message);
-                throw ex;
-                //return null;
-            }
-            catch (IOException ex)
-            {
-                Debug.WriteLine(">>>receiver>>>" + ex.Message);
-                throw ex;
-                //return null;
-            }
-        }
-    }
+				//}
+
+				//using MemoryStream memoryStream = new MemoryStream();
+				//await stream.CopyToAsync(memoryStream, 81920, CancellationToken.None); //ovde stane i ne ide dalje
+				//memoryStream.Seek(0, SeekOrigin.Begin);
+				//string json = Encoding.UTF8.GetString(memoryStream.ToArray());
+				//Debug.WriteLine("Received JSON: " + json);
+				//return JsonSerializer.Deserialize<object>(json);
+
+				//using MemoryStream memoryStream = new MemoryStream();
+				//byte[] buffer = new byte[81920]; // Adjust the buffer size if needed
+				//int bytesRead;
+				//while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+				//{
+				//	memoryStream.Write(buffer, 0, bytesRead);
+				//	Debug.WriteLine($"Read {bytesRead} bytes");
+				//}
+				//memoryStream.Seek(0, SeekOrigin.Begin);
+				//string json = Encoding.UTF8.GetString(memoryStream.ToArray());
+				//Debug.WriteLine("Received JSON: " + json);
+				//return JsonSerializer.Deserialize<object>(json);
+
+				//using MemoryStream memoryStream = new MemoryStream();
+				//byte[] buffer = new byte[1024];
+				//int bytesRead;
+				//while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+				//{
+				//	string chunk = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+				//	if (chunk.Contains("<EOF>"))
+				//	{
+				//		string json = Encoding.UTF8.GetString(memoryStream.ToArray());
+				//		json += chunk.Substring(0, chunk.IndexOf("<EOF>"));
+				//		Debug.WriteLine("Received JSON: " + json);
+				//		var des = await JsonSerializer.DeserializeAsync<T>(memoryStream);
+				//		Debug.WriteLine("deserijalizovano: " + des);
+				//		return des;
+				//	}
+				//	memoryStream.Write(buffer, 0, bytesRead);
+				//}
+				//return default; // No data received or end of stream
+
+				using MemoryStream memoryStream = new MemoryStream();
+				byte[] buffer = new byte[1024];
+				int bytesRead;
+				while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+				{
+					string chunk = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+					Debug.WriteLine($"Received chunk: {chunk}");
+					if (chunk.Contains("<EOF>"))
+					{
+						string json = Encoding.UTF8.GetString(memoryStream.ToArray()) + chunk.Substring(0, chunk.IndexOf("<EOF>"));
+						Debug.WriteLine("Complete JSON received: " + json);
+						return JsonSerializer.Deserialize<T>(json);
+					}
+					memoryStream.Write(buffer, 0, bytesRead);
+				}
+				Debug.WriteLine("End of stream reached");
+				return default(T); // No data received or end of stream
+
+			}
+			catch (SerializationException ex)
+			{
+				Debug.WriteLine(">>>receiver>>>" + ex.Message);
+				throw ex;
+				//return null;
+			}
+			catch (IOException ex)
+			{
+				Debug.WriteLine(">>>receiver>>>" + ex.Message);
+				throw ex;
+				//return null;
+			}
+		}
+	}
 }

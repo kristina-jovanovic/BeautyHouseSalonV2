@@ -3,6 +3,7 @@ using System.IO;
 using System.Net.Sockets;
 using System.Runtime.Serialization;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Common.Communication
@@ -20,9 +21,13 @@ namespace Common.Communication
 		{
 			try
 			{
-				string json = JsonSerializer.Serialize(argument);
+				string json = JsonSerializer.Serialize(argument) + "<EOF>";
 				byte[] data = System.Text.Encoding.UTF8.GetBytes(json);
+				Debug.WriteLine("Sending JSON: " + json);
 				await stream.WriteAsync(data, 0, data.Length);
+				await stream.FlushAsync();
+				Debug.WriteLine("///Sent///");
+
 			}
 			catch (SerializationException ex)
 			{

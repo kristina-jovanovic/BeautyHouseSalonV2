@@ -80,11 +80,11 @@ namespace Client.GUIControllers
             ucKreirajRadnika.LblErrorIme.Visible = false;
         }
         #endregion
-        private void PopuniComboBox()
+        private async void PopuniComboBox()
         {
             try
             {
-                List<TipUsluge> tipoviUsluga = Communication.Instance.VratiTipoveUsluga();
+                List<TipUsluge> tipoviUsluga = await Communication.Instance.VratiTipoveUslugaAsync();
                 ucKreirajRadnika.CbTipUsluge.DataSource = tipoviUsluga;
                 ucKreirajRadnika.CbTipUsluge.SelectedIndex = -1;
             }
@@ -98,7 +98,7 @@ namespace Client.GUIControllers
             }
         }
 
-        private void BtnSacuvaj_Click(object sender, EventArgs e)
+        private async void BtnSacuvaj_Click(object sender, EventArgs e)
         {
             if (IsValid())
             {
@@ -111,7 +111,7 @@ namespace Client.GUIControllers
 
                 try
                 {
-                    radnik = Communication.Instance.KreirajProfilRadnika(r);
+                    radnik = await Communication.Instance.KreirajProfilRadnikaAsync(r);
                     if (radnik == null)
                     {
                         MessageBox.Show("Sistem ne može da kreira profil radnika.", "Greška");
@@ -237,12 +237,12 @@ namespace Client.GUIControllers
             }
         }
 
-        private void TxtPretraga_TextChanged(object sender, EventArgs e)
+        private async void TxtPretraga_TextChanged(object sender, EventArgs e)
         {
             try
             {
                 ucPretrazivanje.DgvPodaci.DataSource = null;
-                radnici = new BindingList<ProfilRadnika>(Communication.Instance.VratiProfileRadnika(ucPretrazivanje.TxtPretraga.Text));
+                radnici = new BindingList<ProfilRadnika>(await Communication.Instance.VratiProfileRadnikaAsync(ucPretrazivanje.TxtPretraga.Text));
                 ucPretrazivanje.DgvPodaci.DataSource = radnici;
             }
             catch (IOException)
@@ -255,11 +255,11 @@ namespace Client.GUIControllers
             }
         }
 
-        private void UcitajDGV()
+        private async void UcitajDGV()
         {
             try
             {
-                radnici = new BindingList<ProfilRadnika>(Communication.Instance.VratiProfileRadnika(ucPretrazivanje.TxtPretraga.Text));
+                radnici = new BindingList<ProfilRadnika>(await Communication.Instance.VratiProfileRadnikaAsync(ucPretrazivanje.TxtPretraga.Text));
                 ucPretrazivanje.DgvPodaci.DataSource = radnici;
                 ucPretrazivanje.DgvPodaci.AutoGenerateColumns = false;
                 ucPretrazivanje.DgvPodaci.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -284,7 +284,7 @@ namespace Client.GUIControllers
             }
         }
 
-        private void BtnIzaberi_Click(object sender, EventArgs e)
+        private async void BtnIzaberi_Click(object sender, EventArgs e)
         {
             if (ucPretrazivanje.DgvPodaci.SelectedCells.Count == 0)
             {
@@ -296,7 +296,7 @@ namespace Client.GUIControllers
 
             try
             {
-                radnik = Communication.Instance.UcitajProfilRadnika(radnik);
+                radnik = await Communication.Instance.UcitajProfilRadnikaAsync(radnik);
                 if (radnik == null)
                 {
                     MessageBox.Show("Sistem ne može da učita profil radnika.", "Greška");

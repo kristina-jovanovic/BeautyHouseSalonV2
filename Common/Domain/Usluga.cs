@@ -47,7 +47,7 @@ namespace Common.Domain
         }
         public string FilterQueryStatus(StatusZahteva status)
         {
-            throw new NotImplementedException();
+            return null;
         }
         public async Task<List<IEntity>> GetReaderListAsync(SqlDataReader reader)
         {

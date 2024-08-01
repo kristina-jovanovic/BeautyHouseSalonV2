@@ -207,7 +207,7 @@ namespace Server
 					}
 					break;
 				case Operation.UcitajProfilRadnika:
-					response.Result = await Controller.Instance.UcitajProfilRadnikaAsync((ProfilRadnika)request.Argument);
+					response.Result = await Controller.Instance.UcitajProfilRadnikaAsync(Transformer.TransformisiJson<ProfilRadnika>(request.Argument));
 					if (response.Result == null)
 					{
 						response.IsSuccessfull = false;

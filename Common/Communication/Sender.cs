@@ -23,10 +23,10 @@ namespace Common.Communication
 			{
 				string json = JsonSerializer.Serialize(argument) + "<EOF>";
 				byte[] data = System.Text.Encoding.UTF8.GetBytes(json);
-				Debug.WriteLine("Sending JSON: " + json);
+				//Debug.WriteLine("Sending JSON: " + json);
 				await stream.WriteAsync(data, 0, data.Length);
 				await stream.FlushAsync();
-				Debug.WriteLine("///Sent///");
+				//Debug.WriteLine("///Sent///");
 
 			}
 			catch (SerializationException ex)

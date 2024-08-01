@@ -117,7 +117,7 @@ namespace Common.Domain
                 Ime = (string)reader["prIme"],
                 Prezime = (string)reader["prPrezime"],
                 Opis = (string)reader["Opis"],
-                Fotografija = (byte[])reader["Fotografija"],
+                Fotografija = (string)reader["Fotografija"],
                 TipUsluge = new TipUsluge
                 {
                     TipUslugeID = (int)reader["TipUslugeID"],

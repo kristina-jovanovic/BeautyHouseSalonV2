@@ -14,12 +14,12 @@ namespace Common.Domain
         public string Ime { get; set; }
         public string Prezime { get; set; }
         public string Opis { get; set; }
-        public byte[] Fotografija { get; set; }
+        public string Fotografija { get; set; } //url fotografije
         public TipUsluge TipUsluge { get; set; }
 
         public string TableName => "ProfilRadnika";
 
-        public string Values => $"'{Ime}', '{Prezime}', '{Opis}', 0x{BitConverter.ToString(Fotografija).Replace("-", "")}, {TipUsluge.TipUslugeID}";
+        public string Values => $"'{Ime}', '{Prezime}', '{Opis}', '{Fotografija}', {TipUsluge.TipUslugeID}";
 
         public string PrimaryKey => RadnikID.ToString();
 
@@ -78,7 +78,7 @@ namespace Common.Domain
             radnik.Ime = (string)reader["Ime"];
             radnik.Prezime = (string)reader["Prezime"];
             radnik.Opis = (string)reader["Opis"];
-            radnik.Fotografija = (byte[])reader["Fotografija"];
+            radnik.Fotografija = (string)reader["Fotografija"];
             radnik.TipUsluge = new TipUsluge
             {
                 TipUslugeID = (int)reader["TipUslugeID"],

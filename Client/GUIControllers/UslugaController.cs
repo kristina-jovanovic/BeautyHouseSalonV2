@@ -32,13 +32,13 @@ namespace Client.GUIControllers
         BindingList<Usluga> usluge;
         public delegate void ObradaDogadjaja(Control control);
         public static event ObradaDogadjaja ChangeUC;
-        internal void KreiranjeNoveUsluge()
+        internal async void KreiranjeNoveUsluge()
         {
             ucUsluga = new UCUsluga(UCMode.DodajNovi);
             if (ChangeUC != null)
             {
                 ChangeUC(ucUsluga);
-                PopuniComboBox();
+                await PopuniComboBox();
                 ucUsluga.TxtNaziv.TextChanged += TxtNaziv_TextChanged;
                 ucUsluga.TxtCena.TextChanged += TxtCena_TextChanged;
                 ucUsluga.TxtTrajanje.TextChanged += TxtTrajanje_TextChanged;
@@ -213,7 +213,7 @@ namespace Client.GUIControllers
         }
         #endregion
 
-        private async void PopuniComboBox()
+        private async Task PopuniComboBox()
         {
             try
             {
@@ -276,12 +276,12 @@ namespace Client.GUIControllers
             }
         }
 
-        internal void PrikaziUslugu(Usluga usluga)
+        internal async void PrikaziUslugu(Usluga usluga)
         {
             if (ChangeUC != null)
             {
                 ucUsluga = new UCUsluga(UCMode.Prikazi);
-                PopuniPoljaUsluge(usluga);
+                await PopuniPoljaUsluge(usluga);
                 ChangeUC(ucUsluga);
                 if (MainController.Instance.korisnik.Vlasnik == false)
                 {
@@ -356,13 +356,13 @@ namespace Client.GUIControllers
             ucUsluga.CbTipUsluge.Enabled = true;
         }
 
-        private void PopuniPoljaUsluge(Usluga usluga)
+        private async Task PopuniPoljaUsluge(Usluga usluga)
         {
             ucUsluga.TxtNaziv.Text = usluga.Naziv;
             ucUsluga.TxtCena.Text = usluga.Cena.ToString();
             ucUsluga.TxtTrajanje.Text = usluga.TrajanjeUMinutima.ToString();
             //popunimo combo box prvo!!!
-            PopuniComboBox();
+            await PopuniComboBox();
             ucUsluga.CbTipUsluge.SelectedItem = usluga.TipUsluge;
         }
 

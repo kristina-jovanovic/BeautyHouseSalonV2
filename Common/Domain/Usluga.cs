@@ -34,7 +34,7 @@ namespace Common.Domain
         public override bool Equals(object obj)
         {
             return obj is Usluga usluga &&
-                   UslugaID == usluga.UslugaID &&
+                   //UslugaID == usluga.UslugaID && //ovo sam sad zakom.
                    Naziv == usluga.Naziv;
         }
 

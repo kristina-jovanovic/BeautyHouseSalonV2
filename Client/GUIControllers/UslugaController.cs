@@ -32,7 +32,7 @@ namespace Client.GUIControllers
         BindingList<Usluga> usluge;
         public delegate void ObradaDogadjaja(Control control);
         public static event ObradaDogadjaja ChangeUC;
-        internal async void KreiranjeNoveUsluge()
+        internal async Task KreiranjeNoveUsluge()
         {
             ucUsluga = new UCUsluga(UCMode.DodajNovi);
             if (ChangeUC != null)
@@ -231,7 +231,7 @@ namespace Client.GUIControllers
             }
         }
 
-        internal void PretrazivanjeUsluga()
+        internal async Task PretrazivanjeUsluga()
         {
             ucPretrazivanjeUsluga = new UCPretrazivanje();
             ucPretrazivanjeUsluga.GroupBox1.Text = "Pretraživanje usluga";
@@ -239,7 +239,7 @@ namespace Client.GUIControllers
             if (ChangeUC != null)
             {
                 ChangeUC(ucPretrazivanjeUsluga);
-                UcitajDGV();
+                await UcitajDGV();
                 ucPretrazivanjeUsluga.TxtPretraga.TextChanged += TxtPretraga_TextChanged;
                 ucPretrazivanjeUsluga.BtnIzaberi.Click += BtnIzaberi_Click;
             }
@@ -301,17 +301,17 @@ namespace Client.GUIControllers
             }
         }
 
-        private void BtnZakazi_Click(object sender, EventArgs e)
+        private async void BtnZakazi_Click(object sender, EventArgs e)
         {
-            ZahtevController.Instance.ZakaziTermin(usluga);
+            await ZahtevController.Instance.ZakaziTermin(usluga);
         }
 
-        private void BtnNazad_Click(object sender, EventArgs e)
+        private async void BtnNazad_Click(object sender, EventArgs e)
         {
             if (ChangeUC != null)
             {
                 ChangeUC(ucPretrazivanjeUsluga);
-                UcitajDGV();
+                await UcitajDGV();
             }
         }
 
@@ -384,7 +384,7 @@ namespace Client.GUIControllers
             }
         }
 
-        private async void UcitajDGV()
+        private async Task UcitajDGV()
         {
             try
             {

@@ -23,7 +23,7 @@ namespace Common.Communication
 			try
 			{
 				using MemoryStream memoryStream = new MemoryStream();
-				byte[] buffer = new byte[1024];
+				byte[] buffer = new byte[7168];
 				int bytesRead;
 				while ((bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length)) > 0)
 				{

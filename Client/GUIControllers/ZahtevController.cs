@@ -43,13 +43,13 @@ namespace Client.GUIControllers
         BindingList<ZahtevZaRezervacijuTermina> zahteviZaSlanje;
         ProfilRadnika radnik;
         Usluga usluga;
-        internal void ZakaziTermin()
+        internal async Task ZakaziTermin()
         {
             ucZahtev = new UCZahtev();
             if (ChangeUC != null)
             {
                 ChangeUC(ucZahtev);
-                PopuniComboBox();
+                await PopuniComboBox();
                 UcitajDgvZahteve();
 
                 ucZahtev.CbTipUsluge.SelectedIndexChanged += CbTipUsluge_SelectedIndexChanged;
@@ -64,22 +64,26 @@ namespace Client.GUIControllers
             }
         }
 
-        internal void ZakaziTermin(ProfilRadnika radnik)
+        internal async Task ZakaziTermin(ProfilRadnika radnik)
         {
             this.radnik = radnik;
-            ZakaziTermin();
-            ucZahtev.CbTipUsluge.SelectedItem = radnik.TipUsluge;
-            ucZahtev.CbRadnik.SelectedItem = radnik;
+            await ZakaziTermin();
+            //Debug.WriteLine($"{radnik},{radnik.TipUsluge}");
+            //Debug.WriteLine($"{ucZahtev.CbRadnik.SelectedItem},{ucZahtev.CbTipUsluge.SelectedItem}");
+            ucZahtev.CbTipUsluge.SelectedItem = radnik.TipUsluge; //ovo hoce da postavi
+            ucZahtev.CbRadnik.SelectedItem = radnik; //ovo nece ?????
             ucZahtev.BtnNazad.Visible = true;
             ucZahtev.BtnNazad.Click += BtnNazad_Click;
-        }
+			//Debug.WriteLine($"{radnik},{radnik.TipUsluge}");
+			//Debug.WriteLine($"{ucZahtev.CbRadnik.SelectedItem},{ucZahtev.CbTipUsluge.SelectedItem}");
+		}
 
-        internal void ZakaziTermin(Usluga usluga)
+        internal async Task ZakaziTermin(Usluga usluga)
         {
             this.usluga = usluga;
-            ZakaziTermin();
-            ucZahtev.CbTipUsluge.SelectedItem = usluga.TipUsluge;
-            ucZahtev.CbUsluga.SelectedItem = usluga;
+            await ZakaziTermin();
+            ucZahtev.CbTipUsluge.SelectedItem = usluga.TipUsluge; //ovo hoce da postavi
+            ucZahtev.CbUsluga.SelectedItem = usluga; //ovo nece ???
             ucZahtev.BtnNazad.Visible = true;
             ucZahtev.BtnNazad.Click += BtnNazad_Click1;
         }
@@ -89,9 +93,9 @@ namespace Client.GUIControllers
             UslugaController.Instance.PrikaziUslugu(usluga);
         }
 
-        private void BtnNazad_Click(object sender, EventArgs e)
+        private async void BtnNazad_Click(object sender, EventArgs e)
         {
-            ProfilRadnikaController.Instance.PrikaziProfilRadnika(radnik);
+            await ProfilRadnikaController.Instance.PrikaziProfilRadnikaAsync(radnik);
         }
 
         private void BtnIzmeni_Click(object sender, EventArgs e)
@@ -168,7 +172,7 @@ namespace Client.GUIControllers
 
                 try
                 {
-                    if (await Communication.Instance.ProveriRaspolozivostTerminaAsync(zahtev))
+                    if (await Communication.Instance.ProveriRaspolozivostTerminaAsync(zahtev) == true)
                     {
                         zahtevi.Add(zahtev);
                         ucZahtev.CbRadnik.SelectedIndex = -1;
@@ -209,12 +213,12 @@ namespace Client.GUIControllers
             ucZahtev.LblErrorUsluga.Visible = false;
         }
 
-        private void CbTipUsluge_SelectedIndexChanged(object sender, EventArgs e)
+        private async void CbTipUsluge_SelectedIndexChanged(object sender, EventArgs e)
         {
             ucZahtev.LblErrorTipUsluge.Visible = false;
 
-            RefreshUsluge();
-            RefreshRadnici();
+            await RefreshUsluge();
+            await RefreshRadnici();
         }
         #endregion
 
@@ -280,7 +284,7 @@ namespace Client.GUIControllers
             return valid;
         }
 
-        private async void PopuniComboBox()
+        private async Task PopuniComboBox()
         {
             try
             {
@@ -290,11 +294,11 @@ namespace Client.GUIControllers
                 //ucZahtev.CbTipUsluge.SelectedIndex = -1;
 
                 //cb usluga
-                RefreshUsluge();
+                await RefreshUsluge();
                 ucZahtev.CbUsluga.SelectedIndex = -1;
 
                 //cb radnik
-                RefreshRadnici();
+                await RefreshRadnici();
                 ucZahtev.CbRadnik.SelectedIndex = -1;
 
                 //cb termin
@@ -337,7 +341,7 @@ namespace Client.GUIControllers
             }
         }
 
-        private async void RefreshUsluge()
+        private async Task RefreshUsluge()
         {
             try
             {
@@ -355,7 +359,7 @@ namespace Client.GUIControllers
             }
         }
 
-        private async void RefreshRadnici()
+        private async Task RefreshRadnici()
         {
             try
             {
@@ -373,7 +377,7 @@ namespace Client.GUIControllers
             }
         }
 
-        internal void PretraziZahteve()
+        internal async Task PretraziZahteve()
         {
             ucZakazivanje = new UCZakazivanje();
             if (ChangeUC != null)
@@ -382,7 +386,7 @@ namespace Client.GUIControllers
                 ucZakazivanje.BtnIzbaci.Click += BtnIzbaciZakazivanje_Click;
                 ucZakazivanje.BtnOdobri.Click += BtnOdobri_Click;
                 ucZakazivanje.BtnOdbij.Click += BtnOdbij_Click;
-                PopuniComboBoxPretrazivanje();
+                await PopuniComboBoxPretrazivanje();
                 ucZakazivanje.CbRadnik.SelectedIndexChanged += CbRadnikPretrazivanje_SelectedIndexChanged;
                 ChangeUC(ucZakazivanje);
             }
@@ -467,13 +471,13 @@ namespace Client.GUIControllers
             }
         }
 
-        private async void PopuniComboBoxPretrazivanje()
+        private async Task PopuniComboBoxPretrazivanje()
         {
             try
             {
                 List<ProfilRadnika> radnici = await Communication.Instance.VratiProfileRadnikaAsync("");
                 ucZakazivanje.CbRadnik.DataSource = radnici;
-                UcitajDGV();
+                await UcitajDGV();
                 UcitajDgvZaSlanje();
             }
             catch (IOException)
@@ -511,7 +515,7 @@ namespace Client.GUIControllers
             ucZakazivanje.DgvZahtevi.Columns["Aliaces"].Visible = false;
         }
 
-        private async void UcitajDGV()
+        private async Task UcitajDGV()
         {
             try
             {
@@ -547,12 +551,12 @@ namespace Client.GUIControllers
             }
         }
 
-        private void CbRadnikPretrazivanje_SelectedIndexChanged(object sender, EventArgs e)
+        private async void CbRadnikPretrazivanje_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RefreshDGV();
+            await RefreshDGV();
         }
 
-        private async void RefreshDGV()
+        private async Task RefreshDGV()
         {
             try
             {

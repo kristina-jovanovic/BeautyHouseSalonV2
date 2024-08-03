@@ -32,7 +32,15 @@ namespace Common.Domain
 
         public string Aliaces => "";
 
-        public string FilterQuery(string filter)
+		public override bool Equals(object obj)
+		{
+			return obj is ProfilRadnika radnika &&
+				   //RadnikID == radnika.RadnikID &&
+				   Ime == radnika.Ime &&
+				   Prezime == radnika.Prezime;
+		}
+
+		public string FilterQuery(string filter)
         {
             return $"lower(ime) like concat(lower('{filter}'),'%')" +
                 $"or lower(prezime) like concat(lower('{filter}'),'%')" +

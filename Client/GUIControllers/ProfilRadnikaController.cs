@@ -38,13 +38,13 @@ namespace Client.GUIControllers
 		UCPretrazivanje ucPretrazivanje;
 		BindingList<ProfilRadnika> radnici;
 		ProfilRadnika radnik;
-		internal void KreirajProfilRadnika()
+		internal async Task KreirajProfilRadnika()
 		{
 			ucKreirajRadnika = new UCKreirajProfilRadnika();
 			if (ChangeUC != null)
 			{
 				ChangeUC(ucKreirajRadnika);
-				PopuniComboBox();
+				await PopuniComboBoxAsync();
 				ucKreirajRadnika.BtnSacuvaj.Click += BtnSacuvaj_Click;
 				ucKreirajRadnika.TxtIme.TextChanged += TxtIme_TextChanged;
 				ucKreirajRadnika.TxtPrezime.TextChanged += TxtPrezime_TextChanged;
@@ -80,7 +80,7 @@ namespace Client.GUIControllers
 			ucKreirajRadnika.LblErrorIme.Visible = false;
 		}
 		#endregion
-		private async void PopuniComboBox()
+		private async Task PopuniComboBoxAsync()
 		{
 			try
 			{
@@ -137,12 +137,12 @@ namespace Client.GUIControllers
 			}
 		}
 
-		private void PostaviRadnika(ProfilRadnika radnik)
+		private async Task PostaviRadnikaAsync(ProfilRadnika radnik)
 		{
 			//Image loader = Image.FromFile(@"D:\kao desktop\FAKS\DIPLOMSKI\BeautyHouseV2\Client\Resources\spinner.gif");
 			//ucPrikaziRadnika.PbFoto.Image = ResizeImage(loader, 249, 193);
 			//gif nece da se pomera
-			LoadImageAsync(radnik.Fotografija);
+			await LoadImageAsync(radnik.Fotografija);
 			ucPrikaziRadnika.LblImePrezime.Text = $"{radnik.Ime} {radnik.Prezime}";
 			ucPrikaziRadnika.LblTipUsluge.Text = $"Tip usluge: {radnik.TipUsluge.NazivTipaUsluge}";
 			ucPrikaziRadnika.TxtOpis.Text = radnik.Opis;
@@ -178,17 +178,6 @@ namespace Client.GUIControllers
 
 			return resizedImage;
 		}
-
-		//private byte[] KonvertujFotografiju()
-		//{
-		//    string image = ucKreirajRadnika.TxtFoto.Text;
-		//    Bitmap bmp = new Bitmap(image);
-		//    FileStream fs = new FileStream(image, FileMode.Open, FileAccess.Read);
-		//    byte[] bimage = new byte[fs.Length];
-		//    fs.Read(bimage, 0, Convert.ToInt32(fs.Length));
-		//    fs.Close();
-		//    return bimage;
-		//}
 
 		private bool IsValid()
 		{
@@ -229,17 +218,7 @@ namespace Client.GUIControllers
 			return valid;
 		}
 
-		private void BtnFoto_Click(object sender, EventArgs e)
-		{
-			ucKreirajRadnika.OpenFileDialog1.Filter = "Image Files(*.jpeg;*.bmp;*.png;*.jpg)|*.jpeg;*.bmp;*.png;*.jpg";
-			if (ucKreirajRadnika.OpenFileDialog1.ShowDialog() == DialogResult.OK)
-			{
-				string selectedFile = ucKreirajRadnika.OpenFileDialog1.FileName;
-				ucKreirajRadnika.TxtFoto.Text = selectedFile;
-			}
-		}
-
-		internal void PretraziProfileRadnika()
+		internal async Task PretraziProfileRadnika()
 		{
 			ucPretrazivanje = new UCPretrazivanje();
 			ucPretrazivanje.GroupBox1.Text = "Pretraživanje radnika";
@@ -249,7 +228,7 @@ namespace Client.GUIControllers
 				ucPretrazivanje.BtnIzaberi.Click += BtnIzaberi_Click;
 				ucPretrazivanje.TxtPretraga.TextChanged += TxtPretraga_TextChanged;
 				ChangeUC(ucPretrazivanje);
-				UcitajDGV();
+				await UcitajDGV();
 			}
 		}
 
@@ -271,7 +250,7 @@ namespace Client.GUIControllers
 			}
 		}
 
-		private async void UcitajDGV()
+		private async Task UcitajDGV()
 		{
 			try
 			{
@@ -318,7 +297,7 @@ namespace Client.GUIControllers
 					MessageBox.Show("Sistem ne može da učita profil radnika.", "Greška");
 					return;
 				}
-				PrikaziProfilRadnika(radnik);
+				await PrikaziProfilRadnikaAsync(radnik);
 			}
 			catch (IOException)
 			{
@@ -330,7 +309,7 @@ namespace Client.GUIControllers
 			}
 		}
 
-		internal void PrikaziProfilRadnika(ProfilRadnika radnik)
+		internal async Task PrikaziProfilRadnikaAsync(ProfilRadnika radnik)
 		{
 			if (ChangeUC != null)
 			{
@@ -340,15 +319,15 @@ namespace Client.GUIControllers
 					ucPrikaziRadnika.BtnZakazi.Visible = true;
 					ucPrikaziRadnika.BtnZakazi.Click += BtnZakazi_Click;
 				}
-				PostaviRadnika(radnik);
+				await PostaviRadnikaAsync(radnik);
 				ucPrikaziRadnika.BtnNazad.Click += BtnNazad_Click;
 				ChangeUC(ucPrikaziRadnika);
 			}
 		}
 
-		private void BtnZakazi_Click(object sender, EventArgs e)
+		private async void BtnZakazi_Click(object sender, EventArgs e)
 		{
-			ZahtevController.Instance.ZakaziTermin(radnik);
+			await ZahtevController.Instance.ZakaziTermin(radnik);
 		}
 
 		private void BtnNazad_Click(object sender, EventArgs e)

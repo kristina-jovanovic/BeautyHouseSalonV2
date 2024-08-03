@@ -67,42 +67,42 @@ namespace Client.GUIControllers
             MessageBox.Show("Konekcija sa serverom je prekinuta!", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void PretrazivanjeZahtevaToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void PretrazivanjeZahtevaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ZahtevController.ChangeUC += ChangeUC;
-            ZahtevController.Instance.PretraziZahteve();
+            await ZahtevController.Instance.PretraziZahteve();
         }
 
-        private void ZakaziTerminToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void ZakaziTerminToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ZahtevController.ChangeUC += ChangeUC;
-            ZahtevController.Instance.ZakaziTermin();
+            await ZahtevController.Instance.ZakaziTermin();
         }
 
-        private void PretraziProfileRadnikaToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void PretraziProfileRadnikaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ProfilRadnikaController.ChangeUC += ChangeUC;
             ZahtevController.ChangeUC += ChangeUC;
-            ProfilRadnikaController.Instance.PretraziProfileRadnika();
+            await ProfilRadnikaController.Instance.PretraziProfileRadnika();
         }
 
-        private void KreirajProfilRadnikaToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void KreirajProfilRadnikaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ProfilRadnikaController.ChangeUC += ChangeUC;
-            ProfilRadnikaController.Instance.KreirajProfilRadnika();
+            await ProfilRadnikaController.Instance.KreirajProfilRadnika();
         }
 
-        private void PretrazivanjeUslugaToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void PretrazivanjeUslugaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UslugaController.ChangeUC += ChangeUC;
             ZahtevController.ChangeUC += ChangeUC;
-            UslugaController.Instance.PretrazivanjeUsluga();
+            await UslugaController.Instance.PretrazivanjeUsluga();
         }
 
-        private void KreiranjeNoveUslugeToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void KreiranjeNoveUslugeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UslugaController.ChangeUC += ChangeUC;
-            UslugaController.Instance.KreiranjeNoveUsluge();
+            await UslugaController.Instance.KreiranjeNoveUsluge();
         }
 
         private void ChangeUC(Control control)

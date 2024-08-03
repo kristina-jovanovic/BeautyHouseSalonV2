@@ -12,7 +12,7 @@ namespace WebAPI.Mappings
             CreateMap<TipUsluge, TipUslugeDto>().ReverseMap();
             CreateMap<ProfilRadnika, ProfilRadnikaDto>().ReverseMap();
             CreateMap<Korisnik, KorisnikDto>().ReverseMap();
-
+            CreateMap<ZahtevZaRezervacijuTermina, ZahtevZaRezervacijuTerminaDto>().ReverseMap();
 		}
 	}
 }

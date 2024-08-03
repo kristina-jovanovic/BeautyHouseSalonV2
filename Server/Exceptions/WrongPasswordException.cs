@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Server.Exceptions
 {
-    internal class WrongPasswordException : Exception
+    public class WrongPasswordException : Exception
     {
     }
 }

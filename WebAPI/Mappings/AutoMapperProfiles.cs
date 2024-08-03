@@ -11,6 +11,8 @@ namespace WebAPI.Mappings
             CreateMap<Usluga, UslugaDto>().ReverseMap();
             CreateMap<TipUsluge, TipUslugeDto>().ReverseMap();
             CreateMap<ProfilRadnika, ProfilRadnikaDto>().ReverseMap();
+            CreateMap<Korisnik, KorisnikDto>().ReverseMap();
+
 		}
 	}
 }

@@ -1418,8 +1418,8 @@ progress {
 /* ---------- */
 @media (min-width: 996px) {
   .col-md-20 {
-      flex: 0 0 auto;
-      width: 20%;
+    flex: 0 0 auto;
+    width: 20%;
   }
 }
 
@@ -6698,9 +6698,12 @@ fieldset:disabled .btn {
   height: 100%;
   object-fit: cover;
   object-position: center; */
-  position: relative;
+
+  /* position: relative; */
+
   top: 25%;
-  transform: translateY(-25%);
+
+  /* transform: translateY(-25%); */
 }
 
 /* --------- */

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import OneTypeOfService from './OneTypeOfService'
 import axios from 'axios';
 
-function TypesOfServices() {
+function TypesOfService() {
 
     // const [typesOfService, setTypesOfService] = useState();
     // useEffect(() => {
@@ -54,4 +54,4 @@ function TypesOfServices() {
     )
 }
 
-export default TypesOfServices
+export default TypesOfService

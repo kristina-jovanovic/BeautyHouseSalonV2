@@ -7,17 +7,34 @@ function Team() {
             <div className="container">
                 <div className="text-center">
                     <h2 className="section-heading text-uppercase">Naš tim</h2>
-                    <h3 className="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h3 className="section-subheading text-muted">Upoznajte ljude koji čine da zablistate spolja i iznutra.</h3>
                 </div>
-                <div className="row">
-                    <Worker />
-                    <Worker />
-                    <Worker />
+                <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <div className="row">
+                                <Worker />
+                                <Worker />
+                                <Worker />
 
-                </div>
-                <div className="row">
-                    <div className="col-lg-8 mx-auto text-center">
-                        <p className="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div className="row">
+                                <Worker />
+                                <Worker />
+                                <Worker />
+
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <div className="row">
+                                <Worker />
+                                <Worker />
+                                <Worker />
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

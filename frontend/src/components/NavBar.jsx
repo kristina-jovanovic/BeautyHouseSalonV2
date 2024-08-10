@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import logo from '../resources/BeautyHouseLogo.png'
 import { Outlet } from 'react-router-dom'
+import Footer from './Footer';
 
 function NavBar() {
 
@@ -42,32 +43,36 @@ function NavBar() {
     const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-            <div className="container">
-                <a className="navbar-brand" href="#page-top">Beauty House</a>
-                <button
-                    className="navbar-toggler"
-                    type="button"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded={!isNavCollapsed}
-                    aria-label="Toggle navigation"
-                    onClick={handleNavCollapse}
-                >
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className={`${isNavCollapsed ? 'collapse' : 'show'} navbar-collapse`} id="navbarSupportedContent">
-                    <ul className="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                        {/* na klik bilo koje stavke iz menija, prebacicemo se na taj deo stranice i meni ce se zatvoriti jer smo ubacili handleNavCollapse,
+        <div>
+            <nav className="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+                <div className="container">
+                    <a className="navbar-brand" href="#page-top">Beauty House</a>
+                    <button
+                        className="navbar-toggler"
+                        type="button"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded={!isNavCollapsed}
+                        aria-label="Toggle navigation"
+                        onClick={handleNavCollapse}
+                    >
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className={`${isNavCollapsed ? 'collapse' : 'show'} navbar-collapse`} id="navbarSupportedContent">
+                        <ul className="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                            {/* na klik bilo koje stavke iz menija, prebacicemo se na taj deo stranice i meni ce se zatvoriti jer smo ubacili handleNavCollapse,
                         tj. u ovom slucaju simuliramo klik na toggle button */}
-                        <li className="nav-item"><a className="nav-link" href="#services" onClick={handleNavCollapse}>Tipovi usluga</a></li>
-                        <li className="nav-item"><a className="nav-link" href="#portfolio" onClick={handleNavCollapse}>Usluge</a></li>
-                        <li className="nav-item"><a className="nav-link" href="#about" onClick={handleNavCollapse}>O nama</a></li>
-                        <li className="nav-item"><a className="nav-link" href="#team" onClick={handleNavCollapse}>Tim</a></li>
-                        <li className="nav-item"><a className="nav-link" href="#contact" onClick={handleNavCollapse}>Kontakt</a></li>
-                    </ul>
+                            <li className="nav-item"><a className="nav-link" href="#services" onClick={handleNavCollapse}>Tipovi usluga</a></li>
+                            <li className="nav-item"><a className="nav-link" href="#portfolio" onClick={handleNavCollapse}>Usluge</a></li>
+                            <li className="nav-item"><a className="nav-link" href="#about" onClick={handleNavCollapse}>O nama</a></li>
+                            <li className="nav-item"><a className="nav-link" href="#team" onClick={handleNavCollapse}>Tim</a></li>
+                            <li className="nav-item"><a className="nav-link" href="#contact" onClick={handleNavCollapse}>Kontakt</a></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+            <Outlet />
+            <Footer />
+        </div>
     );
 
 }

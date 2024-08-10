@@ -1,15 +1,20 @@
 import React from 'react'
+import Home from './Home'
+import Services from './Services'
+import AboutPage from './AboutPage'
+import Team from './Team'
+import TypesOfService from './TypesOfService'
+import Companies from './Companies'
 
 function HomePage() {
     return (
         <div>
-            <header className="masthead">
-                <div className="container">
-                    <div className="masthead-subheading">Dobro došla u naš salon!</div>
-                    <div className="masthead-heading text-uppercase">Radujemo se da te upoznamo</div>
-                    <a className="btn btn-primary btn-xl text-uppercase" href="#services">Saznaj više</a>
-                </div>
-            </header>
+            <Home />
+            <TypesOfService />
+            <Services />
+            <AboutPage />
+            <Team />
+            <Companies />
         </div>
     )
 }

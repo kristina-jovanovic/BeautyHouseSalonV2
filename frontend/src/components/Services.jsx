@@ -1,15 +1,16 @@
 import React from 'react'
-import OneService from './OneTypeOfService'
+import OneService from './OneService'
 
-function Usluge() {
+function Services() {
     return (
         <section className="page-section bg-light" id="portfolio">
             <div className="container">
                 <div className="text-center">
-                    <h2 className="section-heading text-uppercase">Portfolio</h2>
-                    <h3 className="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h2 className="section-heading text-uppercase">Usluge</h2>
+                    <h3 className="section-subheading text-muted">Izaberi i zakaži tretman za sebe.</h3>
                 </div>
                 <div className="row">
+                    <OneService />
                     <OneService />
                     <OneService />
                     <OneService />
@@ -22,4 +23,4 @@ function Usluge() {
     )
 }
 
-export default Usluge
+export default Services

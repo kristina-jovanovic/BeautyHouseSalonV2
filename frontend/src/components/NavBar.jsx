@@ -59,11 +59,11 @@ function NavBar() {
                     <ul className="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                         {/* na klik bilo koje stavke iz menija, prebacicemo se na taj deo stranice i meni ce se zatvoriti jer smo ubacili handleNavCollapse,
                         tj. u ovom slucaju simuliramo klik na toggle button */}
-                        <li className="nav-item"><a className="nav-link" href="#services" onClick={handleNavCollapse}>Services</a></li>
-                        <li className="nav-item"><a className="nav-link" href="#portfolio" onClick={handleNavCollapse}>Portfolio</a></li>
-                        <li className="nav-item"><a className="nav-link" href="#about" onClick={handleNavCollapse}>About</a></li>
-                        <li className="nav-item"><a className="nav-link" href="#team" onClick={handleNavCollapse}>Team</a></li>
-                        <li className="nav-item"><a className="nav-link" href="#contact" onClick={handleNavCollapse}>Contact</a></li>
+                        <li className="nav-item"><a className="nav-link" href="#services" onClick={handleNavCollapse}>Tipovi usluga</a></li>
+                        <li className="nav-item"><a className="nav-link" href="#portfolio" onClick={handleNavCollapse}>Usluge</a></li>
+                        <li className="nav-item"><a className="nav-link" href="#about" onClick={handleNavCollapse}>O nama</a></li>
+                        <li className="nav-item"><a className="nav-link" href="#team" onClick={handleNavCollapse}>Tim</a></li>
+                        <li className="nav-item"><a className="nav-link" href="#contact" onClick={handleNavCollapse}>Kontakt</a></li>
                     </ul>
                 </div>
             </div>

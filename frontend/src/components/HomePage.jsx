@@ -5,9 +5,9 @@ function HomePage() {
         <div>
             <header className="masthead">
                 <div className="container">
-                    <div className="masthead-subheading">Welcome To Our Studio!</div>
-                    <div className="masthead-heading text-uppercase">It's Nice To Meet You</div>
-                    <a className="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a>
+                    <div className="masthead-subheading">Dobro došla u naš salon!</div>
+                    <div className="masthead-heading text-uppercase">Radujemo se da te upoznamo</div>
+                    <a className="btn btn-primary btn-xl text-uppercase" href="#services">Saznaj više</a>
                 </div>
             </header>
         </div>

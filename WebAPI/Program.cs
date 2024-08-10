@@ -33,6 +33,19 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
 	});
 
+//allowing my react app on port 3000 to connect ?
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy("AllowLocalhost3000",
+		builder =>
+		{
+			builder.WithOrigins("http://localhost:3000")
+				   .AllowAnyHeader()
+				   .AllowAnyMethod()
+				   .AllowCredentials();
+		});
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -43,6 +56,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowLocalhost3000"); // Ovo omogucava CORS politiku
 
 app.UseAuthentication(); //dodata autentikacija
 app.UseAuthorization();

@@ -7,7 +7,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './index.css';
 import axios from 'axios';
 
-axios.defaults.baseURL = "http://localhost:5170/";
+axios.defaults.baseURL = "https://localhost:7232/";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

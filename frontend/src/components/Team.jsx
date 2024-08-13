@@ -9,9 +9,9 @@ function Team() {
                     <h2 className="section-heading text-uppercase">Naš tim</h2>
                     <h3 className="section-subheading text-muted">Upoznajte ljude koji čine da zablistate spolja i iznutra.</h3>
                 </div>
-                <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
+                <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel">
+                    <div className="carousel-inner">
+                        <div className="carousel-item active">
                             <div className="row">
                                 <Worker />
                                 <Worker />
@@ -19,7 +19,7 @@ function Team() {
 
                             </div>
                         </div>
-                        <div class="carousel-item">
+                        <div className="carousel-item">
                             <div className="row">
                                 <Worker />
                                 <Worker />
@@ -27,7 +27,7 @@ function Team() {
 
                             </div>
                         </div>
-                        <div class="carousel-item">
+                        <div className="carousel-item">
                             <div className="row">
                                 <Worker />
                                 <Worker />

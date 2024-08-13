@@ -1,37 +1,42 @@
 import React, { useEffect, useState } from 'react'
 import OneTypeOfService from './OneTypeOfService'
 import axios from 'axios';
+import Loader from './Loader';
 
 function TypesOfService() {
+    const [loading, setLoading] = useState(true);
 
-    // const [typesOfService, setTypesOfService] = useState();
-    // useEffect(() => {
-    //     if (typesOfService == null) {
-    //         let config = {
-    //             method: 'get',
-    //             maxBodyLength: Infinity,
-    //             url: 'api/TipoviUsluga',
-    //             headers: {
-    //                 'Access-Control-Allow-Origin': '*',
-    //             }
-    //         };
+    const [typesOfService, setTypesOfService] = useState();
+    useEffect(() => {
+        if (typesOfService == null) {
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: 'api/TipoviUsluga'
+            };
 
-    //         axios.request(config)
-    //             .then((response) => {
-    //                 console.log(JSON.stringify(response));
-    //                 console.log(JSON.stringify(response.data));
-    //                 setTypesOfService(response.data);
-    //             })
-    //             .catch((error) => {
-    //                 console.log(error);
-    //             });
+            axios.request(config)
+                .then((response) => {
+                    console.log(JSON.stringify(response.data));
+                    setTypesOfService(response.data);
+                    setLoading(false);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
 
-    //     }
+        }
 
-    //     // Access to XMLHttpRequest at 'http://localhost:5170/api/TipoviUsluga' from origin 'http://localhost:3000' 
-    //     // has been blocked by CORS policy: Response to preflight request doesn't pass access control check: Redirect is not allowed for a preflight request.
-    // }, [typesOfService]);
+    }, [typesOfService]);
 
+    let icons = [
+        "fa-wand-sparkles",
+        "fa-scissors",
+        "fa-paintbrush",
+        "fa-hand-sparkles",
+        "fa-spray-can-sparkles",
+        // "fa-wand-magic-sparkles",
+    ];
 
     return (
         <div>
@@ -41,15 +46,24 @@ function TypesOfService() {
                         <h2 className="section-heading text-uppercase">Tipovi usluga</h2>
                         <h3 className="section-subheading text-muted">Pogledaj šta te sve očekuje u našem salonu.</h3>
                     </div>
-                    <div className="row text-center">
-                        <OneTypeOfService />
-                        <OneTypeOfService />
-                        <OneTypeOfService />
-                        <OneTypeOfService />
-                        <OneTypeOfService />
-                    </div>
+                    {loading ? (
+                        <div className='d-flex justify-content-center align-items-center'>
+                            <Loader />
+                        </div>
+                    ) : (
+                        <div className="row text-center">
+                            {typesOfService?.map((type, index) => (
+                                <OneTypeOfService
+                                    type={type}
+                                    key={type.tipUslugeID}
+                                    iconClass={icons[index]}
+                                />
+                            ))}
+                        </div>
+                    )}
                 </div>
             </section>
+
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import logo from '../resources/BeautyHouseLogo.png'
 
-function OneService() {
+function OneService({ service }) {
     return (
         <div className="col-lg-4 col-sm-6 mb-4">
             <div className="portfolio-item">
@@ -15,8 +15,8 @@ function OneService() {
                     <img className="img-fluid" src={logo} alt="..." />
                 </a>
                 <div className="portfolio-caption">
-                    <div className="portfolio-caption-heading">Threads</div>
-                    <div className="portfolio-caption-subheading text-muted">Illustration</div>
+                    <div className="portfolio-caption-heading">{service.naziv}</div>
+                    <div className="portfolio-caption-subheading text-muted">{service.tipUsluge.nazivTipaUsluge}</div>
                 </div>
             </div>
         </div>

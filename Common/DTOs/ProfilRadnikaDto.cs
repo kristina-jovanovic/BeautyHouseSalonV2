@@ -12,7 +12,7 @@ namespace Common.DTOs
 		public string Ime { get; set; }
 		public string Prezime { get; set; }
 		public string Opis { get; set; }
-		//public byte[] Fotografija { get; set; }
+		public string Fotografija { get; set; } //url fotografije
 		public TipUslugeDto TipUsluge { get; set; }
 	}
 }

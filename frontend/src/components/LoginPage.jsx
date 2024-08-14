@@ -60,7 +60,7 @@ function LoginPage({ addToken, addUser, token }) {
                         addUser(response.data.user);
                     }
                     else {
-                        setMessage('Pogresni kredencijali!');
+                        setMessage(response.data.message);
                         handleShow();
                     }
                 })

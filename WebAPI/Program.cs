@@ -56,9 +56,10 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 // Ovo omogucava CORS politiku, odobri pristup svakoj metodi za aplikaciju sa porta 3000
-app.UseCors(
-		options => options.WithOrigins("http://localhost:3000").AllowAnyMethod()
-	);
+//app.UseCors(
+//		options => options.WithOrigins("http://localhost:3000").AllowAnyMethod()
+//	);
+app.UseCors("MyPolicy"); //MyPolicy dodata, omogucava pristup bilo odakle, ka bilo kojoj metodi i uz bilo koji header
 
 app.UseAuthentication(); //dodata autentikacija
 app.UseAuthorization();

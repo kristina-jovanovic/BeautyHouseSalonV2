@@ -42,7 +42,9 @@ namespace WebAPI.Controllers
 				//ako vrati null znaci da je korisnicko ime zauzeto i da ne moze da kreira novi korisnicki nalog
 				return Problem("Korisnicko ime koje ste uneli je zauzeto. Pokusajte ponovo.");
 			}
-			return Ok("Uspesno ste se registrovali!");
+			//napravi token i vrati ga
+			var jwtToken = tokenRepository.CreateJWTToken(korisnik);
+			return Ok(new { Success = true, User = mapper.Map<KorisnikDto>(korisnik), JwtToken = jwtToken });
 		}
 
 		[HttpPost]
@@ -69,7 +71,7 @@ namespace WebAPI.Controllers
 			}
 			//napravi token i vrati ga
 			var jwtToken = tokenRepository.CreateJWTToken(korisnik);
-			return Ok(new { Message = "Uspesno ste se prijavili!", JwtToken = jwtToken });
+			return Ok(new { Success=true, User=mapper.Map<KorisnikDto>(korisnik), JwtToken = jwtToken });
 		}
 	}
 }

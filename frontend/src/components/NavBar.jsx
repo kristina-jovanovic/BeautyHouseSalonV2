@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import logo from '../resources/BeautyHouseLogo.png'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import Footer from './Footer';
+import { Button, Modal } from 'react-bootstrap';
 
-function NavBar() {
+function NavBar({ token, addToken, addUser }) {
+    let navigate = useNavigate();
+
+    function handleLogout() {
+        window.sessionStorage.setItem("auth_token", null);
+        addToken(null);
+        addUser(null);
+        // navigate('/');
+    }
 
     // pratimo stanje da li je navbar zatvoren, tj toggle button 'ugasen', na pocetku jeste
     const [isNavCollapsed, setIsNavCollapsed] = useState(true);
@@ -42,6 +51,11 @@ function NavBar() {
     //postavljamo stanje na suprotno od sadasnjeg, kada se (ponovo) klikne na toggle dugme
     const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
 
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
@@ -65,11 +79,33 @@ function NavBar() {
                             <li className="nav-item"><a className="nav-link" href="#portfolio" onClick={handleNavCollapse}>Usluge</a></li>
                             <li className="nav-item"><a className="nav-link" href="#about" onClick={handleNavCollapse}>O nama</a></li>
                             <li className="nav-item"><a className="nav-link" href="#team" onClick={handleNavCollapse}>Tim</a></li>
-                            <li className="nav-item"><a className="nav-link" href="#contact" onClick={handleNavCollapse}>Kontakt</a></li>
+                            {token == null ? (<li className="nav-item"><a className="nav-link" href="/login">Prijavi se</a></li>) : (
+                                <li className="nav-item"><a className="nav-link" onClick={handleShow} style={{cursor:"pointer"}}>Odjavi se</a></li>
+                            )}
                         </ul>
                     </div>
                 </div>
             </nav>
+            <Modal show={show} onHide={handleClose} >
+                <Modal.Header closeButton>
+                    <Modal.Title>Upozorenje</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Da li si sigurna da želiš da se odjaviš?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="outline-primary" onClick={() => {
+                        handleLogout();
+                        handleClose();
+                        navigate('/');
+                    }}>
+                        Da
+                    </Button>
+                    <Button variant="primary" onClick={() => {
+                        handleClose();
+                    }}>
+                        Ne
+                    </Button>
+                </Modal.Footer>
+            </Modal>
             <Outlet />
             <Footer />
         </div>

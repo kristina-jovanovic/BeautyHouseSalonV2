@@ -32,7 +32,7 @@ namespace WebAPI.Controllers
 			korisnik.KodZaEnkripciju = Convert.ToBase64String(salt);
 			//na osnovu ovog salta tj. koda za enkripciju cemo kasnije i prilikom logina proveravati ispravnost unete lozinke (to je implementirano 
 			//na serverskoj strani u UlogujKorisnikaAsync(korisnik) i metodama koje ta metoda koristi
-			korisnik.Lozinka = HashFunction.HashPassword(korisnik.Lozinka, salt); 
+			korisnik.Lozinka = HashFunction.HashPassword(korisnik.Lozinka, salt);
 			//u metodu se salje lozinka u formatu u kom ju je korisnik uneo, a vraca se
 			//hashovana lozinka i upisuje u property Lozinka
 
@@ -40,7 +40,7 @@ namespace WebAPI.Controllers
 			if (korisnik == null)
 			{
 				//ako vrati null znaci da je korisnicko ime zauzeto i da ne moze da kreira novi korisnicki nalog
-				return Problem("Korisnicko ime koje ste uneli je zauzeto. Pokusajte ponovo.");
+				return Ok(new { Success = false, Message = "Korisnicko ime koje ste uneli je zauzeto. Pokusajte ponovo." });
 			}
 			//napravi token i vrati ga
 			var jwtToken = tokenRepository.CreateJWTToken(korisnik);
@@ -63,15 +63,15 @@ namespace WebAPI.Controllers
 			}
 			catch (Server.Exceptions.WrongPasswordException)
 			{
-				return Problem("Uneli ste pogresnu lozinku za uneto korisnicko ime. Pokusajte ponovo.");
+				return Ok(new { Success = false, Message = "Uneli ste pogresnu lozinku za uneto korisnicko ime. Pokusajte ponovo." });
 			}
 			if (korisnik == null)
 			{
-				return Problem("Korisnik sa unetim korisnickim imenom ne postoji. Pokusajte ponovo.", statusCode: 404);
+				return Ok(new { Success = false, Message = "Korisnik sa unetim korisnickim imenom ne postoji. Pokusajte ponovo." });
 			}
 			//napravi token i vrati ga
 			var jwtToken = tokenRepository.CreateJWTToken(korisnik);
-			return Ok(new { Success=true, User=mapper.Map<KorisnikDto>(korisnik), JwtToken = jwtToken });
+			return Ok(new { Success = true, User = mapper.Map<KorisnikDto>(korisnik), JwtToken = jwtToken });
 		}
 	}
 }

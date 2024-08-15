@@ -16,16 +16,6 @@ code {
 
 /* -------------------------------- */
 
-.gradient-custom-2 {
-  /* fallback for old browsers */
-  background: #fccb90;
-
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
-
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
-}
 
 @media (min-width: 768px) {
   .gradient-form {
@@ -2555,9 +2545,11 @@ textarea.form-control-lg {
 }
 
 .form-select:focus {
-  border-color: #ffe480;
+  color: #212529;
+  background-color: #fff;
+  border-color: #ff6eb7;
   outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(255, 200, 0, 0.25);
+  box-shadow: 0 0 0 0.1rem #f8aed3;
 }
 
 .form-select[multiple],
@@ -6725,7 +6717,9 @@ fieldset:disabled .btn {
 
   /* position: relative; */
 
-  top: 25%;
+  /* top: 25%; */
+  transform: translateY(-15%);
+
 
   /* transform: translateY(-25%); */
 }

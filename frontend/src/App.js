@@ -6,6 +6,7 @@ import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import { useState } from 'react';
 import RegisterPage from './components/RegisterPage';
+import ReservationPage from './components/ReservationPage';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
         </Route>
         <Route path='/login' element={<LoginPage addToken={addToken} addUser={addUser} token={token} />} />
         <Route path='/register' element={<RegisterPage addToken={addToken} addUser={addUser} token={token} />} />
+        <Route path='/reservation' element={<ReservationPage />} />
 
       </Routes>
 

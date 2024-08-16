@@ -15,16 +15,16 @@ function AboutPage() {
                 <div id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel">
                     <div className="carousel-inner" style={{ height: '65vh' }}>
                         <div className="carousel-item active" >
-                            <img src={photo1} className="d-block w-100 img-fluid card-img-top image" alt="..." />
+                            <img src={photo1} className="d-block w-100 img-fluid card-img-top image" alt="salon photo" style={{ transform: "translateY(-15%)" }} />
                         </div>
                         <div className="carousel-item">
-                            <img src={photo2} className="d-block w-100 img-fluid card-img-top image" alt="..." />
+                            <img src={photo2} className="d-block w-100 img-fluid card-img-top image" alt="salon photo" style={{ transform: "translateY(-15%)" }} />
                         </div>
                         <div className="carousel-item">
-                            <img src={photo3} className="d-block w-100 img-fluid card-img-top image" alt="..." />
+                            <img src={photo3} className="d-block w-100 img-fluid card-img-top image" alt="salon photo" style={{ transform: "translateY(-15%)" }} />
                         </div>
                         <div className="carousel-item">
-                            <img src={photo4} className="d-block w-100 img-fluid card-img-top image" alt="..." />
+                            <img src={photo4} className="d-block w-100 img-fluid card-img-top image" alt="salon photo" style={{ transform: "translateY(-15%)" }} />
                         </div>
                     </div>
                     <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">

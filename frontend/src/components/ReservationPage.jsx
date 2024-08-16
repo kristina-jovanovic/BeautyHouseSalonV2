@@ -192,15 +192,15 @@ function ReservationPage() {
     const handleShow = () => setShow(true);
 
     return (
-        <section className="h-100 gradient-form"
-            style={{ padding: 0 }}
+        <section className="h-100 gradient-form bg-dark"
+            style={{ padding: "5rem 0" }}
         >
             <div className="container py-5 h-100" >
                 <div className="row d-flex justify-content-center align-items-center h-100">
                     <div className="col-xl-10">
                         <div className="card rounded-3 text-black bg-light">
                             <div className="row g-0">
-                                <div className="col-lg-8">
+                                <div className="col-12 col-lg-8">
                                     <div className="card-body p-md-5 mx-md-4">
 
                                         <div className="text-center">
@@ -259,14 +259,14 @@ function ReservationPage() {
                                         </form>
                                     </div>
                                 </div>
-                                <div className="col-lg-4 d-flex align-items-center" style={{
+                                <div className="col-12 col-lg-4 d-flex align-items-center" style={{
                                     // backgroundColor: "#ff6eb7" 
                                     // backgroundImage: `url(${photo})`,
                                     backgroundImage: 'url(https://i.shgcdn.com/96050615-b80f-4062-8a1f-643472712403/-/format/auto/-/preview/3000x3000/-/quality/lighter/)',
                                     backgroundSize: 'cover', // Osigurava da se slika skalira
-                                    backgroundPosition: 'center' // Centriranje slike
+                                    backgroundPosition: 'center', // Centriranje slike
+                                    minHeight:'300px'
                                 }}>
-
                                 </div>
                             </div>
                         </div>

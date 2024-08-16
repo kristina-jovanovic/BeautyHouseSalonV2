@@ -23,12 +23,12 @@ function App() {
   return (
     <BrowserRouter className="App">
       <Routes>
-        <Route path='/' element={<NavBar addToken={addToken} addUser={addUser} token={token}/>}>
+        <Route path='/' element={<NavBar addToken={addToken} addUser={addUser} token={token} />}>
           <Route path='/' element={<HomePage />} />
+          <Route path='/reservation' element={<ReservationPage />} />
+          <Route path='/login' element={<LoginPage addToken={addToken} addUser={addUser} token={token} />} />
+          <Route path='/register' element={<RegisterPage addToken={addToken} addUser={addUser} token={token} />} />
         </Route>
-        <Route path='/login' element={<LoginPage addToken={addToken} addUser={addUser} token={token} />} />
-        <Route path='/register' element={<RegisterPage addToken={addToken} addUser={addUser} token={token} />} />
-        <Route path='/reservation' element={<ReservationPage />} />
 
       </Routes>
 

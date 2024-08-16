@@ -6718,7 +6718,7 @@ fieldset:disabled .btn {
   /* position: relative; */
 
   /* top: 25%; */
-  transform: translateY(-15%);
+  /* transform: translateY(-15%); */
 
 
   /* transform: translateY(-25%); */
@@ -12751,6 +12751,23 @@ p {
   height: 1.5rem;
 }
 
+/* ------------------- */
+#mainNav .link {
+  font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 0.95rem;
+  text-decoration: none;
+  color: #fff;
+  letter-spacing: 0.0625em;
+}
+
+#mainNav .link.active,
+#mainNav .link:hover {
+  color: #ff6eb7;
+}
+
+/* ------------------- */
+
+
 #mainNav .navbar-nav .nav-item .nav-link {
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 0.95rem;
@@ -12763,7 +12780,7 @@ p {
   color: #ff6eb7;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1206px) {
   #mainNav {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;

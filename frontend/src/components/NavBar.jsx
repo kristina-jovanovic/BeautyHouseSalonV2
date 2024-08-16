@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import logo from '../resources/BeautyHouseLogo.png'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import Footer from './Footer';
 import { Button, Modal } from 'react-bootstrap';
+import { animateScroll as scroll, scroller } from 'react-scroll';
 
 function NavBar({ token, addToken, addUser }) {
     let navigate = useNavigate();
@@ -48,8 +49,25 @@ function NavBar({ token, addToken, addUser }) {
         };
     }, []);
 
+    let location = useLocation();
+    //scroll-ujemo na odredjeni id - za usluge, tim ...
+    useEffect(() => {
+        const hash = location.hash;
+        if (hash) {
+            const scrollTarget = hash.substring(1); // Ukloni "#" iz hash-a
+            scroller.scrollTo(scrollTarget, {
+                duration: 500,
+                delay: 0,
+                smooth: 'easeInOutQuart',
+            });
+        }
+    }, [location]);
+
     //postavljamo stanje na suprotno od sadasnjeg, kada se (ponovo) klikne na toggle dugme
     const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
+
+    //kada se klikne na dugme napravi rezervaciju, preusmeravamo se na tu stranicu
+    const navigateToRes = () => navigate('/reservation');
 
     const [show, setShow] = useState(false);
 
@@ -60,7 +78,9 @@ function NavBar({ token, addToken, addUser }) {
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
                 <div className="container">
-                    <a className="navbar-brand" href="#page-top">Beauty House</a>
+                    <Link className="navbar-brand" to="/#page-top">Beauty House</Link>
+                    <Link className='link text-uppercase' to="/reservation">Napravi rezervaciju</Link>
+
                     <button
                         className="navbar-toggler"
                         type="button"
@@ -75,12 +95,12 @@ function NavBar({ token, addToken, addUser }) {
                         <ul className="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                             {/* na klik bilo koje stavke iz menija, prebacicemo se na taj deo stranice i meni ce se zatvoriti jer smo ubacili handleNavCollapse,
                         tj. u ovom slucaju simuliramo klik na toggle button */}
-                            <li className="nav-item"><a className="nav-link" href="#services" onClick={handleNavCollapse}>Tipovi usluga</a></li>
-                            <li className="nav-item"><a className="nav-link" href="#portfolio" onClick={handleNavCollapse}>Usluge</a></li>
-                            <li className="nav-item"><a className="nav-link" href="#about" onClick={handleNavCollapse}>O nama</a></li>
-                            <li className="nav-item"><a className="nav-link" href="#team" onClick={handleNavCollapse}>Tim</a></li>
-                            {token == null ? (<li className="nav-item"><a className="nav-link" href="/login">Prijavi se</a></li>) : (
-                                <li className="nav-item"><a className="nav-link" onClick={handleShow} style={{cursor:"pointer"}}>Odjavi se</a></li>
+                            <li className="nav-item"><Link className="nav-link" to="/#services" onClick={handleNavCollapse}>Tipovi usluga</Link></li>
+                            <li className="nav-item"><Link className="nav-link" to="/#portfolio" onClick={handleNavCollapse}>Usluge</Link></li>
+                            <li className="nav-item"><Link className="nav-link" to="/#about" onClick={handleNavCollapse}>O nama</Link></li>
+                            <li className="nav-item"><Link className="nav-link" to="/#team" onClick={handleNavCollapse}>Tim</Link></li>
+                            {token == null ? (<li className="nav-item"><Link className="nav-link" to="/login">Prijavi se</Link></li>) : (
+                                <li className="nav-item"><Link className="nav-link" onClick={handleShow} style={{ cursor: "pointer" }}>Odjavi se</Link></li>
                             )}
                         </ul>
                     </div>

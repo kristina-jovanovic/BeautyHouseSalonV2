@@ -80,8 +80,8 @@ function LoginPage({ addToken, addUser, token }) {
     const register = () => navigate('/register');
 
     return (
-        <section className="h-100 gradient-form"
-            style={{ padding: 0 }}
+        <section className="h-100 gradient-form bg-dark"
+            style={{ padding: "5rem 0" }}
         >
             <div className="container py-5 h-100" >
                 <div className="row d-flex justify-content-center align-items-center h-100">

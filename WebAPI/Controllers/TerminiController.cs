@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Common.Communication;
 using Common.Domain;
 using Common.DTOs;
 using Microsoft.AspNetCore.Http;
@@ -12,10 +13,12 @@ namespace WebAPI.Controllers
 	public class TerminiController : ControllerBase
 	{
 		private readonly IMapper mapper;
+		private readonly EmailSender emailSender;
 
-		public TerminiController(IMapper mapper)
+		public TerminiController(IMapper mapper, EmailSender emailSender)
 		{
 			this.mapper = mapper;
+			this.emailSender = emailSender;
 		}
 
 		[HttpGet]
@@ -51,9 +54,10 @@ namespace WebAPI.Controllers
 			zahtevi = await Server.Controller.Instance.KreirajZahteveZaRezervacijuTerminaAsync(zahtevi);
 			if (zahtevi == null || zahtevi.Count == 0)
 			{
-				return BadRequest();
+				return Ok(new {Success=false});
 			}
-			return Ok(mapper.Map<List<ZahtevZaRezervacijuTerminaDto>>(zahtevi));
+			emailSender.SendEmail(zahtevi, StatusZahteva.NaCekanju);
+			return Ok(new { Success=true, Termini=mapper.Map<List<ZahtevZaRezervacijuTerminaDto>>(zahtevi) } );
 		}
 		[HttpPost]
 		[Route("proveri-raspolozivost")]

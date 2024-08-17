@@ -1,6 +1,9 @@
+using Common.Communication;
+using Common.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using WebAPI.Configuration;
 using WebAPI.Mappings;
 using WebAPI.Repositories;
 
@@ -43,6 +46,10 @@ builder.Services.AddCors(o =>
 			   .AllowAnyHeader();
 	});
 });
+
+//dodata konfiguracija 
+builder.Services.AddSingleton<IAppConfiguration, WebApiConfiguration>();
+builder.Services.AddSingleton<EmailSender>();
 
 var app = builder.Build();
 

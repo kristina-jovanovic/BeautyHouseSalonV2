@@ -1,11 +1,22 @@
 import axios from 'axios';
+import { format, formatISO } from 'date-fns';
 import React, { useEffect, useState } from 'react'
 import { Button, Modal } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
-function ReservationPage() {
+function ReservationPage({ token, user }) {
 
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState('');
+    const [title, setTitle] = useState("Greška");
+    let navigate = useNavigate();
+
+    useEffect(() => {
+        if (token == null) {
+            setMessage("Da biste napravili rezervaciju, prvo morate da se ulogujete.");
+            handleShow();
+        }
+    })
 
     //ucitavanje tipova usluga sa servera tj. iz baze
     const [typesOfService, setTypesOfService] = useState();
@@ -80,8 +91,8 @@ function ReservationPage() {
         tipUsluge: '',
         usluga: '',
         radnik: '',
-        korisnik: '',
-        termin: '',
+        korisnik: user?.korisnikID,
+        datumIVremeTermina: '',
         napomena: ''
     });
     // console.log(reservationData);
@@ -143,7 +154,7 @@ function ReservationPage() {
         }
     }, [workers]);
 
-    //za popunjavanje dropdown liste sa terminima
+    //za popunjavanje dropdown liste sa datumIVremeTerminaima
     const [timeSlots, setTimeSlots] = useState([]);
     useEffect(() => {
         const generateTimeSlots = () => {
@@ -152,11 +163,11 @@ function ReservationPage() {
 
             let start = new Date(); //danas
             if (start.getHours() >= lastHour) {
-                //ako je danasnje radno vreme proslo, postavi vreme za sutra i prvi termin u 9h
+                //ako je danasnje radno vreme proslo, postavi vreme za sutra i prvi datumIVremeTermina u 9h
                 start.setHours(firstHour, 0, 0, 0);
                 start.setDate(start.getDate() + 1); // Pomeri za sledeći dan
             } else {
-                //ako i dalje traje radno vreme danas, dodaj prvi termin za prvi naredni pun sat
+                //ako i dalje traje radno vreme danas, dodaj prvi datumIVremeTermina za prvi naredni pun sat
                 start.setHours(start.getHours() + 1, 0, 0, 0); // Postavi na sledeći puni sat
             }
 
@@ -169,7 +180,7 @@ function ReservationPage() {
                 //za svaki dan do kraja
                 if (start.getHours() >= firstHour && start.getHours() < lastHour) {
                     //ako je start.getHours() u okviru radnog vremena,
-                    slots.push(new Date(start)); // Dodaj termin u listu
+                    slots.push(new Date(start)); // Dodaj datumIVremeTermina u listu
                     start.setHours(start.getHours() + 1); // Pomeri za jedan sat na dalje
                 } else {
                     // radno vreme za danas je proslo, pomeri na sutrasnji datum i na prvi radni sat
@@ -182,7 +193,119 @@ function ReservationPage() {
         generateTimeSlots();
     }, []);
 
+    useEffect(() => {
+        // kada se datumIVremeTermina automatski menja, poziva se handleInput
+        if (reservationData.datumIVremeTermina) {
+            handleInput({ target: { name: 'datumIVremeTermina', value: reservationData.datumIVremeTermina } });
+        }
+    }, [reservationData.datumIVremeTermina]);
+
+    useEffect(() => {
+        //kada se promeni lista datumIVremeTerminaa tj. ucita se na pocetku
+        if (timeSlots && timeSlots.length > 0) {
+            setReservationData(prevData => ({
+                ...prevData,
+                datumIVremeTermina: timeSlots[0] // postavlja prvi datumIVremeTermina kao podrazumevan
+            }));
+        }
+    }, [timeSlots]);
+
     function rezervisi(e) {
+        e.preventDefault();
+
+        if (reservationData.tipUsluge === '' || reservationData.usluga === '' || reservationData.radnik === '' || reservationData.datumIVremeTermina === '') {
+            setMessage("Sva polja osim napomene su obavezna.");
+            handleShow();
+        }
+        else {
+            const termin = Date.parse(reservationData.datumIVremeTermina);
+            console.log(termin);
+            const formatiranTermin = format(termin, "yyyy-MM-dd'T'HH:mm");
+            // const formatiranTermin = formatISO(termin, { representation: 'complete' });
+            console.log(formatiranTermin);
+            reservationData.datumIVremeTermina = formatiranTermin;
+
+            const datum = new Date();
+            console.log(datum);
+            const formatiranDatum = format(datum, "yyyy-MM-dd'T'HH:mm:ss");
+            // const formatiranDatum = formatISO(datum, { representation: 'complete' });
+            console.log(formatiranDatum);
+
+
+            const data = {
+                usluga: { "uslugaID": reservationData.usluga },
+                korisnik: { "korisnikID": user?.korisnikID },
+                napomena: reservationData.napomena,
+                datumIVremeTermina: formatiranTermin,
+                radnik: { "radnikID": reservationData.radnik },
+                vremeKreiranja: formatiranDatum,
+                statusZahteva: 0
+            };
+            console.log(JSON.stringify(data));
+            let config = {
+                method: 'post',
+                maxBodyLength: Infinity,
+                url: 'api/Termini/proveri-raspolozivost',
+                data: data,
+                headers: {
+                    'Content-Type': 'application/json', // Osigurava da server prepozna da saljem JSON
+                    //     'Authorization': 'Bearer ' + token
+                }
+            };
+
+            axios.request(config)
+                .then((response) => {
+                    console.log(JSON.stringify(response.data));
+                    if (response.data === true) {
+                        //termin kod izabranog radnika je za sada slobodan
+
+                        const dataList = [data];
+                        console.log(JSON.stringify(dataList));
+
+
+                        let newConfig = {
+                            method: 'post',
+                            maxBodyLength: Infinity,
+                            url: 'api/Termini',
+                            data: dataList,
+                            headers: {
+                                'Content-Type': 'application/json', // Osigurava da server prepozna da saljem JSON
+                                //     'Authorization': 'Bearer ' + token
+                            }
+                        };
+                        axios.request(newConfig)
+                            .then((response) => {
+                                console.log(JSON.stringify(response.data));
+                                if (response.data.success === true) {
+                                    setMessage("Zahtev za rezervaciju je uspešno poslat! Kada se rezervacija potvrdi ili odbije, stići će ti poruka na email adresu koju si navela prilikom kreiranja naloga.");
+                                    setTitle("Potvrda");
+                                    handleShow();
+                                }
+                                else {
+                                    setMessage("Došlo je do greške.")
+                                    handleShow();
+                                }
+
+                            })
+                            .catch((error) => {
+                                setMessage(error);
+                                handleShow();
+                            });
+
+
+                    }
+                    else {
+                        setMessage("Izabrani radnik je već zauzet u izabranom terminu. Izmenite željeni termin ili radnika.");
+                        handleShow();
+                    }
+                })
+                .catch((error) => {
+                    setMessage(error);
+                    handleShow();
+                });
+
+            // navigate('/');
+        }
 
     }
 
@@ -209,7 +332,7 @@ function ReservationPage() {
                                             >BEAUTY HOUSE</h4>
                                         </div>
 
-                                        <form onSubmit={rezervisi}>
+                                        <form>
                                             <div data-mdb-input-init className="form-outline mb-4">
                                                 <label htmlFor="sel1">Tip usluge</label>
                                                 <select className="form-select" id="sel1" onChange={handleInput} name='tipUsluge'
@@ -241,13 +364,18 @@ function ReservationPage() {
                                             </div>
                                             <div data-mdb-input-init className="form-outline mb-4">
                                                 <label htmlFor="sel4">Termin</label>
-                                                <select className="form-select" id="sel4" onChange={handleInput} name='termin'>
+                                                <select className="form-select" id="sel4" onChange={handleInput} name='datumIVremeTermina'>
                                                     {timeSlots.map((slot, index) => (
                                                         <option key={index} value={slot.toISOString()}>
                                                             {slot.toLocaleString('sr-RS', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
                                                         </option>
                                                     ))}
                                                 </select>
+                                            </div>
+                                            <div data-mdb-input-init className="form-outline mb-4">
+                                                <label htmlFor="text1">Napomena</label>
+                                                <input type="text" id="text1" className="form-control"
+                                                    placeholder='Unesi napomenu (opciono)' onInput={(e) => handleInput(e)} name="napomena" />
                                             </div>
 
 
@@ -259,13 +387,13 @@ function ReservationPage() {
                                         </form>
                                     </div>
                                 </div>
-                                <div className="col-12 col-lg-4 d-flex align-items-center" style={{
+                                <div className="col-12 col-lg-4 d-flex align-items-center round-edges" style={{
                                     // backgroundColor: "#ff6eb7" 
                                     // backgroundImage: `url(${photo})`,
                                     backgroundImage: 'url(https://i.shgcdn.com/96050615-b80f-4062-8a1f-643472712403/-/format/auto/-/preview/3000x3000/-/quality/lighter/)',
                                     backgroundSize: 'cover', // Osigurava da se slika skalira
                                     backgroundPosition: 'center', // Centriranje slike
-                                    minHeight:'300px'
+                                    minHeight: '300px'
                                 }}>
                                 </div>
                             </div>
@@ -275,12 +403,19 @@ function ReservationPage() {
             </div>
             <Modal show={show} onHide={handleClose} >
                 <Modal.Header closeButton>
-                    <Modal.Title>Greška</Modal.Title>
+                    <Modal.Title>{title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>{message}</Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={() => {
                         handleClose();
+                        if(title==="Potvrda"){
+                            navigate('/');
+                        }
+                        setTitle("Greška");
+                        if (token == null) {
+                            navigate('/login');
+                        }
                     }}>
                         OK
                     </Button>

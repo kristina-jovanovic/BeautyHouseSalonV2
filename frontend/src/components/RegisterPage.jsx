@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import icon from '../resources/makeover.png'
 import { Button, Modal } from 'react-bootstrap';
 import axios from 'axios';
@@ -8,6 +8,12 @@ function RegisterPage({ addToken, addUser, token }) {
 
     let navigate = useNavigate();
     const [message, setMessage] = useState('');
+
+    useEffect(() => {
+        if (token != null) {
+            navigate('/');
+        }
+    })
 
     const [userData, setUserData] = useState({
         ime: '',
@@ -55,7 +61,7 @@ function RegisterPage({ addToken, addUser, token }) {
                         addUser(response.data.user);
                         navigate('/');
                     }
-                    else{
+                    else {
                         setMessage(response.data.message);
                         handleShow();
                     }
@@ -137,7 +143,7 @@ function RegisterPage({ addToken, addUser, token }) {
                                         </form>
                                     </div>
                                 </div>
-                                <div className="col-lg-4 d-flex align-items-center" style={{ backgroundColor: "#ff6eb7" }}>
+                                <div className="col-lg-4 d-flex align-items-center round-edges" style={{ backgroundColor: "#ff6eb7" }}>
                                     <div className="text-white px-3 py-4">
                                         <div style={{ textAlign: "center" }}>
                                             <img src={icon}

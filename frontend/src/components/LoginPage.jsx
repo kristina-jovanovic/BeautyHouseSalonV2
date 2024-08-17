@@ -125,7 +125,7 @@ function LoginPage({ addToken, addUser, token }) {
 
                                     </div>
                                 </div>
-                                <div className="col-lg-6 d-flex align-items-center" style={{ backgroundColor: "#ff6eb7" }}>
+                                <div className="col-lg-6 d-flex align-items-center round-edges" style={{ backgroundColor: "#ff6eb7" }}>
                                     <div className="text-white px-3 py-4 p-md-5 mx-md-4">
                                         <h4 className="mb-4">We are more than just a company</h4>
                                         <p className="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod

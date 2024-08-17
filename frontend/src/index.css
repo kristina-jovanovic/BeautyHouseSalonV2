@@ -6724,6 +6724,18 @@ fieldset:disabled .btn {
   /* transform: translateY(-25%); */
 }
 
+.round-edges {
+  border-radius: 0 10px 10px 0;
+  /* Zaobljene desne ivice */
+}
+
+@media (max-width: 992px) {
+  .round-edges {
+    border-radius: 0 0 10px 10px;
+    /* Zaobljene donje ivice */
+  }
+}
+
 /* --------- */
 
 .carousel-item.active,

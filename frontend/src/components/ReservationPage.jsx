@@ -54,7 +54,7 @@ function ReservationPage({ token, user }) {
         console.log(config.url);
         axios.request(config)
             .then((response) => {
-                // console.log(JSON.stringify(response.data));
+                console.log(JSON.stringify(response.data));
                 setServices(response.data);
                 setLoading(false);
             })
@@ -210,7 +210,9 @@ function ReservationPage({ token, user }) {
         }
     }, [timeSlots]);
 
-    function rezervisi(e) {
+    const [listaTermina, setListaTermina] = useState([]);
+
+    function dodajTerminUListu(e) {
         e.preventDefault();
 
         if (reservationData.tipUsluge === '' || reservationData.usluga === '' || reservationData.radnik === '' || reservationData.datumIVremeTermina === '') {
@@ -230,7 +232,6 @@ function ReservationPage({ token, user }) {
             const formatiranDatum = format(datum, "yyyy-MM-dd'T'HH:mm:ss");
             // const formatiranDatum = formatISO(datum, { representation: 'complete' });
             console.log(formatiranDatum);
-
 
             const data = {
                 usluga: { "uslugaID": reservationData.usluga },
@@ -257,42 +258,25 @@ function ReservationPage({ token, user }) {
                 .then((response) => {
                     console.log(JSON.stringify(response.data));
                     if (response.data === true) {
-                        //termin kod izabranog radnika je za sada slobodan
+                        //termin kod izabranog radnika je za sada slobodan, dodaj ga u listu
 
-                        const dataList = [data];
-                        console.log(JSON.stringify(dataList));
+                        const usluga = services.find((s) => s.uslugaID === data.usluga.uslugaID);
+                        const nazivUsluge = usluga ? usluga.naziv : 'Nepostojeca usluga';
 
+                        const radnik = workers.find((s) => s.radnikID === data.radnik.radnikID);
+                        const imeIPrezimeRadnika = radnik ? `${radnik.ime} ${radnik.prezime}` : 'Nepostojeci radnik';
 
-                        let newConfig = {
-                            method: 'post',
-                            maxBodyLength: Infinity,
-                            url: 'api/Termini',
-                            data: dataList,
-                            headers: {
-                                'Content-Type': 'application/json', // Osigurava da server prepozna da saljem JSON
-                                //     'Authorization': 'Bearer ' + token
+                        const datumIVreme = format(data.datumIVremeTermina, "yyyy-MM-dd HH:mm")
+
+                        setListaTermina((prev) => [
+                            ...prev,
+                            {
+                                ...data,
+                                nazivUsluge,
+                                imeIPrezimeRadnika,
+                                datumIVreme
                             }
-                        };
-                        axios.request(newConfig)
-                            .then((response) => {
-                                console.log(JSON.stringify(response.data));
-                                if (response.data.success === true) {
-                                    setMessage("Zahtev za rezervaciju je uspešno poslat! Kada se rezervacija potvrdi ili odbije, stići će ti poruka na email adresu koju si navela prilikom kreiranja naloga.");
-                                    setTitle("Potvrda");
-                                    handleShow();
-                                }
-                                else {
-                                    setMessage("Došlo je do greške.")
-                                    handleShow();
-                                }
-
-                            })
-                            .catch((error) => {
-                                setMessage(error);
-                                handleShow();
-                            });
-
-
+                        ]);
                     }
                     else {
                         setMessage("Izabrani radnik je već zauzet u izabranom terminu. Izmenite željeni termin ili radnika.");
@@ -308,6 +292,56 @@ function ReservationPage({ token, user }) {
         }
 
     }
+
+    function rezervisi(e) {
+        e.preventDefault();
+        if (listaTermina.length === 0) {
+            setMessage("Niste dodali ni jedan termin.");
+            handleShow();
+        }
+        else {
+            console.log(listaTermina);
+            let config = {
+                method: 'post',
+                maxBodyLength: Infinity,
+                url: 'api/Termini',
+                data: listaTermina,
+                headers: {
+                    'Content-Type': 'application/json', // Osigurava da server prepozna da saljem JSON
+                    //     'Authorization': 'Bearer ' + token
+                }
+            };
+            axios.request(config)
+                .then((response) => {
+                    console.log(JSON.stringify(response.data));
+                    if (response.data.success === true) {
+                        setMessage("Zahtev za rezervaciju je uspešno poslat! Kada se rezervacija potvrdi ili odbije, stići će ti poruka na email adresu koju si navela prilikom kreiranja naloga.");
+                        setTitle("Potvrda");
+                        handleShow();
+                    }
+                    else {
+                        setMessage("Došlo je do greške.")
+                        handleShow();
+                    }
+                })
+                .catch((error) => {
+                    setMessage(error);
+                    handleShow();
+                });
+        }
+    }
+
+    // funkcija za brisanje elementa iz liste i tabele
+    const obrisiElement = (e, elementZaBrisanje) => {
+        e.preventDefault();
+        // console.log(listaTermina);
+        // console.log(elementZaBrisanje);
+        const novaLista = listaTermina.filter(
+            (element) => !(element.usluga.uslugaID === elementZaBrisanje.usluga.uslugaID && element.radnik.radnikID === elementZaBrisanje.radnik.radnikID
+                && element.datumIVremeTermina === elementZaBrisanje.datumIVremeTermina)
+        );
+        setListaTermina(novaLista);
+    };
 
     const [show, setShow] = useState(false);
 
@@ -378,10 +412,43 @@ function ReservationPage({ token, user }) {
                                                     placeholder='Unesi napomenu (opciono)' onInput={(e) => handleInput(e)} name="napomena" />
                                             </div>
 
+                                            <div className="text-center pt-1 mb-5 pb-1">
+                                                <button type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-primary btn-block fa-lg mb-3"
+                                                    style={{ display: "block", width: "100%" }} onClick={dodajTerminUListu}>DODAJ TERMIN U LISTU</button>
+                                            </div>
+
+                                            <div data-mdb-input-init className="form-outline mb-4">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Rb.</th>
+                                                            <th scope="col">Usluga</th>
+                                                            <th scope="col">Radnik</th>
+                                                            <th scope="col">Termin</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {listaTermina.map((termin, index) => (
+                                                            <tr key={index}>
+                                                                <th scope="row">{index + 1}</th>
+                                                                <td>{termin.nazivUsluge}</td>
+                                                                <td>{termin.imeIPrezimeRadnika}</td>
+                                                                <td>{termin.datumIVreme}</td>
+                                                                <td>
+                                                                    {/* Dugme za brisanje */}
+                                                                    <button onClick={(e) => obrisiElement(e, termin)} className="btn btn-outline-primary">
+                                                                        Obriši
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
 
                                             <div className="text-center pt-1 mb-5 pb-1">
                                                 <button type="submit" data-mdb-button-init data-mdb-ripple-init className="btn btn-primary btn-block fa-lg mb-3"
-                                                    style={{ display: "block", width: "100%" }} onClick={rezervisi}>REZERVIŠI TERMIN</button>
+                                                    style={{ display: "block", width: "100%" }} onClick={rezervisi}>REZERVIŠI TERMINE IZ LISTE</button>
                                             </div>
 
                                         </form>
@@ -409,7 +476,7 @@ function ReservationPage({ token, user }) {
                 <Modal.Footer>
                     <Button variant="primary" onClick={() => {
                         handleClose();
-                        if(title==="Potvrda"){
+                        if (title === "Potvrda") {
                             navigate('/');
                         }
                         setTitle("Greška");

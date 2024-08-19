@@ -13,6 +13,7 @@ namespace Common.DTOs
 		public string Naziv { get; set; }
 		public double Cena { get; set; }
 		public int TrajanjeUMinutima { get; set; }
-		public TipUslugeDto TipUsluge { get; set; }
+        public string FotografijaUsluge { get; set; }
+        public TipUslugeDto TipUsluge { get; set; }
 	}
 }

@@ -50,7 +50,7 @@ function Services() {
                     <h3 className="section-subheading text-muted">Izaberi i zakaži tretman za sebe.</h3>
                 </div>
                 <div id="carouselExampleIndicators" className="carousel slide">
-                    <div className="carousel-indicators">
+                    <div className="carousel-indicators" style={{ marginBottom: 0 }}>
                         {serviceChunks?.map((chunk, index) => (
                             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={index} className={`bg-dark ${index === 0 ? "active" : ""}`} aria-current={index === 0 ? "true" : "false"} aria-label={`Slide ${index + 1}`}></button>
                         ))}

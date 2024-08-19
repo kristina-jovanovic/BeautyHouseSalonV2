@@ -105,6 +105,7 @@ namespace Common.Domain
                 Naziv = (string)reader["Naziv"],
                 Cena = (double)reader["Cena"],
                 TrajanjeUMinutima = (int)reader["TrajanjeUMinutima"],
+                FotografijaUsluge = (string)reader["FotografijaUsluge"],
                 TipUsluge = new TipUsluge
                 {
                     TipUslugeID = (int)reader["TipUslugeID"],

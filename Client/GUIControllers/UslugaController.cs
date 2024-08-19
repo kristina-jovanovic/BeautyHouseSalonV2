@@ -42,6 +42,7 @@ namespace Client.GUIControllers
                 ucUsluga.TxtNaziv.TextChanged += TxtNaziv_TextChanged;
                 ucUsluga.TxtCena.TextChanged += TxtCena_TextChanged;
                 ucUsluga.TxtTrajanje.TextChanged += TxtTrajanje_TextChanged;
+                ucUsluga.TxtFotoUsluge.TextChanged += TxtFotoUsluge_TextChanged;
                 ucUsluga.CbTipUsluge.SelectedIndexChanged += CbTipUsluge_SelectedIndexChanged;
                 ucUsluga.BtnSacuvaj.Click += BtnSacuvaj_Click;
             }
@@ -59,6 +60,7 @@ namespace Client.GUIControllers
                         usluga.Naziv = ucUsluga.TxtNaziv.Text;
                         usluga.Cena = double.Parse(ucUsluga.TxtCena.Text);
                         usluga.TrajanjeUMinutima = int.Parse(ucUsluga.TxtTrajanje.Text);
+                        usluga.FotografijaUsluge = ucUsluga.TxtFotoUsluge.Text;
                         usluga.TipUsluge = (TipUsluge)ucUsluga.CbTipUsluge.SelectedItem;
 
                         Usluga novaUsluga = await Communication.Instance.KreirajNovuUsluguAsync(usluga);
@@ -80,6 +82,7 @@ namespace Client.GUIControllers
                                 ucUsluga.TxtNaziv.Text = "";
                                 ucUsluga.TxtCena.Text = "";
                                 ucUsluga.TxtTrajanje.Text = "";
+                                ucUsluga.TxtFotoUsluge.Text = "";
                                 ucUsluga.CbTipUsluge.SelectedIndex = -1;
                             }
                             MessageBoxManager.Unregister();
@@ -96,6 +99,7 @@ namespace Client.GUIControllers
                         usluga.Naziv = ucUsluga.TxtNaziv.Text;
                         usluga.Cena = double.Parse(ucUsluga.TxtCena.Text);
                         usluga.TrajanjeUMinutima = int.Parse(ucUsluga.TxtTrajanje.Text);
+                        usluga.FotografijaUsluge = ucUsluga.TxtFotoUsluge.Text;
                         usluga.TipUsluge = (TipUsluge)ucUsluga.CbTipUsluge.SelectedItem;
 
                         if (Communication.Instance.IzmeniUsluguAsync(usluga) != null)
@@ -105,6 +109,7 @@ namespace Client.GUIControllers
                             ucUsluga.TxtNaziv.Enabled = false;
                             ucUsluga.TxtCena.Enabled = false;
                             ucUsluga.TxtTrajanje.Enabled = false;
+                            ucUsluga.TxtFotoUsluge.Enabled= false;
                             ucUsluga.CbTipUsluge.Enabled = false;
                         }
                         else
@@ -139,6 +144,7 @@ namespace Client.GUIControllers
                     ucUsluga.TxtNaziv.Text = "";
                     ucUsluga.TxtCena.Text = "";
                     ucUsluga.TxtTrajanje.Text = "";
+                    ucUsluga.TxtFotoUsluge.Text = "";
                     ucUsluga.CbTipUsluge.SelectedIndex = -1;
                 }
                 else if (res == DialogResult.No)
@@ -187,8 +193,14 @@ namespace Client.GUIControllers
                 ucUsluga.LblErrorTrajanje.Visible = true;
                 valid = false;
             }
+			if (string.IsNullOrEmpty(ucUsluga.TxtFotoUsluge.Text))
+			{
+				ucUsluga.LblErrorFoto.Text = "Morate uneti url fotografije usluge.";
+				ucUsluga.LblErrorFoto.Visible = true;
+				valid = false;
+			}
 
-            return valid;
+			return valid;
         }
 
         #region Text Changed dogadjaji
@@ -201,8 +213,12 @@ namespace Client.GUIControllers
         {
             ucUsluga.LblErrorTrajanje.Visible = false;
         }
-
-        private void TxtCena_TextChanged(object sender, EventArgs e)
+		private void TxtFotoUsluge_TextChanged(object sender, EventArgs e)
+		{
+			ucUsluga.LblErrorFoto.Visible = false;
+		}
+		
+		private void TxtCena_TextChanged(object sender, EventArgs e)
         {
             ucUsluga.LblErrorCena.Visible = false;
         }
@@ -353,6 +369,7 @@ namespace Client.GUIControllers
             ucUsluga.TxtNaziv.Enabled = true;
             ucUsluga.TxtCena.Enabled = true;
             ucUsluga.TxtTrajanje.Enabled = true;
+            ucUsluga.TxtFotoUsluge.Enabled = true;
             ucUsluga.CbTipUsluge.Enabled = true;
         }
 
@@ -361,6 +378,7 @@ namespace Client.GUIControllers
             ucUsluga.TxtNaziv.Text = usluga.Naziv;
             ucUsluga.TxtCena.Text = usluga.Cena.ToString();
             ucUsluga.TxtTrajanje.Text = usluga.TrajanjeUMinutima.ToString();
+            ucUsluga.TxtFotoUsluge.Text = usluga.FotografijaUsluge;
             //popunimo combo box prvo!!!
             await PopuniComboBox();
             ucUsluga.CbTipUsluge.SelectedItem = usluga.TipUsluge;
@@ -394,6 +412,7 @@ namespace Client.GUIControllers
                 ucPretrazivanjeUsluga.DgvPodaci.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 ucPretrazivanjeUsluga.DgvPodaci.Columns["TipUsluge"].DisplayIndex = 0;
                 ucPretrazivanjeUsluga.DgvPodaci.Columns["UslugaID"].Visible = false;
+                ucPretrazivanjeUsluga.DgvPodaci.Columns["FotografijaUsluge"].Visible = false;
                 ucPretrazivanjeUsluga.DgvPodaci.Columns["Values"].Visible = false;
                 ucPretrazivanjeUsluga.DgvPodaci.Columns["PrimaryKey"].Visible = false;
                 ucPretrazivanjeUsluga.DgvPodaci.Columns["TableName"].Visible = false;

@@ -28,7 +28,7 @@ namespace Common.Domain
 
 		public string JoinQuery => "u JOIN TipUsluge tu ON u.TipUsluge=tu.TipUslugeID";
 
-		public string UpdateQuery => $"Naziv='{Naziv}', Cena={Cena}, TrajanjeUMinutima={TrajanjeUMinutima}, FotografijaUsluge={FotografijaUsluge}, TipUsluge={TipUsluge.TipUslugeID}";
+		public string UpdateQuery => $"Naziv='{Naziv}', Cena={Cena}, TrajanjeUMinutima={TrajanjeUMinutima}, FotografijaUsluge='{FotografijaUsluge}', TipUsluge={TipUsluge.TipUslugeID}";
 
 		public string Aliaces => "";
 

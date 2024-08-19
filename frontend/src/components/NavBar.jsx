@@ -5,7 +5,7 @@ import Footer from './Footer';
 import { Button, Modal } from 'react-bootstrap';
 import { animateScroll as scroll, scroller } from 'react-scroll';
 
-function NavBar({ token, addToken, addUser }) {
+function NavBar({ token, addToken, addUser, addService }) {
     let navigate = useNavigate();
 
     function handleLogout() {
@@ -66,8 +66,11 @@ function NavBar({ token, addToken, addUser }) {
     //postavljamo stanje na suprotno od sadasnjeg, kada se (ponovo) klikne na toggle dugme
     const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
 
-    //kada se klikne na dugme napravi rezervaciju, preusmeravamo se na tu stranicu
-    const navigateToRes = () => navigate('/reservation');
+    //kada se klikne na napravi rezervaciju, preusmeravamo se na tu stranicu
+    function navigateToRes() {
+        addService(null);
+        navigate('/reservation');
+    }
 
     const [show, setShow] = useState(false);
 
@@ -79,7 +82,7 @@ function NavBar({ token, addToken, addUser }) {
             <nav className="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
                 <div className="container">
                     <Link className="navbar-brand" to="/#page-top">Beauty House</Link>
-                    <Link className='link text-uppercase' to="/reservation">Napravi rezervaciju</Link>
+                    <Link className='link text-uppercase' to="/reservation" onClick={navigateToRes}>Napravi rezervaciju</Link>
 
                     <button
                         className="navbar-toggler"

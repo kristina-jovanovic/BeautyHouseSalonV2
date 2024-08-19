@@ -6,12 +6,12 @@ import Team from './Team'
 import TypesOfService from './TypesOfService'
 import Companies from './Companies'
 
-function HomePage() {
+function HomePage({addService}) {
     return (
         <div>
             <Home />
             <TypesOfService />
-            <Services />
+            <Services addService={addService} />
             <AboutPage />
             <Team />
             <Companies />

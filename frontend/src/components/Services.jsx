@@ -3,7 +3,7 @@ import OneService from './OneService'
 import Loader from './Loader'
 import axios from 'axios';
 
-function Services() {
+function Services({addService}) {
     const [loading, setLoading] = useState(true);
 
     const [serviceChunks, setServiceChunks] = useState();
@@ -65,7 +65,7 @@ function Services() {
                                 <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={index}>
                                     <div className="row">
                                         {chunk.map((service) => (
-                                            <OneService service={service} key={service.uslugaId} />
+                                            <OneService service={service} addService={addService} key={service.uslugaId} />
                                         ))}
                                     </div>
                                 </div>

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-function ReservationPage({ token, user }) {
+function ReservationPage({ token, user, service, addService }) {
 
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState('');
@@ -17,6 +17,15 @@ function ReservationPage({ token, user }) {
             handleShow();
         }
     })
+
+    const [reservationData, setReservationData] = useState({
+        tipUsluge: '',
+        usluga: '',
+        radnik: '',
+        korisnik: user?.korisnikID,
+        datumIVremeTermina: '',
+        napomena: ''
+    });
 
     //ucitavanje tipova usluga sa servera tj. iz baze
     const [typesOfService, setTypesOfService] = useState();
@@ -33,6 +42,16 @@ function ReservationPage({ token, user }) {
                     // console.log(JSON.stringify(response.data));
                     setTypesOfService(response.data);
                     setLoading(false);
+                    if (service && service.tipUsluge) {
+                        setReservationData((prevData) => {
+                            const updatedData = {
+                                ...prevData,
+                                tipUsluge: service.tipUsluge.nazivTipaUsluge
+                            };
+                            // console.log('Updated reservationData:', updatedData);
+                            return updatedData;
+                        });
+                    }
                 })
                 .catch((error) => {
                     console.log(error);
@@ -54,9 +73,19 @@ function ReservationPage({ token, user }) {
         console.log(config.url);
         axios.request(config)
             .then((response) => {
-                console.log(JSON.stringify(response.data));
+                // console.log(JSON.stringify(response.data));
                 setServices(response.data);
                 setLoading(false);
+                // if (service) {
+                //     setReservationData((prevData) => {
+                //         const updatedData = {
+                //             ...prevData,
+                //             usluga: service.uslugaID
+                //         };
+                //         // console.log('Updated reservationData:', updatedData);
+                //         return updatedData;
+                //     });
+                // }
             })
             .catch((error) => {
                 console.log(error);
@@ -87,14 +116,6 @@ function ReservationPage({ token, user }) {
 
     }
 
-    const [reservationData, setReservationData] = useState({
-        tipUsluge: '',
-        usluga: '',
-        radnik: '',
-        korisnik: user?.korisnikID,
-        datumIVremeTermina: '',
-        napomena: ''
-    });
     // console.log(reservationData);
     function handleInput(e) {
         let { name, value } = e.target;
@@ -139,7 +160,7 @@ function ReservationPage({ token, user }) {
         if (services && services.length > 0) {
             setReservationData(prevData => ({
                 ...prevData,
-                usluga: services[0].uslugaID // postavlja prvu uslugu kao podrazumevanu
+                usluga: service ? service.uslugaID : services[0].uslugaID // postavlja prvu uslugu kao podrazumevanu, ili ako je service prosledjena kroz props onda postavi nju
             }));
         }
     }, [services]);
@@ -418,7 +439,7 @@ function ReservationPage({ token, user }) {
                                             </div>
 
                                             <div data-mdb-input-init className="form-outline mb-4">
-                                                <table class="table table-striped">
+                                                <table className="table table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th scope="col">Rb.</th>
@@ -477,10 +498,12 @@ function ReservationPage({ token, user }) {
                     <Button variant="primary" onClick={() => {
                         handleClose();
                         if (title === "Potvrda") {
+                            addService(null);
                             navigate('/');
                         }
                         setTitle("Greška");
                         if (token == null) {
+                            addService(null);
                             navigate('/login');
                         }
                     }}>

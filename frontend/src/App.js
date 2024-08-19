@@ -20,12 +20,17 @@ function App() {
     setUser(user);
   }
 
+  const [service, setService] = useState();
+  function addService(service) {
+    setService(service);
+  }
+
   return (
     <BrowserRouter className="App">
       <Routes>
-        <Route path='/' element={<NavBar addToken={addToken} addUser={addUser} token={token} />}>
-          <Route path='/' element={<HomePage />} />
-          <Route path='/reservation' element={<ReservationPage token={token} user={user}/>} />
+        <Route path='/' element={<NavBar addToken={addToken} addUser={addUser} token={token} addService={addService}/>}>
+          <Route path='/' element={<HomePage addService={addService}/>} />
+          <Route path='/reservation' element={<ReservationPage token={token} user={user} service={service} addService={addService}/>} />
           <Route path='/login' element={<LoginPage addToken={addToken} addUser={addUser} token={token} />} />
           <Route path='/register' element={<RegisterPage addToken={addToken} addUser={addUser} token={token} />} />
         </Route>

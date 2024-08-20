@@ -32,11 +32,11 @@ namespace WebAPI.Controllers
 			}
 			if (usluge == null || usluge.Count == 0)
 			{
-				return NotFound();
+				return Ok(new { NotFound = true, Usluge= mapper.Map<List<UslugaDto>>(usluge) });
 			}
 			return Ok(mapper.Map<List<UslugaDto>>(usluge));
 		}
-		
+
 		[HttpGet]
 		[Route("{id:int}")]
 		public async Task<IActionResult> GetById([FromRoute] int id)

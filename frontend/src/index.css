@@ -6724,6 +6724,10 @@ fieldset:disabled .btn {
   /* transform: translateY(-25%); */
 }
 
+.search{
+  width: 40%;
+}
+
 .round-edges {
   border-radius: 0 10px 10px 0;
   /* Zaobljene desne ivice */
@@ -6733,6 +6737,9 @@ fieldset:disabled .btn {
   .round-edges {
     border-radius: 0 0 10px 10px;
     /* Zaobljene donje ivice */
+  }
+  .search{
+    width: 100%;
   }
 }
 

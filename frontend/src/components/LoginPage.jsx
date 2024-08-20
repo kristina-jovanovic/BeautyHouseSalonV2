@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import icon from '../resources/makeover.png'
-import photo from '../resources/login.jpg'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Button, Modal } from 'react-bootstrap';

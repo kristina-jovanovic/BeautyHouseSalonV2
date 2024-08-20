@@ -2,6 +2,7 @@
 using Common.Communication;
 using Common.Domain;
 using Common.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Client;
@@ -47,6 +48,7 @@ namespace WebAPI.Controllers
 		}
 
 		[HttpPost]
+		[Authorize]
 		public async Task<IActionResult> Create([FromBody] List<ZahtevZaRezervacijuTermina> zahteviDto)
 		{
 			//datum kad se salje mora u ovom formatu "yyyy-MM-ddTHH:mm:ss.fffZ" (za JSON)
@@ -61,6 +63,7 @@ namespace WebAPI.Controllers
 		}
 		[HttpPost]
 		[Route("proveri-raspolozivost")]
+		[Authorize]
 		public async Task<bool> CheckAvailability([FromBody] ZahtevZaRezervacijuTerminaDto zahtevDto)
 		{
 			//bitno je da se popuni datum i vreme termina i id radnika

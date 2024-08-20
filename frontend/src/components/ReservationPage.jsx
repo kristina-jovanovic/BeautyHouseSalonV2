@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 
 function ReservationPage({ token, user, service, addService }) {
 
-    const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState('');
     const [title, setTitle] = useState("Greška");
     let navigate = useNavigate();
@@ -41,7 +40,6 @@ function ReservationPage({ token, user, service, addService }) {
                 .then((response) => {
                     // console.log(JSON.stringify(response.data));
                     setTypesOfService(response.data);
-                    setLoading(false);
                     if (service && service.tipUsluge) {
                         setReservationData((prevData) => {
                             const updatedData = {
@@ -75,17 +73,6 @@ function ReservationPage({ token, user, service, addService }) {
             .then((response) => {
                 // console.log(JSON.stringify(response.data));
                 setServices(response.data);
-                setLoading(false);
-                // if (service) {
-                //     setReservationData((prevData) => {
-                //         const updatedData = {
-                //             ...prevData,
-                //             usluga: service.uslugaID
-                //         };
-                //         // console.log('Updated reservationData:', updatedData);
-                //         return updatedData;
-                //     });
-                // }
             })
             .catch((error) => {
                 console.log(error);
@@ -108,7 +95,6 @@ function ReservationPage({ token, user, service, addService }) {
             .then((response) => {
                 // console.log(JSON.stringify(response.data));
                 setWorkers(response.data);
-                setLoading(false);
             })
             .catch((error) => {
                 console.log(error);
@@ -271,7 +257,7 @@ function ReservationPage({ token, user, service, addService }) {
                 data: data,
                 headers: {
                     'Content-Type': 'application/json', // Osigurava da server prepozna da saljem JSON
-                    //     'Authorization': 'Bearer ' + token
+                    'Authorization': 'Bearer ' + token
                 }
             };
 
@@ -329,7 +315,7 @@ function ReservationPage({ token, user, service, addService }) {
                 data: listaTermina,
                 headers: {
                     'Content-Type': 'application/json', // Osigurava da server prepozna da saljem JSON
-                    //     'Authorization': 'Bearer ' + token
+                    'Authorization': 'Bearer ' + token
                 }
             };
             axios.request(config)

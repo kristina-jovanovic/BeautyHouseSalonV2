@@ -10,7 +10,7 @@ function AboutPage() {
             <div className="container">
                 <div className="text-center">
                     <h2 className="section-heading text-uppercase">Zaviri u naš salon</h2>
-                    <h3 className="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h3 className="section-subheading text-muted">Beauty House salon osnovan je 2024. godine da bi na jednom mestu spojio sve ono što je svakoj dami potrebno za opuštanje i lep izgled.</h3>
                 </div>
                 <div id="carouselExampleAutoplaying" className="carousel slide" data-bs-ride="carousel">
                     <div className="carousel-inner" style={{ height: '65vh' }}>

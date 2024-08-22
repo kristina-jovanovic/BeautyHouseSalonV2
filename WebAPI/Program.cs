@@ -1,6 +1,8 @@
 using Common.Communication;
 using Common.Configuration;
+using InfrastructureEF;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using WebAPI.Configuration;
@@ -16,9 +18,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//injecting DbContext
+builder.Services.AddDbContext<BeautyHouseDbContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("BeautyHouseBazaV2")));
+
 //injecting repository
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
-
 
 // injecting profiles with automapper
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));

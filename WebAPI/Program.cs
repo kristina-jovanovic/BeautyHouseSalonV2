@@ -34,11 +34,11 @@ builder.Services.AddDbContext<BeautyHouseDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("BeautyHouseBazaV2")));
 
 //injecting repositories
-builder.Services.AddSingleton<Broker>(); // Registracija Brokera
+builder.Services.AddScoped<Broker>(); // Registracija Brokera
 builder.Services.AddScoped<IRepository<IEntity>>(provider =>
 {
-	var broker = provider.GetRequiredService<Broker>();
-	return new RepositoryDBB(broker);
+	//var broker = provider.GetRequiredService<Broker>();
+	return new RepositoryDBB(provider.GetRequiredService<Broker>());
 });
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 builder.Services.AddScoped<IRepository<Korisnik>, KorisnikRepositoryEF>();

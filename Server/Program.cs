@@ -22,11 +22,11 @@ namespace Server
 		{
 			var services = new ServiceCollection();
 
-			services.AddSingleton<Broker>(); // Registracija Brokera
+			services.AddScoped<Broker>(); // Registracija Brokera
 			services.AddScoped<IRepository<IEntity>>(provider =>
 			{
-				var broker = provider.GetRequiredService<Broker>();
-				return new RepositoryDBB(broker);
+				//var broker = provider.GetRequiredService<Broker>();
+				return new RepositoryDBB(provider.GetRequiredService<Broker>());
 			});
 			ServiceProvider = services.BuildServiceProvider();
 			Controller.Initialize(ServiceProvider);

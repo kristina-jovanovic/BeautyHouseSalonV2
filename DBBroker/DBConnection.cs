@@ -18,7 +18,7 @@ namespace DBBroker
 		public DBConnection()
 		{
 			//connection = new SqlConnection(ConfigurationManager.ConnectionStrings["BeautyHouseBazaV2"].ConnectionString);
-			connection = new SqlConnection("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = BeautyHouseBazaV2; Integrated Security = True;");
+			connection = new SqlConnection("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = BeautyHouseBazaV2; Integrated Security = True;TrustServerCertificate=True;MultipleActiveResultSets=True;");
 		}
 
 		public async Task OpenConnectionAsync()

@@ -413,13 +413,13 @@ namespace Client.GUIControllers
                 ucPretrazivanjeUsluga.DgvPodaci.Columns["TipUsluge"].DisplayIndex = 0;
                 ucPretrazivanjeUsluga.DgvPodaci.Columns["UslugaID"].Visible = false;
                 ucPretrazivanjeUsluga.DgvPodaci.Columns["FotografijaUsluge"].Visible = false;
-                ucPretrazivanjeUsluga.DgvPodaci.Columns["Values"].Visible = false;
-                ucPretrazivanjeUsluga.DgvPodaci.Columns["PrimaryKey"].Visible = false;
-                ucPretrazivanjeUsluga.DgvPodaci.Columns["TableName"].Visible = false;
-                ucPretrazivanjeUsluga.DgvPodaci.Columns["GetById"].Visible = false;
-                ucPretrazivanjeUsluga.DgvPodaci.Columns["JoinQuery"].Visible = false;
-                ucPretrazivanjeUsluga.DgvPodaci.Columns["UpdateQuery"].Visible = false;
-                ucPretrazivanjeUsluga.DgvPodaci.Columns["Aliaces"].Visible = false;
+                //ucPretrazivanjeUsluga.DgvPodaci.Columns["Values"].Visible = false;
+                //ucPretrazivanjeUsluga.DgvPodaci.Columns["PrimaryKey"].Visible = false;
+                //ucPretrazivanjeUsluga.DgvPodaci.Columns["TableName"].Visible = false;
+                //ucPretrazivanjeUsluga.DgvPodaci.Columns["GetById"].Visible = false;
+                //ucPretrazivanjeUsluga.DgvPodaci.Columns["JoinQuery"].Visible = false;
+                //ucPretrazivanjeUsluga.DgvPodaci.Columns["UpdateQuery"].Visible = false;
+                //ucPretrazivanjeUsluga.DgvPodaci.Columns["Aliaces"].Visible = false;
             }
             catch (IOException)
             {

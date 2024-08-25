@@ -47,7 +47,7 @@ namespace DBBroker
 		public async Task InsertAsync(IEntity entity)
 		{
 			using SqlCommand cmd = connection.CreateCommand();
-			cmd.CommandText = $"insert into {entity.TableName} values ({entity.Values})";
+			cmd.CommandText = $"insert into {entity.TableName()} values ({entity.Values()})";
 			await cmd.ExecuteNonQueryAsync();
 
 			//Debug.WriteLine("--------INSERT USPESAN");
@@ -55,20 +55,20 @@ namespace DBBroker
 		public async Task UpdateAsync(IEntity entity)
 		{
 			using SqlCommand cmd = connection.CreateCommand();
-			cmd.CommandText = $"update {entity.TableName} set {entity.UpdateQuery} where {entity.PrimaryKey}";
+			cmd.CommandText = $"update {entity.TableName()} set {entity.UpdateQuery()} where {entity.PrimaryKey()}";
 			await cmd.ExecuteNonQueryAsync();
 		}
 		public async Task DeleteAsync(IEntity entity)
 		{
 			using SqlCommand cmd = connection.CreateCommand();
-			cmd.CommandText = $"delete from {entity.TableName} where {entity.PrimaryKey}";
+			cmd.CommandText = $"delete from {entity.TableName()} where {entity.PrimaryKey()}";
 			await cmd.ExecuteNonQueryAsync();
 		}
 
 		public async Task<IEntity> GetEntityByIdAsync(IEntity entity)
 		{
 			using SqlCommand cmd = connection.CreateCommand();
-			cmd.CommandText = $"select *{entity.Aliaces} from {entity.TableName} {entity.JoinQuery} where {entity.GetById}";
+			cmd.CommandText = $"select *{entity.Aliaces()} from {entity.TableName()} {entity.JoinQuery()} where {entity.GetById()}";
 			using SqlDataReader reader = await cmd.ExecuteReaderAsync();
 			entity = await entity.GetReaderResultAsync(reader);
 			return entity;
@@ -78,7 +78,7 @@ namespace DBBroker
 		{
 			List<IEntity> list = new List<IEntity>();
 			using SqlCommand cmd = connection.CreateCommand();
-			cmd.CommandText = $"select *{entity.Aliaces} from {entity.TableName} {entity.JoinQuery} where {entity.FilterQueryStatus(status)}";
+			cmd.CommandText = $"select *{entity.Aliaces()} from {entity.TableName()} {entity.JoinQuery()} where {entity.FilterQueryStatus(status)}";
 			using SqlDataReader reader = await cmd.ExecuteReaderAsync();
 			list = await entity.GetReaderListAsync(reader);
 			return list;
@@ -88,7 +88,7 @@ namespace DBBroker
 		{
 			List<IEntity> list = new List<IEntity>();
 			using SqlCommand cmd = connection.CreateCommand();
-			cmd.CommandText = $"select * from {entity.TableName} {entity.JoinQuery}";
+			cmd.CommandText = $"select * from {entity.TableName()} {entity.JoinQuery()}";
 			using SqlDataReader reader = await cmd.ExecuteReaderAsync();
 			list = await entity.GetReaderListAsync(reader);
 			return list;
@@ -98,7 +98,7 @@ namespace DBBroker
 		{
 			List<IEntity> list = new List<IEntity>();
 			using SqlCommand cmd = connection.CreateCommand();
-			cmd.CommandText = $"select *{entity.Aliaces} from {entity.TableName} {entity.JoinQuery} where {entity.FilterQuery(filter)}";
+			cmd.CommandText = $"select *{entity.Aliaces()} from {entity.TableName()} {entity.JoinQuery()} where {entity.FilterQuery(filter)}";
 			using SqlDataReader reader = await cmd.ExecuteReaderAsync();
 			list = await entity.GetReaderListAsync(reader);
 			return list;

@@ -1,4 +1,5 @@
-﻿using Common.DTOs;
+﻿using Common.Domain;
+using Common.DTOs;
 using InfrastructureEF;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,40 +10,52 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories.EFCore.UslugaRepository
 {
-	public class UslugaRepositoryEF : IUslugaRepositoryEF
+	public class UslugaRepositoryEF : RepositoryEF<Usluga>
 	{
-		private readonly BeautyHouseDbContext dbContext;
 
-		public UslugaRepositoryEF(BeautyHouseDbContext dbContext)
+		public UslugaRepositoryEF(BeautyHouseDbContext dbContext) : base(dbContext)
 		{
-			this.dbContext = dbContext;
 		}
-		public async Task AddAsync(UslugaDto t)
+		public override async Task AddAsync(Usluga entity)
 		{
-			await dbContext.Set<UslugaDto>().AddAsync(t);
+			await dbContext.Set<Usluga>().AddAsync(entity);
 			await dbContext.SaveChangesAsync();
 		}
 
-		public async Task DeleteAsync(UslugaDto t)
+		public override async Task DeleteAsync(Usluga entity)
 		{
 			//proveru da li ta usluga postoji obavljam u okviru sistemskih operacija
-			dbContext.Set<UslugaDto>().Remove(t);
+			dbContext.Set<Usluga>().Remove(entity);
 			await dbContext.SaveChangesAsync();
 		}
 
-		public async Task<IEnumerable<UslugaDto>> GetAllAsync()
+		public override async Task<IEnumerable<IEntity?>> GetAllAsync(Usluga entity)
 		{
-			return await dbContext.Set<UslugaDto>().ToListAsync();
+			var usluge = await dbContext.Set<Usluga>().ToListAsync();
+			return usluge.Cast<IEntity>();
 		}
 
-		public async Task<UslugaDto> GetByIdAsync(int id)
+		public override async Task<IEnumerable<IEntity?>> GetAllWithFilterAsync(Usluga entity, string filter)
 		{
-			return await dbContext.Set<UslugaDto>().FindAsync(id);
+			var usluge = await dbContext.Set<Usluga>().Where((u) => u.Naziv.Contains(filter, StringComparison.CurrentCultureIgnoreCase)
+			|| u.TipUsluge.NazivTipaUsluge.Contains(filter, StringComparison.CurrentCultureIgnoreCase)).ToListAsync();
+			return usluge.Cast<IEntity>();
 		}
 
-		public async Task UpdateAsync(UslugaDto t)
+		public override Task<IEnumerable<IEntity?>> GetAllWithStatusAsync(Usluga entity, StatusZahteva status)
 		{
-			dbContext.Set<UslugaDto>().Update(t);
+			throw new NotImplementedException();
+		}
+
+		public override async Task<IEntity?> GetByIdAsync(Usluga entity)
+		{
+			var usluga = await dbContext.Set<Usluga>().FirstOrDefaultAsync((u) => u.Naziv == entity.Naziv || u.UslugaID == entity.UslugaID);
+			return usluga == null ? null : (IEntity)usluga;
+		}
+
+		public override async Task UpdateAsync(Usluga entity)
+		{
+			dbContext.Set<Usluga>().Update(entity);
 			await dbContext.SaveChangesAsync();
 		}
 	}

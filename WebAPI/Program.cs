@@ -1,5 +1,8 @@
 using Common.Communication;
 using Common.Configuration;
+using Common.Domain;
+using DataAccessLayer.Repositories.EFCore;
+using DataAccessLayer;
 using InfrastructureEF;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +11,14 @@ using System.Text;
 using WebAPI.Configuration;
 using WebAPI.Mappings;
 using WebAPI.Repositories;
+using DataAccessLayer.Repositories.EFCore.KorisnikRepository;
+using DataAccessLayer.Repositories.EFCore.UslugaRepository;
+using DataAccessLayer.Repositories.EFCore.TipUslugeRepository;
+using DataAccessLayer.Repositories.EFCore.ProfilUslugeRepository;
+using DataAccessLayer.Repositories.EFCore.ZahtevZaRezTerminaRepository;
+using Server;
+using DataAccessLayer.Repositories.DBBroker;
+using DBBroker;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,8 +33,22 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<BeautyHouseDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("BeautyHouseBazaV2")));
 
-//injecting repository
+//injecting repositories
+builder.Services.AddSingleton<Broker>(); // Registracija Brokera
+builder.Services.AddScoped<IRepository<IEntity>>(provider =>
+{
+	var broker = provider.GetRequiredService<Broker>();
+	return new RepositoryDBB(broker);
+});
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+builder.Services.AddScoped<IRepository<Korisnik>, KorisnikRepositoryEF>();
+builder.Services.AddScoped<IRepository<Usluga>, UslugaRepositoryEF>();
+builder.Services.AddScoped<IRepository<TipUsluge>, TipUslugeRepositoryEF>();
+builder.Services.AddScoped<IRepository<ProfilRadnika>, ProfilRadnikaRepositoryEF>();
+builder.Services.AddScoped<IRepository<ZahtevZaRezervacijuTermina>, ZahtevZaRezervacijuTerminaRepositoryEF>();
+
+//initializing controller
+Controller.Initialize(builder.Services.BuildServiceProvider());
 
 // injecting profiles with automapper
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
@@ -57,6 +82,7 @@ builder.Services.AddSingleton<IAppConfiguration, WebApiConfiguration>();
 builder.Services.AddSingleton<EmailSender>();
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

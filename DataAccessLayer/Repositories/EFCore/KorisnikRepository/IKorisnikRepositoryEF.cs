@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories.EFCore.KorisnikRepository
 {
-	public interface IKorisnikRepositoryEF : IRepository<KorisnikDto>
-	{
-	}
+	//public interface IKorisnikRepositoryEF : IRepository<KorisnikDto>
+	//{
+	//}
 }

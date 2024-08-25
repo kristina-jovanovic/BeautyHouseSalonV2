@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories.EFCore.ProfilUslugeRepository
 {
-	public interface IProfilRadnikaRepositoryEF : IRepository<ProfilRadnikaDto>
-	{
-	}
+	//public interface IProfilRadnikaRepositoryEF : IRepository<ProfilRadnikaDto>
+	//{
+	//}
 }

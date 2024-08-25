@@ -1,19 +1,20 @@
 ﻿using Common.Domain;
+using DataAccessLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server.SystemOperations.ProfilRadnika
+namespace Server.SystemOperations.ProfilRadnikaSO
 {
 	internal class SONadjiProfileRadnika : SOBase
 	{
-		private Common.Domain.ProfilRadnika profilRadnika;
+		private ProfilRadnika profilRadnika;
 		private string filter;
 		public List<IEntity> result;
 
-		public SONadjiProfileRadnika(Common.Domain.ProfilRadnika profilRadnika, string filter)
+		public SONadjiProfileRadnika(IRepository<IEntity> repository, ProfilRadnika profilRadnika, string filter) : base(repository)
 		{
 			this.profilRadnika = profilRadnika;
 			this.filter = filter;
@@ -21,7 +22,7 @@ namespace Server.SystemOperations.ProfilRadnika
 
 		protected override async Task ExecuteConcreteOperationAsync()
 		{
-			result = await broker.ReadAllWithFilterAsync(profilRadnika, filter);
+			result = (List<IEntity>)await repository.GetAllWithFilterAsync(profilRadnika,filter);
 		}
 	}
 }

@@ -1,18 +1,19 @@
 ﻿using Common.Domain;
+using DataAccessLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server.SystemOperations.Usluge
+namespace Server.SystemOperations.UslugaSO
 {
 	internal class SOObrisiUslugu : SOBase
 	{
 		public bool result;
 		private Usluga usluga;
 
-		public SOObrisiUslugu(Usluga usluga)
+		public SOObrisiUslugu(IRepository<IEntity> repository, Usluga usluga) : base(repository)
 		{
 			this.usluga = usluga;
 		}
@@ -22,13 +23,13 @@ namespace Server.SystemOperations.Usluge
 			try
 			{
 				//dodato naknadno - provera da li postoji ta usluga
-				if (await broker.GetEntityByIdAsync(usluga) == null)
+				if (await repository.GetByIdAsync(usluga) == null)
 				{
 					result = false;
 				}
 				else
 				{
-					await broker.DeleteAsync(usluga);
+					await repository.DeleteAsync(usluga);
 					result = true;
 				}
 			}

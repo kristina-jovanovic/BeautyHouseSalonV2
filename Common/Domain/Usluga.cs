@@ -17,20 +17,10 @@ namespace Common.Domain
 		public string FotografijaUsluge { get; set; } = "";
 		public TipUsluge TipUsluge { get; set; }
 
-		public string TableName => "Usluga";
-
-		public string Values => $"'{Naziv}', {Cena}, {TrajanjeUMinutima}, '{FotografijaUsluge}', {TipUsluge.TipUslugeID}";
-
-		public string PrimaryKey => $"UslugaID={UslugaID}";
-
-		public string GetById => $"Naziv='{Naziv}' OR UslugaID={UslugaID}"; //PROMENJENO
-																			//public string GetById => $"Naziv='{Naziv}'"; 
-
-		public string JoinQuery => "u JOIN TipUsluge tu ON u.TipUsluge=tu.TipUslugeID";
-
-		public string UpdateQuery => $"Naziv='{Naziv}', Cena={Cena}, TrajanjeUMinutima={TrajanjeUMinutima}, FotografijaUsluge='{FotografijaUsluge}', TipUsluge={TipUsluge.TipUslugeID}";
-
-		public string Aliaces => "";
+		public string Aliaces()
+		{
+			return "";
+		}
 
 		public override bool Equals(object obj)
 		{
@@ -50,6 +40,12 @@ namespace Common.Domain
 		{
 			return null;
 		}
+
+		public string GetById()
+		{
+			return $"Naziv='{Naziv}' OR UslugaID={UslugaID}";
+		}
+
 		public async Task<List<IEntity>> GetReaderListAsync(SqlDataReader reader)
 		{
 			List<IEntity> usluge = new List<IEntity>();
@@ -72,9 +68,34 @@ namespace Common.Domain
 			}
 		}
 
+		public string JoinQuery()
+		{
+			return "u JOIN TipUsluge tu ON u.TipUsluge=tu.TipUslugeID";
+		}
+
+		public string PrimaryKey()
+		{
+			return $"UslugaID={UslugaID}";
+		}
+
+		public string TableName()
+		{
+			return "Usluga";
+		}
+
 		public override string ToString()
 		{
 			return Naziv;
+		}
+
+		public string UpdateQuery()
+		{
+			return $"Naziv='{Naziv}', Cena={Cena}, TrajanjeUMinutima={TrajanjeUMinutima}, FotografijaUsluge='{FotografijaUsluge}', TipUsluge={TipUsluge.TipUslugeID}";
+		}
+
+		public string Values()
+		{
+			return $"'{Naziv}', {Cena}, {TrajanjeUMinutima}, '{FotografijaUsluge}', {TipUsluge.TipUslugeID}";
 		}
 
 		private IEntity ReadFromReader(SqlDataReader reader)

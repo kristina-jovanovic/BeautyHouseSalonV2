@@ -1,4 +1,5 @@
-﻿using Common.DTOs;
+﻿using Common.Domain;
+using Common.DTOs;
 using InfrastructureEF;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,40 +10,54 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories.EFCore.ZahtevZaRezTerminaRepository
 {
-	public class ZahtevZaRezervacijuTerminaRepositoryEF : IZahtevZaRezervacijuTerminaRepositoryEF
+	public class ZahtevZaRezervacijuTerminaRepositoryEF : RepositoryEF<ZahtevZaRezervacijuTermina>
 	{
-		private readonly BeautyHouseDbContext dbContext;
-
-		public ZahtevZaRezervacijuTerminaRepositoryEF(BeautyHouseDbContext dbContext)
+		public ZahtevZaRezervacijuTerminaRepositoryEF(BeautyHouseDbContext dbContext) : base(dbContext)
 		{
-			this.dbContext = dbContext;
 		}
-		public async Task AddAsync(ZahtevZaRezervacijuTerminaDto t)
+		public override async Task AddAsync(ZahtevZaRezervacijuTermina entity)
 		{
-			await dbContext.Set<ZahtevZaRezervacijuTerminaDto>().AddAsync(t);
+			await dbContext.Set<ZahtevZaRezervacijuTermina>().AddAsync(entity);
 			await dbContext.SaveChangesAsync();
 		}
 
-		public async Task DeleteAsync(ZahtevZaRezervacijuTerminaDto t)
+		public override async Task DeleteAsync(ZahtevZaRezervacijuTermina entity)
 		{
 			//proveru da li taj zahtev postoji obavljam u okviru sistemskih operacija
-			dbContext.Set<ZahtevZaRezervacijuTerminaDto>().Remove(t);
+			dbContext.Set<ZahtevZaRezervacijuTermina>().Remove(entity);
 			await dbContext.SaveChangesAsync();
 		}
 
-		public async Task<IEnumerable<ZahtevZaRezervacijuTerminaDto>> GetAllAsync()
+		public override async Task<IEnumerable<IEntity?>> GetAllAsync(ZahtevZaRezervacijuTermina entity)
 		{
-			return await dbContext.Set<ZahtevZaRezervacijuTerminaDto>().ToListAsync();
+			var zahtevi = await dbContext.Set<ZahtevZaRezervacijuTermina>().ToListAsync();
+			return zahtevi.Cast<IEntity>();
 		}
 
-		public async Task<ZahtevZaRezervacijuTerminaDto> GetByIdAsync(int id)
+		public override async Task<IEnumerable<IEntity?>> GetAllWithFilterAsync(ZahtevZaRezervacijuTermina entity, string filter)
 		{
-			return await dbContext.Set<ZahtevZaRezervacijuTerminaDto>().FindAsync(id);
+			var zahtevi = await dbContext.Set<ZahtevZaRezervacijuTermina>().Where((z) => $"{z.Radnik.Ime} {z.Radnik.Prezime}".Contains(filter, StringComparison.CurrentCultureIgnoreCase)
+			&& z.StatusZahteva == StatusZahteva.NaCekanju).ToListAsync();
+			return zahtevi.Cast<IEntity>();
 		}
 
-		public async Task UpdateAsync(ZahtevZaRezervacijuTerminaDto t)
+		public override async Task<IEnumerable<IEntity?>> GetAllWithStatusAsync(ZahtevZaRezervacijuTermina entity, StatusZahteva status)
 		{
-			dbContext.Set<ZahtevZaRezervacijuTerminaDto>().Update(t);
+			var zahtevi = await dbContext.Set<ZahtevZaRezervacijuTermina>().Where((z) => z.DatumIVremeTermina.Equals(entity.DatumIVremeTermina)
+			&& z.Radnik == entity.Radnik && z.StatusZahteva == status).ToListAsync();
+			return zahtevi.Cast<IEntity>();
+		}
+
+		public override async Task<IEntity?> GetByIdAsync(ZahtevZaRezervacijuTermina entity)
+		{
+			var zahtev = await dbContext.Set<ZahtevZaRezervacijuTermina>().FirstOrDefaultAsync((z) => z.VremeKreiranja.Equals(entity.VremeKreiranja)
+			&& z.Korisnik.KorisnikID == entity.Korisnik.KorisnikID);
+			return zahtev == null ? null : (IEntity)zahtev;
+		}
+
+		public override async Task UpdateAsync(ZahtevZaRezervacijuTermina entity)
+		{
+			dbContext.Set<ZahtevZaRezervacijuTermina>().Update(entity);
 			await dbContext.SaveChangesAsync();
 		}
 	}

@@ -135,13 +135,13 @@ namespace Client.GUIControllers
 			ucZahtev.DgvTermini.Columns["Radnik"].DisplayIndex = 2;
 			ucZahtev.DgvTermini.Columns["Napomena"].DisplayIndex = 3;
 
-			ucZahtev.DgvTermini.Columns["Values"].Visible = false;
-			ucZahtev.DgvTermini.Columns["PrimaryKey"].Visible = false;
-			ucZahtev.DgvTermini.Columns["TableName"].Visible = false;
-			ucZahtev.DgvTermini.Columns["GetById"].Visible = false;
-			ucZahtev.DgvTermini.Columns["JoinQuery"].Visible = false;
-			ucZahtev.DgvTermini.Columns["UpdateQuery"].Visible = false;
-			ucZahtev.DgvTermini.Columns["Aliaces"].Visible = false;
+			//ucZahtev.DgvTermini.Columns["Values"].Visible = false;
+			//ucZahtev.DgvTermini.Columns["PrimaryKey"].Visible = false;
+			//ucZahtev.DgvTermini.Columns["TableName"].Visible = false;
+			//ucZahtev.DgvTermini.Columns["GetById"].Visible = false;
+			//ucZahtev.DgvTermini.Columns["JoinQuery"].Visible = false;
+			//ucZahtev.DgvTermini.Columns["UpdateQuery"].Visible = false;
+			//ucZahtev.DgvTermini.Columns["Aliaces"].Visible = false;
 		}
 
 		private bool IzvuciZahtev()
@@ -244,15 +244,6 @@ namespace Client.GUIControllers
 				}
 				else
 				{
-					//SendEmail(zahtevi.ToList<ZahtevZaRezervacijuTermina>(), StatusZahteva.NaCekanju);
-					//               try
-					//               {
-					//                   EmailSender.SendEmail(zahtevi.ToList<ZahtevZaRezervacijuTermina>(), StatusZahteva.NaCekanju);
-					//               }
-					//               catch (Exception)
-					//               {
-					//	MessageBox.Show("Greška prilikom slanja email-a.", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					//}
 					emailSender.SendEmail(zahtevi.ToList<ZahtevZaRezervacijuTermina>(), StatusZahteva.NaCekanju);
 					MessageBox.Show("Sistem je kreirao zahteve za rezervaciju termina.", "Uspešno");
 					zahtevi.Clear();
@@ -524,13 +515,13 @@ namespace Client.GUIControllers
 			ucZakazivanje.DgvZahtevi.Columns["Napomena"].DisplayIndex = 2;
 			ucZakazivanje.DgvZahtevi.Columns["VremeKreiranja"].DisplayIndex = 3;
 
-			ucZakazivanje.DgvZahtevi.Columns["Values"].Visible = false;
-			ucZakazivanje.DgvZahtevi.Columns["PrimaryKey"].Visible = false;
-			ucZakazivanje.DgvZahtevi.Columns["TableName"].Visible = false;
-			ucZakazivanje.DgvZahtevi.Columns["GetById"].Visible = false;
-			ucZakazivanje.DgvZahtevi.Columns["JoinQuery"].Visible = false;
-			ucZakazivanje.DgvZahtevi.Columns["UpdateQuery"].Visible = false;
-			ucZakazivanje.DgvZahtevi.Columns["Aliaces"].Visible = false;
+			//ucZakazivanje.DgvZahtevi.Columns["Values"].Visible = false;
+			//ucZakazivanje.DgvZahtevi.Columns["PrimaryKey"].Visible = false;
+			//ucZakazivanje.DgvZahtevi.Columns["TableName"].Visible = false;
+			//ucZakazivanje.DgvZahtevi.Columns["GetById"].Visible = false;
+			//ucZakazivanje.DgvZahtevi.Columns["JoinQuery"].Visible = false;
+			//ucZakazivanje.DgvZahtevi.Columns["UpdateQuery"].Visible = false;
+			//ucZakazivanje.DgvZahtevi.Columns["Aliaces"].Visible = false;
 		}
 
 		private async Task UcitajDGV()
@@ -551,13 +542,13 @@ namespace Client.GUIControllers
 				ucZakazivanje.DgvPodaci.Columns["Napomena"].DisplayIndex = 2;
 				ucZakazivanje.DgvPodaci.Columns["VremeKreiranja"].DisplayIndex = 3;
 
-				ucZakazivanje.DgvPodaci.Columns["Values"].Visible = false;
-				ucZakazivanje.DgvPodaci.Columns["PrimaryKey"].Visible = false;
-				ucZakazivanje.DgvPodaci.Columns["TableName"].Visible = false;
-				ucZakazivanje.DgvPodaci.Columns["GetById"].Visible = false;
-				ucZakazivanje.DgvPodaci.Columns["JoinQuery"].Visible = false;
-				ucZakazivanje.DgvPodaci.Columns["UpdateQuery"].Visible = false;
-				ucZakazivanje.DgvPodaci.Columns["Aliaces"].Visible = false;
+				//ucZakazivanje.DgvPodaci.Columns["Values"].Visible = false;
+				//ucZakazivanje.DgvPodaci.Columns["PrimaryKey"].Visible = false;
+				//ucZakazivanje.DgvPodaci.Columns["TableName"].Visible = false;
+				//ucZakazivanje.DgvPodaci.Columns["GetById"].Visible = false;
+				//ucZakazivanje.DgvPodaci.Columns["JoinQuery"].Visible = false;
+				//ucZakazivanje.DgvPodaci.Columns["UpdateQuery"].Visible = false;
+				//ucZakazivanje.DgvPodaci.Columns["Aliaces"].Visible = false;
 			}
 			catch (IOException)
 			{

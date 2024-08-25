@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories.EFCore.TipUslugeRepository
 {
-	public interface ITipUslugeRepositoryEF : IRepository<TipUslugeDto>
-	{
-	}
+	//public interface ITipUslugeRepositoryEF : IRepository<TipUslugeDto>
+	//{
+	//}
 }

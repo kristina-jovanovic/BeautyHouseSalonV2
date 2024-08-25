@@ -1,4 +1,5 @@
-﻿using Common.DTOs;
+﻿using Common.Domain;
+using Common.DTOs;
 using InfrastructureEF;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,40 +10,50 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories.EFCore.TipUslugeRepository
 {
-	public class TipUslugeRepositoryEF : ITipUslugeRepositoryEF
+	public class TipUslugeRepositoryEF : RepositoryEF<TipUsluge>
 	{
-		private readonly BeautyHouseDbContext dbContext;
 
-		public TipUslugeRepositoryEF(BeautyHouseDbContext dbContext)
+		public TipUslugeRepositoryEF(BeautyHouseDbContext dbContext) : base(dbContext)
 		{
-			this.dbContext = dbContext;
 		}
-		public async Task AddAsync(TipUslugeDto t)
+		public override async Task AddAsync(TipUsluge entity)
 		{
-			await dbContext.Set<TipUslugeDto>().AddAsync(t);
+			await dbContext.Set<TipUsluge>().AddAsync(entity);
 			await dbContext.SaveChangesAsync();
 		}
 
-		public async Task DeleteAsync(TipUslugeDto t)
+		public override async Task DeleteAsync(TipUsluge entity)
 		{
 			//proveru da li taj tip usluge postoji obavljam u okviru sistemskih operacija
-			dbContext.Set<TipUslugeDto>().Remove(t);
+			dbContext.Set<TipUsluge>().Remove(entity);
 			await dbContext.SaveChangesAsync();
 		}
 
-		public async Task<IEnumerable<TipUslugeDto>> GetAllAsync()
+		public override async Task<IEnumerable<IEntity?>> GetAllAsync(TipUsluge entity)
 		{
-			return await dbContext.Set<TipUslugeDto>().ToListAsync();
+			var tipovi = await dbContext.Set<TipUsluge>().ToListAsync();
+			return tipovi.Cast<IEntity>();
 		}
 
-		public async Task<TipUslugeDto> GetByIdAsync(int id)
+		public override async Task<IEnumerable<IEntity?>> GetAllWithFilterAsync(TipUsluge entity, string filter)
 		{
-			return await dbContext.Set<TipUslugeDto>().FindAsync(id);
+			var tipovi = await dbContext.Set<TipUsluge>().Where((t) => t.NazivTipaUsluge.Contains(filter, StringComparison.CurrentCultureIgnoreCase)).ToListAsync();
+			return tipovi.Cast<IEntity>();
 		}
 
-		public async Task UpdateAsync(TipUslugeDto t)
+		public override Task<IEnumerable<IEntity?>> GetAllWithStatusAsync(TipUsluge entity, StatusZahteva status)
 		{
-			dbContext.Set<TipUslugeDto>().Update(t);
+			throw new NotImplementedException();
+		}
+
+		public override Task<IEntity?> GetByIdAsync(TipUsluge entity)
+		{
+			throw new NotImplementedException();
+		}
+
+		public override async Task UpdateAsync(TipUsluge entity)
+		{
+			dbContext.Set<TipUsluge>().Update(entity);
 			await dbContext.SaveChangesAsync();
 		}
 	}

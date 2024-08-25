@@ -36,6 +36,8 @@ namespace WebAPI.Controllers
 			//u metodu se salje lozinka u formatu u kom ju je korisnik uneo, a vraca se
 			//hashovana lozinka i upisuje u property Lozinka
 
+			//Server.Controller.Instance.SetRepository<Korisnik>();
+
 			korisnik = await Server.Controller.Instance.DodajKorisnikaAsync(korisnik);
 			if (korisnik == null)
 			{
@@ -58,6 +60,8 @@ namespace WebAPI.Controllers
 			};
 			try
 			{
+				//Server.Controller.Instance.SetRepository<Korisnik>();
+
 				korisnik = await Server.Controller.Instance.UlogujKorisnikaAsync(korisnik);
 				//provera hashovane lozinke je implementirana unutar ove metode i metoda koje ona koristi, tako da nema potrebe ovde da proveravamo
 			}

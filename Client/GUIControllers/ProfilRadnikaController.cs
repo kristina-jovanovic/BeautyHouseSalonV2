@@ -261,13 +261,13 @@ namespace Client.GUIControllers
 				ucPretrazivanje.DgvPodaci.Columns["RadnikID"].Visible = false;
 				ucPretrazivanje.DgvPodaci.Columns["Opis"].Visible = false;
 				ucPretrazivanje.DgvPodaci.Columns["Fotografija"].Visible = false;
-				ucPretrazivanje.DgvPodaci.Columns["Values"].Visible = false;
-				ucPretrazivanje.DgvPodaci.Columns["PrimaryKey"].Visible = false;
-				ucPretrazivanje.DgvPodaci.Columns["TableName"].Visible = false;
-				ucPretrazivanje.DgvPodaci.Columns["GetById"].Visible = false;
-				ucPretrazivanje.DgvPodaci.Columns["JoinQuery"].Visible = false;
-				ucPretrazivanje.DgvPodaci.Columns["UpdateQuery"].Visible = false;
-				ucPretrazivanje.DgvPodaci.Columns["Aliaces"].Visible = false;
+				//ucPretrazivanje.DgvPodaci.Columns["Values"].Visible = false;
+				//ucPretrazivanje.DgvPodaci.Columns["PrimaryKey"].Visible = false;
+				//ucPretrazivanje.DgvPodaci.Columns["TableName"].Visible = false;
+				//ucPretrazivanje.DgvPodaci.Columns["GetById"].Visible = false;
+				//ucPretrazivanje.DgvPodaci.Columns["JoinQuery"].Visible = false;
+				//ucPretrazivanje.DgvPodaci.Columns["UpdateQuery"].Visible = false;
+				//ucPretrazivanje.DgvPodaci.Columns["Aliaces"].Visible = false;
 			}
 			catch (IOException)
 			{

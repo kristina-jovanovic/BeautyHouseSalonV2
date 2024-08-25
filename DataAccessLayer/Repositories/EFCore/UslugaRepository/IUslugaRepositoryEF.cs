@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories.EFCore.UslugaRepository
 {
-	public interface IUslugaRepositoryEF : IRepository<UslugaDto>
-	{
-	}
+	//public interface IUslugaRepositoryEF : IRepository<UslugaDto>
+	//{
+	//}
 }

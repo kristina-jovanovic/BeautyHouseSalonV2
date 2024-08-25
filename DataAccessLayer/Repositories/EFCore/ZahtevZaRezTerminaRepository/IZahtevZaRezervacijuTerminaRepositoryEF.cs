@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories.EFCore.ZahtevZaRezTerminaRepository
 {
-	public interface IZahtevZaRezervacijuTerminaRepositoryEF : IRepository<ZahtevZaRezervacijuTerminaDto>
-	{
-	}
+	//public interface IZahtevZaRezervacijuTerminaRepositoryEF : IRepository<ZahtevZaRezervacijuTerminaDto>
+	//{
+	//}
 }

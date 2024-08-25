@@ -9,13 +9,13 @@ namespace Common.Domain
 {
     public interface IEntity
     {
-        string TableName { get; }
-        string Values { get; }
-        string PrimaryKey {  get; }
-        string GetById { get; }
-        string JoinQuery { get; }
-        string UpdateQuery { get; }
-        string Aliaces { get; }
+        string TableName();
+        string Values();
+        string PrimaryKey();
+        string GetById();
+        string JoinQuery();
+        string UpdateQuery();
+        string Aliaces();
 
         string FilterQuery(string filter);
         string FilterQueryStatus(StatusZahteva status);

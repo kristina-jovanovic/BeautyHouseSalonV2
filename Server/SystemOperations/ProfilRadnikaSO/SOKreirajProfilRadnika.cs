@@ -1,26 +1,27 @@
 ﻿using Common.Domain;
+using DataAccessLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server.SystemOperations.ProfilRadnika
+namespace Server.SystemOperations.ProfilRadnikaSO
 {
 	internal class SOKreirajProfilRadnika : SOBase
 	{
 		internal IEntity result;
-		private Common.Domain.ProfilRadnika radnik;
+		private ProfilRadnika radnik;
 
-		public SOKreirajProfilRadnika(Common.Domain.ProfilRadnika radnik)
+		public SOKreirajProfilRadnika(IRepository<IEntity> repository, ProfilRadnika radnik) : base(repository)
 		{
 			this.radnik = radnik;
 		}
 
 		protected override async Task ExecuteConcreteOperationAsync()
 		{
-			await broker.InsertAsync(radnik);
-			result = await broker.GetEntityByIdAsync(radnik);
+			await repository.AddAsync(radnik);
+			result = await repository.GetByIdAsync(radnik);
 		}
 	}
 }

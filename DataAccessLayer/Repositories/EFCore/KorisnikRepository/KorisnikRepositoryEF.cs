@@ -1,48 +1,61 @@
-﻿using Common.DTOs;
+﻿using Common.Domain;
+using Common.DTOs;
 using InfrastructureEF;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories.EFCore.KorisnikRepository
 {
-	public class KorisnikRepositoryEF : IKorisnikRepositoryEF
+	public class KorisnikRepositoryEF : RepositoryEF<Korisnik>
 	{
-		private readonly BeautyHouseDbContext dbContext;
-
-		public KorisnikRepositoryEF(BeautyHouseDbContext dbContext)
+		public KorisnikRepositoryEF(BeautyHouseDbContext dbContext) : base(dbContext)
 		{
-			this.dbContext = dbContext;
 		}
-		public async Task AddAsync(KorisnikDto t)
+
+		public override async Task AddAsync(Korisnik entity)
 		{
-			await dbContext.Set<KorisnikDto>().AddAsync(t);
+			await dbContext.Set<Korisnik>().AddAsync(entity);
 			await dbContext.SaveChangesAsync();
 		}
 
-		public async Task DeleteAsync(KorisnikDto t)
+		public override async Task DeleteAsync(Korisnik entity)
 		{
 			//proveru da li taj korisnik postoji obavljam u okviru sistemskih operacija
-			dbContext.Set<KorisnikDto>().Remove(t);
+			dbContext.Set<Korisnik>().Remove(entity);
 			await dbContext.SaveChangesAsync();
 		}
 
-		public async Task<IEnumerable<KorisnikDto>> GetAllAsync()
+		public override async Task<IEnumerable<IEntity?>> GetAllAsync(Korisnik entity)
 		{
-			return await dbContext.Set<KorisnikDto>().ToListAsync();
+			var korisnici = await dbContext.Set<Korisnik>().ToListAsync();
+			return korisnici.Cast<IEntity>();
 		}
 
-		public async Task<KorisnikDto> GetByIdAsync(int id)
+		public override Task<IEnumerable<IEntity?>> GetAllWithFilterAsync(Korisnik entity, string filter)
 		{
-			return await dbContext.Set<KorisnikDto>().FindAsync(id);
+			//return await dbContext.Set<Korisnik>().Where((k) => $"{k.Ime} {k.Prezime}".Contains(filter, StringComparison.CurrentCultureIgnoreCase)).ToListAsync();
+			throw new NotImplementedException();
 		}
 
-		public async Task UpdateAsync(KorisnikDto t)
+		public override Task<IEnumerable<IEntity?>> GetAllWithStatusAsync(Korisnik entity, StatusZahteva status)
 		{
-			dbContext.Set<KorisnikDto>().Update(t);
+			throw new NotImplementedException();
+		}
+
+		public override async Task<IEntity?> GetByIdAsync(Korisnik entity)
+		{
+			var korisnik = await dbContext.Set<Korisnik>().FirstOrDefaultAsync((k) => k.KorisnickoIme == entity.KorisnickoIme);
+			return korisnik == null ? null : (IEntity)korisnik;
+		}
+
+		public override async Task UpdateAsync(Korisnik entity)
+		{
+			dbContext.Set<Korisnik>().Update(entity);
 			await dbContext.SaveChangesAsync();
 		}
 	}

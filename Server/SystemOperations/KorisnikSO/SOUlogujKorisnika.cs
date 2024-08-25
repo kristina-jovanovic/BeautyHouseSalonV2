@@ -1,4 +1,5 @@
 ﻿using Common.Domain;
+using DataAccessLayer;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,20 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server.SystemOperations
+namespace Server.SystemOperations.KorisnikSO
 {
     internal class SOUlogujKorisnika : SOBase
     {
         private Korisnik k; //korisnik koji pokusava da se prijavi
         public IEntity result; //prijavljeni korisnik
         public bool pogresnaLozinka = false;
-        public SOUlogujKorisnika(Korisnik k)
+        public SOUlogujKorisnika(IRepository<IEntity> repository, Korisnik k) : base(repository)
         {
             this.k = k;
         }
         protected override async Task ExecuteConcreteOperationAsync()
         {
-            result = await broker.GetEntityByIdAsync(k);
+            result = await repository.GetByIdAsync(k);
             if(result != null)
             {
                 Korisnik dobijeniKorisnik = (Korisnik)result;

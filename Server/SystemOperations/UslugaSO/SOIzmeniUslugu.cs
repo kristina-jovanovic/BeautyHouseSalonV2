@@ -1,18 +1,19 @@
 ﻿using Common.Domain;
+using DataAccessLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server.SystemOperations
+namespace Server.SystemOperations.UslugaSO
 {
 	internal class SOIzmeniUslugu : SOBase
 	{
 		internal IEntity result;
 		private Usluga usluga;
 
-		public SOIzmeniUslugu(Usluga usluga)
+		public SOIzmeniUslugu(IRepository<IEntity> repository,Usluga usluga):base(repository)
 		{
 			this.usluga = usluga;
 		}
@@ -21,8 +22,8 @@ namespace Server.SystemOperations
 		{
 			try
 			{
-				await broker.UpdateAsync(usluga);
-				result = await broker.GetEntityByIdAsync(usluga);
+				await repository.UpdateAsync(usluga);
+				result = await repository.GetByIdAsync(usluga);
 			}
 			catch (Exception)
 			{

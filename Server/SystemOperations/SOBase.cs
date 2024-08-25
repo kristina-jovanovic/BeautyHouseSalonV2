@@ -1,4 +1,6 @@
-﻿using DBBroker;
+﻿using Common.Domain;
+using DataAccessLayer;
+using DBBroker;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,28 +11,29 @@ namespace Server.SystemOperations
 {
 	public abstract class SOBase
 	{
-		protected Broker broker;
-		public SOBase()
+		protected readonly IRepository<IEntity> repository;
+
+		public SOBase(IRepository<IEntity> repository)
 		{
-			broker = new Broker();
+			this.repository = repository;
 		}
 		public async Task ExecuteTemplate()
 		{
 			try
 			{
-				await broker.OpenConnectionAsync();
-				await broker.BeginTransactionAsync();
+				await repository.OpenConnectionAsync();
+				await repository.BeginTransactionAsync();
 				await ExecuteConcreteOperationAsync();
-				await broker.CommitAsync();
+				await repository.CommitAsync();
 			}
 			catch (Exception ex)
 			{
-				await broker.RollbackAsync();
+				await repository.RollbackAsync();
 				throw ex;
 			}
 			finally
 			{
-				await broker.CloseConnectionAsync();
+				await repository.CloseConnectionAsync();
 			}
 		}
 

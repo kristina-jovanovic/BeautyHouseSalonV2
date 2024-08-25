@@ -8,63 +8,85 @@ using System.Threading.Tasks;
 
 namespace Common.Domain
 {
-    [Serializable]
-    public class TipUsluge : IEntity
-    {
-        public int TipUslugeID { get; set; }
-        public string NazivTipaUsluge { get; set; }
-        
-        public string TableName => "TipUsluge";
+	[Serializable]
+	public class TipUsluge : IEntity
+	{
+		public int TipUslugeID { get; set; }
+		public string NazivTipaUsluge { get; set; }
 
-        public string Values => $"'{NazivTipaUsluge}'";
+		public string Aliaces()
+		{
+			return "";
+		}
 
-        public string PrimaryKey => TipUslugeID.ToString();
+		public override bool Equals(object obj)
+		{
+			return obj is TipUsluge usluge &&
+				   //TipUslugeID == usluge.TipUslugeID &&
+				   NazivTipaUsluge == usluge.NazivTipaUsluge;
+		}
 
-        public string GetById => null;
+		public string FilterQuery(string filter)
+		{
+			return null;
+		}
 
-        public string JoinQuery => "";
+		public string FilterQueryStatus(StatusZahteva status)
+		{
+			return null;
+		}
 
-        public string UpdateQuery => null;
-        public string Aliaces => "";
+		public string GetById()
+		{
+			return null;
+		}
 
+		public async Task<List<IEntity>> GetReaderListAsync(SqlDataReader reader)
+		{
+			List<IEntity> tipoviUsluga = new List<IEntity>();
+			while (await reader.ReadAsync())
+			{
+				TipUsluge tipUsluge = new TipUsluge();
+				tipUsluge.TipUslugeID = (int)reader["TipUslugeID"];
+				tipUsluge.NazivTipaUsluge = (string)reader["NazivTipaUsluge"];
+				tipoviUsluga.Add(tipUsluge);
+			}
+			return tipoviUsluga;
+		}
 
-        public override bool Equals(object obj)
-        {
-            return obj is TipUsluge usluge &&
-                   //TipUslugeID == usluge.TipUslugeID &&
-                   NazivTipaUsluge == usluge.NazivTipaUsluge;
-        }
+		public Task<IEntity> GetReaderResultAsync(SqlDataReader reader)
+		{
+			return null;
+		}
 
-        public string FilterQuery(string filter)
-        {
-            return null;
-        }
+		public string JoinQuery()
+		{
+			return "";
+		}
 
-        public string FilterQueryStatus(StatusZahteva status)
-        {
-            return null;
-        }
-        public async Task<List<IEntity>> GetReaderListAsync(SqlDataReader reader)
-        {
-            List<IEntity> tipoviUsluga = new List<IEntity>();
-            while (await reader.ReadAsync())
-            {
-                TipUsluge tipUsluge = new TipUsluge();
-                tipUsluge.TipUslugeID = (int)reader["TipUslugeID"];
-                tipUsluge.NazivTipaUsluge = (string)reader["NazivTipaUsluge"];
-                tipoviUsluga.Add(tipUsluge);
-            }
-            return tipoviUsluga;
-        }
+		public string PrimaryKey()
+		{
+			return TipUslugeID.ToString();
+		}
 
-        public Task<IEntity> GetReaderResultAsync(SqlDataReader reader)
-        {
-            return null;
-        }
+		public string TableName()
+		{
+			return "TipUsluge";
+		}
 
-        public override string ToString()
-        {
-            return NazivTipaUsluge;
-        }
-    }
+		public override string ToString()
+		{
+			return NazivTipaUsluge;
+		}
+
+		public string UpdateQuery()
+		{
+			return null;
+		}
+
+		public string Values()
+		{
+			return $"'{NazivTipaUsluge}'";
+		}
+	}
 }

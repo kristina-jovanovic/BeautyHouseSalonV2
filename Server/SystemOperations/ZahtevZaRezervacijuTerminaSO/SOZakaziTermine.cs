@@ -1,19 +1,20 @@
 ﻿using Common.Domain;
+using DataAccessLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server.SystemOperations.ZahtevZaRezervacijuTermina
+namespace Server.SystemOperations.ZahtevZaRezervacijuTerminaSO
 {
 	internal class SOZakaziTermine : SOBase
 	{
 		public List<IEntity> result;
-		private List<Common.Domain.ZahtevZaRezervacijuTermina> zahtevi;
+		private List<ZahtevZaRezervacijuTermina> zahtevi;
 		private StatusZahteva status;
 
-		public SOZakaziTermine(List<Common.Domain.ZahtevZaRezervacijuTermina> zahtevi, StatusZahteva status)
+		public SOZakaziTermine(IRepository<IEntity> repository, List<ZahtevZaRezervacijuTermina> zahtevi, StatusZahteva status) : base(repository)
 		{
 			this.zahtevi = zahtevi;
 			this.status = status;
@@ -22,11 +23,11 @@ namespace Server.SystemOperations.ZahtevZaRezervacijuTermina
 
 		protected override async Task ExecuteConcreteOperationAsync()
 		{
-			foreach (Common.Domain.ZahtevZaRezervacijuTermina zahtev in zahtevi)
+			foreach (ZahtevZaRezervacijuTermina zahtev in zahtevi)
 			{
 				zahtev.StatusZahteva = status;
-				await broker.UpdateAsync(zahtev);
-				result.Add(await broker.GetEntityByIdAsync(zahtev));
+				await repository.UpdateAsync(zahtev);
+				result.Add(await repository.GetByIdAsync(zahtev));
 			}
 		}
 	}

@@ -4,7 +4,9 @@ function Worker({ worker }) {
     return (
         <div className="col-lg-4">
             <div className="team-member"
-                style={{ height: "100%", alignContent: "center" }}
+                style={{ height: "100%", 
+                    // alignContent: "center"
+                 }}
 
             >
                 <img src={worker.fotografija} className="mx-auto rounded-circle" alt="worker" />

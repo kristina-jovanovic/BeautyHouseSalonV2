@@ -35,7 +35,9 @@ function OneService({ service, addService }) {
                 </a>
                 <div className="portfolio-caption">
                     <div className="portfolio-caption-heading">{service.naziv}</div>
-                    <div className="portfolio-caption-subheading text-muted">{service.tipUsluge.nazivTipaUsluge}</div>
+                    {/* <div className="portfolio-caption-subheading text-muted">{service.tipUsluge.nazivTipaUsluge}</div> */}
+                    <p style={{margin:0}}>Cena: {service.cena} €</p>
+                    <p style={{margin:0}}>Trajanje termina: {service.trajanjeUMinutima} minuta</p>
                 </div>
             </div>
         </div>

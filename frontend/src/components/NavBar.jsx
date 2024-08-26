@@ -7,6 +7,7 @@ import { animateScroll as scroll, scroller } from 'react-scroll';
 
 function NavBar({ token, addToken, addUser, addService }) {
     let navigate = useNavigate();
+    let location = useLocation();
 
     function handleLogout() {
         window.sessionStorage.setItem("auth_token", null);
@@ -47,9 +48,9 @@ function NavBar({ token, addToken, addUser, addService }) {
         return () => {
             window.removeEventListener('scroll', handleNavbarShrink);
         };
-    }, []);
+    }, [location.pathname]);
 
-    let location = useLocation();
+
     //scroll-ujemo na odredjeni id - za usluge, tim ...
     useEffect(() => {
         const hash = location.hash;

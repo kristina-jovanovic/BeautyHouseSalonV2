@@ -11,10 +11,12 @@ namespace WebAPI.Controllers
 	public class RadniciController : ControllerBase
 	{
 		private readonly IMapper mapper;
+		private readonly Server.Controller controller;
 
-		public RadniciController(IMapper mapper)
+		public RadniciController(IMapper mapper, Server.Controller controller)
 		{
 			this.mapper = mapper;
+			this.controller = controller;
 		}
 
 		[HttpGet]
@@ -23,12 +25,12 @@ namespace WebAPI.Controllers
 			List<ProfilRadnika> radnici;
 			if (string.IsNullOrEmpty(filterQuery))
 			{
-				radnici = await Server.Controller.Instance.UcitajListuProfilaRadnikaAsync();
+				radnici = await controller.UcitajListuProfilaRadnikaAsync();
 			}
 			else
 			{
 				//trazi radnike kojima ime, prezime ili tip usluge odgovaraju poslatom filteru
-				radnici = await Server.Controller.Instance.NadjiProfileRadnikaFilterAsync(filterQuery);
+				radnici = await controller.NadjiProfileRadnikaFilterAsync(filterQuery);
 			}
 			if (radnici == null)
 			{
@@ -41,7 +43,7 @@ namespace WebAPI.Controllers
 		[Route("{id:int}")]
 		public async Task<IActionResult> GetById([FromRoute] int id)
 		{
-			ProfilRadnika radnik = await Server.Controller.Instance.UcitajProfilRadnikaAsync(new ProfilRadnika { RadnikID = id });
+			ProfilRadnika radnik = await controller.UcitajProfilRadnikaAsync(new ProfilRadnika { RadnikID = id });
 			if (radnik == null)
 			{
 				return NotFound();
@@ -54,7 +56,7 @@ namespace WebAPI.Controllers
 		{
 			//mora prethodno logika za fotografiju da se izmeni
 			ProfilRadnika radnik = mapper.Map<ProfilRadnika>(radnikDto);
-			radnik = await Server.Controller.Instance.KreirajProfilRadnikaAsync(radnik);
+			radnik = await controller.KreirajProfilRadnikaAsync(radnik);
 			if (radnik == null)
 			{
 				return BadRequest();

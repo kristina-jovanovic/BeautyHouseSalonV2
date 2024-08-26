@@ -44,25 +44,21 @@ namespace DataAccessLayer.Repositories.DBBroker
 		public async Task<IEnumerable<IEntity?>> GetAllAsync(IEntity entity)
 		{
 			return await broker.ReadAllAsync(entity);
-
 		}
 
 		public async Task<IEnumerable<IEntity?>> GetAllWithFilterAsync(IEntity entity,string filter)
 		{
 			return await broker.ReadAllWithFilterAsync(entity, filter);
-
 		}
 
 		public async Task<IEnumerable<IEntity?>> GetAllWithStatusAsync(IEntity entity, StatusZahteva status)
 		{
 			return await broker.GetEntitiesByIdAsync(entity, status);
-
 		}
 
 		public async Task<IEntity?> GetByIdAsync(IEntity entity)
 		{
 			return await broker.GetEntityByIdAsync(entity);
-
 		}
 
 		public async Task AddAsync(IEntity entity)

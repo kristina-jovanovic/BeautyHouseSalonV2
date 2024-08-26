@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repositories.EFCore
 {
-	public abstract class RepositoryEF<T> : IRepository<T> where T : IEntity
+	public class RepositoryEF : IRepository<IEntity>
 	{
 		protected readonly BeautyHouseDbContext dbContext;
 		private IDbContextTransaction? transaction;
 
-		protected RepositoryEF(BeautyHouseDbContext dbContext)
+		public RepositoryEF(BeautyHouseDbContext dbContext)
 		{
 			this.dbContext = dbContext;
 		}
@@ -43,15 +43,52 @@ namespace DataAccessLayer.Repositories.EFCore
 
 		public async Task RollbackAsync()
 		{
-			await transaction?.RollbackAsync();
+			await transaction.RollbackAsync();
 		}
 
-		public abstract Task<IEnumerable<IEntity?>> GetAllAsync(T entity);
-		public abstract Task<IEnumerable<IEntity?>> GetAllWithFilterAsync(T entity, string filter);
-		public abstract Task<IEnumerable<IEntity?>> GetAllWithStatusAsync(T entity, StatusZahteva status);
-		public abstract Task<IEntity?> GetByIdAsync(T entity);
-		public abstract Task AddAsync(T entity);
-		public abstract Task UpdateAsync(T entity);
-		public abstract Task DeleteAsync(T entity);
+		public async Task<IEnumerable<IEntity?>> GetAllAsync(IEntity entity)
+		{
+			return await dbContext.Set<IEntity>().ToListAsync();
+		}
+
+		public async Task<IEnumerable<IEntity?>> GetAllWithFilterAsync(IEntity entity, string filter)
+		{
+			//var zahtevi = await dbContext.Set<T>().Where((z) => $"{z.Radnik.Ime} {z.Radnik.Prezime}".Contains(filter, StringComparison.CurrentCultureIgnoreCase)
+			//&& z.StatusZahteva == StatusZahteva.NaCekanju).ToListAsync();
+			//return zahtevi.Cast<IEntity>();
+			return await dbContext.Set<IEntity>().FromSqlInterpolated($"select *{entity.Aliaces()} from {entity.TableName()} {entity.JoinQuery()} where {entity.FilterQuery(filter)}").ToListAsync();
+
+		}
+
+		public async Task<IEnumerable<IEntity?>> GetAllWithStatusAsync(IEntity entity, StatusZahteva status)
+		{
+			return await dbContext.Set<IEntity>().FromSqlInterpolated($"select *{entity.Aliaces()} from {entity.TableName()} {entity.JoinQuery()} where {entity.FilterQueryStatus(status)}").ToListAsync();
+
+		}
+
+		public async Task<IEntity?> GetByIdAsync(IEntity entity)
+		{
+			return await dbContext.Set<IEntity>().FromSqlInterpolated($"select *{entity.Aliaces()} from {entity.TableName()} {entity.JoinQuery()} where {entity.GetById()}").FirstOrDefaultAsync();
+
+		}
+
+		public async Task AddAsync(IEntity entity)
+		{
+			await dbContext.Set<IEntity>().AddAsync(entity);
+			await dbContext.SaveChangesAsync();
+		}
+
+		public async Task UpdateAsync(IEntity entity)
+		{
+			dbContext.Set<IEntity>().Update(entity);
+			await dbContext.SaveChangesAsync();
+		}
+
+		public async Task DeleteAsync(IEntity entity)
+		{
+			//proveru da li taj korisnik postoji obavljam u okviru sistemskih operacija
+			dbContext.Set<IEntity>().Remove(entity);
+			await dbContext.SaveChangesAsync();
+		}
 	}
 }

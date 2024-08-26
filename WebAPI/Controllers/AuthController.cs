@@ -15,11 +15,13 @@ namespace WebAPI.Controllers
 	{
 		private readonly IMapper mapper;
 		private readonly ITokenRepository tokenRepository;
+		private readonly Server.Controller controller;
 
-		public AuthController(IMapper mapper, ITokenRepository tokenRepository)
+		public AuthController(IMapper mapper, ITokenRepository tokenRepository, Server.Controller controller)
 		{
 			this.mapper = mapper;
 			this.tokenRepository = tokenRepository;
+			this.controller = controller;
 		}
 
 		[HttpPost]
@@ -38,7 +40,7 @@ namespace WebAPI.Controllers
 
 			//Server.Controller.Instance.SetRepository<Korisnik>();
 
-			korisnik = await Server.Controller.Instance.DodajKorisnikaAsync(korisnik);
+			korisnik = await controller.DodajKorisnikaAsync(korisnik);
 			if (korisnik == null)
 			{
 				//ako vrati null znaci da je korisnicko ime zauzeto i da ne moze da kreira novi korisnicki nalog
@@ -62,7 +64,7 @@ namespace WebAPI.Controllers
 			{
 				//Server.Controller.Instance.SetRepository<Korisnik>();
 
-				korisnik = await Server.Controller.Instance.UlogujKorisnikaAsync(korisnik);
+				korisnik = await controller.UlogujKorisnikaAsync(korisnik);
 				//provera hashovane lozinke je implementirana unutar ove metode i metoda koje ona koristi, tako da nema potrebe ovde da proveravamo
 			}
 			catch (Server.Exceptions.WrongPasswordException)

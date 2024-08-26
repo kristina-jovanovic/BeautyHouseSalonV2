@@ -15,11 +15,13 @@ namespace WebAPI.Controllers
 	{
 		private readonly IMapper mapper;
 		private readonly EmailSender emailSender;
+		private readonly Server.Controller controller;
 
-		public TerminiController(IMapper mapper, EmailSender emailSender)
+		public TerminiController(IMapper mapper, EmailSender emailSender, Server.Controller controller)
 		{
 			this.mapper = mapper;
 			this.emailSender = emailSender;
+			this.controller = controller;
 		}
 
 		[HttpGet]
@@ -31,7 +33,7 @@ namespace WebAPI.Controllers
 				Ime = ime,
 				Prezime = prezime
 			};
-			List<ZahtevZaRezervacijuTermina> zahtevi = await Server.Controller.Instance.NadjiZahteveZaRezervacijuTerminaAsync(radnik);
+			List<ZahtevZaRezervacijuTermina> zahtevi = await controller.NadjiZahteveZaRezervacijuTerminaAsync(radnik);
 			if (zahtevi == null || zahtevi.Count == 0)
 			{
 				return NotFound();
@@ -53,7 +55,7 @@ namespace WebAPI.Controllers
 		{
 			//datum kad se salje mora u ovom formatu "yyyy-MM-ddTHH:mm:ss.fffZ" (za JSON)
 			List<ZahtevZaRezervacijuTermina> zahtevi = mapper.Map<List<ZahtevZaRezervacijuTermina>>(zahteviDto);
-			zahtevi = await Server.Controller.Instance.KreirajZahteveZaRezervacijuTerminaAsync(zahtevi);
+			zahtevi = await controller.KreirajZahteveZaRezervacijuTerminaAsync(zahtevi);
 			if (zahtevi == null || zahtevi.Count == 0)
 			{
 				return Ok(new {Success=false});
@@ -68,7 +70,7 @@ namespace WebAPI.Controllers
 		{
 			//bitno je da se popuni datum i vreme termina i id radnika
 			ZahtevZaRezervacijuTermina zahtev = mapper.Map<ZahtevZaRezervacijuTermina>(zahtevDto);
-			List<ZahtevZaRezervacijuTermina> zahtevi = await Server.Controller.Instance.ProveriRaspolozivostTerminaAsync(zahtev);
+			List<ZahtevZaRezervacijuTermina> zahtevi = await controller.ProveriRaspolozivostTerminaAsync(zahtev);
 			if (zahtevi.Count != 0)
 			{
 				//postoji bar jedan zahtev kod tog radnika u to vreme koji je odobren = nije slobodan termin
@@ -90,11 +92,11 @@ namespace WebAPI.Controllers
 			List<ZahtevZaRezervacijuTermina> zahtevi = mapper.Map<List<ZahtevZaRezervacijuTermina>>(zahteviDto);
 			if (odobreni)
 			{
-				zahtevi = await Server.Controller.Instance.ZakaziTermineAsync(zahtevi, StatusZahteva.Odobren);
+				zahtevi = await controller.ZakaziTermineAsync(zahtevi, StatusZahteva.Odobren);
 			}
 			else
 			{
-				zahtevi = await Server.Controller.Instance.ZakaziTermineAsync(zahtevi, StatusZahteva.Odbijen);
+				zahtevi = await controller.ZakaziTermineAsync(zahtevi, StatusZahteva.Odbijen);
 			}
 			if (zahtevi == null || zahtevi.Count == 0)
 			{

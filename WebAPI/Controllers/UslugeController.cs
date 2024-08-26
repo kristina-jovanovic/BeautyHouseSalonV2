@@ -11,10 +11,12 @@ namespace WebAPI.Controllers
 	public class UslugeController : ControllerBase
 	{
 		private readonly IMapper mapper;
+		private readonly Server.Controller controller;
 
-		public UslugeController(IMapper mapper)
+		public UslugeController(IMapper mapper,Server.Controller controller)
 		{
 			this.mapper = mapper;
+			this.controller = controller;
 		}
 
 		[HttpGet]
@@ -23,12 +25,12 @@ namespace WebAPI.Controllers
 			List<Usluga> usluge;
 			if (string.IsNullOrEmpty(filterQuery))
 			{
-				usluge = await Server.Controller.Instance.UcitajListuUslugaAsync();
+				usluge = await controller.UcitajListuUslugaAsync();
 			}
 			else
 			{
 				//u brokeru je implementirano tako da trazi usluge gde naziv usluge ili naziv tipa te usluge odgovaraju unetom filteru
-				usluge = await Server.Controller.Instance.NadjiUslugeFilterAsync(filterQuery);
+				usluge = await controller.NadjiUslugeFilterAsync(filterQuery);
 			}
 			if (usluge == null || usluge.Count == 0)
 			{
@@ -41,7 +43,7 @@ namespace WebAPI.Controllers
 		[Route("{id:int}")]
 		public async Task<IActionResult> GetById([FromRoute] int id)
 		{
-			Usluga usluga = await Server.Controller.Instance.UcitajUsluguAsync(new Usluga { UslugaID = id });
+			Usluga usluga = await controller.UcitajUsluguAsync(new Usluga { UslugaID = id });
 			if (usluga == null)
 			{
 				return NotFound();
@@ -53,7 +55,7 @@ namespace WebAPI.Controllers
 		public async Task<IActionResult> Create([FromBody] UslugaDto uslugaDto)
 		{
 			Usluga usluga = mapper.Map<Usluga>(uslugaDto);
-			usluga = await Server.Controller.Instance.KreirajNovuUsluguAsync(usluga);
+			usluga = await controller.KreirajNovuUsluguAsync(usluga);
 			if (usluga == null)
 			{
 				return BadRequest();
@@ -68,7 +70,7 @@ namespace WebAPI.Controllers
 		{
 			uslugaDto.UslugaID = id;
 			Usluga usluga = mapper.Map<Usluga>(uslugaDto);
-			usluga = await Server.Controller.Instance.IzmeniUsluguAsync(usluga);
+			usluga = await controller.IzmeniUsluguAsync(usluga);
 			if (usluga == null)
 			{
 				return BadRequest();
@@ -81,7 +83,7 @@ namespace WebAPI.Controllers
 		[Route("{id:int}")]
 		public async Task<IActionResult> Delete([FromRoute] int id)
 		{
-			bool obrisano = await Server.Controller.Instance.ObrisiUsluguAsync(new Usluga { UslugaID = id });
+			bool obrisano = await controller.ObrisiUsluguAsync(new Usluga { UslugaID = id });
 			if (obrisano)
 			{
 				return Ok(obrisano);

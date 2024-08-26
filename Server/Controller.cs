@@ -24,20 +24,24 @@ namespace Server
 		private static IServiceProvider serviceProvider;
 		private static Controller instance;
 		private IRepository<IEntity> repository;
-		private Controller(IRepository<IEntity> repository)
+		public Controller(IRepository<IEntity> repository) : this()
 		{
 			this.repository = repository;
 		}
+        private Controller()
+        {
+			instance = this;
+        }
 
-		public static Controller Instance
+        public static Controller Instance
 		{
 			get
 			{
-				if (instance == null) throw new InvalidOperationException("Instance is not initialized.");
+				if (instance == null) instance = new Controller();
 				return instance;
 			}
-
 		}
+
 		public static void Initialize(IServiceProvider provider)
 		{
 			if (instance == null)
@@ -47,11 +51,11 @@ namespace Server
 				instance = new Controller(repository);
 			}
 		}
-		// Method to set the repository for a specific entity type
-		public void SetRepository<T>() where T : class, IEntity
-		{
-			repository = serviceProvider.GetRequiredService<IRepository<T>>() as IRepository<IEntity>;
-		}
+		//Method to set the repository for a specific entity type
+		//public void SetRepository<T>() where T : class, IEntity
+		//{
+		//	repository = serviceProvider.GetRequiredService<IRepository<T>>() as IRepository<IEntity>;
+		//}
 		//public IRepository<IEntity> Repository => repo;
 		//private Controller()
 		//{

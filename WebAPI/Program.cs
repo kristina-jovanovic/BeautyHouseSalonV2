@@ -11,11 +11,6 @@ using System.Text;
 using WebAPI.Configuration;
 using WebAPI.Mappings;
 using WebAPI.Repositories;
-using DataAccessLayer.Repositories.EFCore.KorisnikRepository;
-using DataAccessLayer.Repositories.EFCore.UslugaRepository;
-using DataAccessLayer.Repositories.EFCore.TipUslugeRepository;
-using DataAccessLayer.Repositories.EFCore.ProfilUslugeRepository;
-using DataAccessLayer.Repositories.EFCore.ZahtevZaRezTerminaRepository;
 using Server;
 using DataAccessLayer.Repositories.DBBroker;
 using DBBroker;
@@ -41,14 +36,10 @@ builder.Services.AddScoped<IRepository<IEntity>>(provider =>
 	return new RepositoryDBB(provider.GetRequiredService<Broker>());
 });
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
-builder.Services.AddScoped<IRepository<Korisnik>, KorisnikRepositoryEF>();
-builder.Services.AddScoped<IRepository<Usluga>, UslugaRepositoryEF>();
-builder.Services.AddScoped<IRepository<TipUsluge>, TipUslugeRepositoryEF>();
-builder.Services.AddScoped<IRepository<ProfilRadnika>, ProfilRadnikaRepositoryEF>();
-builder.Services.AddScoped<IRepository<ZahtevZaRezervacijuTermina>, ZahtevZaRezervacijuTerminaRepositoryEF>();
 
+builder.Services.AddScoped<Server.Controller>(); // Registracija Controllera
 //initializing controller
-Controller.Initialize(builder.Services.BuildServiceProvider());
+//Controller.Initialize(builder.Services.BuildServiceProvider());
 
 // injecting profiles with automapper
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));

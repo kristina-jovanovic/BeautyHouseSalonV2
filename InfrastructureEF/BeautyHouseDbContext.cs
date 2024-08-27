@@ -22,11 +22,14 @@ namespace InfrastructureEF
 		{
 			modelBuilder.RemovePluralizingTableNameConvention();
 
-			//modelBuilder.Entity<Korisnik>().ToTable("Korisnik");
-			//modelBuilder.Entity<ProfilRadnika>().ToTable("ProfilRadnika");
-			//modelBuilder.Entity<TipUsluge>().ToTable("TipUsluge");
-			//modelBuilder.Entity<Usluga>().ToTable("Usluga");
-			//modelBuilder.Entity<ZahtevZaRezervacijuTermina>().ToTable("ZahtevZaRezervacijuTermina");
+			//postavljanje primarnih kljuceva
+			modelBuilder.Entity<Korisnik>().HasKey(k => k.KorisnikID); 
+			modelBuilder.Entity<ProfilRadnika>().HasKey(p => p.RadnikID);
+			modelBuilder.Entity<TipUsluge>().HasKey(t => t.TipUslugeID);
+			modelBuilder.Entity<Usluga>().HasKey(u => u.UslugaID);
+			modelBuilder.Entity<ZahtevZaRezervacijuTermina>().HasKey(z => z.ZahtevID);
+
+
 		}
 
 	}

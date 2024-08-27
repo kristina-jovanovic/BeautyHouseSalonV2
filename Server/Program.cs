@@ -27,8 +27,9 @@ namespace Server
 			var services = new ServiceCollection();
 
 			services.AddScoped<Broker>(); // Registracija Brokera
-			services.AddDbContext<BeautyHouseDbContext>(options => options.UseSqlServer(ConfigurationManager.AppSettings["BeautyHouseBazaV2"]));
-			
+			//services.AddDbContext<BeautyHouseDbContext>(options => options.UseSqlServer(ConfigurationManager.AppSettings["BeautyHouseBazaV2"]));
+			services.AddDbContext<BeautyHouseDbContext>(options => options.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = BeautyHouseBazaV2; Integrated Security = True;"));
+
 			//services.AddScoped<IRepository<IEntity>>(provider =>
 			//{
 			//	//var broker = provider.GetRequiredService<Broker>();
@@ -38,7 +39,7 @@ namespace Server
 			{
 				return new RepositoryEF(provider.GetRequiredService<BeautyHouseDbContext>());
 			});
-			
+
 			ServiceProvider = services.BuildServiceProvider();
 			Controller.Initialize(ServiceProvider);
 

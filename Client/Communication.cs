@@ -2,6 +2,7 @@
 using Client.UserControls;
 using Client.UserControls.UCZahtevZaRezTermina;
 using Common.Communication;
+using Common.Configuration;
 using Common.Domain;
 using System;
 using System.Collections.Generic;
@@ -29,8 +30,12 @@ namespace Client
 				return instance;
 			}
 		}
-		private Communication() { }
+		private Communication() 
+		{
+			configuration = new AppConfigConfiguration();
+		}
 
+		IAppConfiguration configuration;
 		Socket socket;
 		Sender sender;
 		Receiver receiver;
@@ -39,28 +44,11 @@ namespace Client
 
 		private async Task ConnectAsync()
 		{
-			//try
-			//{
-			//    if (socket == null || !socket.Connected)
-			//    {
-			//        socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-			//        socket.Connect(ConfigurationManager.AppSettings["ip"], int.Parse(ConfigurationManager.AppSettings["port"]));
-			//        //Debug.WriteLine("KLIJENT POVEZAN");
-			//        sender = new Sender(socket);
-			//        receiver = new Receiver(socket);
-			//        request = new Request();
-			//    }
-			//    return true;
-			//}
-			//catch (SocketException)
-			//{
-			//    return false;
-			//}
-
 			if (socket == null || !socket.Connected)
 			{
 				socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-				await socket.ConnectAsync(ConfigurationManager.AppSettings["ip"], int.Parse(ConfigurationManager.AppSettings["port"]));
+				await socket.ConnectAsync(configuration.GetValue("ip"), int.Parse(configuration.GetValue("port")));
+				//await socket.ConnectAsync(ConfigurationManager.AppSettings["ip"], int.Parse(ConfigurationManager.AppSettings["port"]));
 				//Debug.WriteLine("KLIJENT POVEZAN");
 				sender = new Sender(socket);
 				receiver = new Receiver(socket);

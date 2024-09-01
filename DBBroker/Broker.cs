@@ -7,15 +7,16 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Common.Configuration;
 
 namespace DBBroker
 {
 	public class Broker
 	{
 		private readonly DBConnection connection;
-		public Broker()
+		public Broker(IAppConfiguration config)
 		{
-			connection = new DBConnection();
+			connection = new DBConnection(config);
 		}
 
 		public async Task RollbackAsync()

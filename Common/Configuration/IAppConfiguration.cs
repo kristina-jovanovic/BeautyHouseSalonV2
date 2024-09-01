@@ -9,5 +9,6 @@ namespace Common.Configuration
 	public interface IAppConfiguration
 	{
 		string GetValue(string key);
+		string GetConnectionString(string key);
 	}
 }

@@ -1,4 +1,5 @@
-﻿using Common.Domain;
+﻿using Common.Configuration;
+using Common.Domain;
 using DataAccessLayer;
 using DataAccessLayer.Repositories.DBBroker;
 using DBBroker;
@@ -23,7 +24,11 @@ namespace Server
 		{
 			var services = new ServiceCollection();
 
-			services.AddScoped<Broker>(); // Registracija Brokera
+			services.AddSingleton<IAppConfiguration, AppConfigConfiguration>();
+			services.AddScoped<Broker>((provider) =>
+			{
+				return new Broker(provider.GetRequiredService<IAppConfiguration>());
+			}); // Registracija Brokera
 
 			services.AddScoped<IRepository<IEntity>>(provider =>
 			{

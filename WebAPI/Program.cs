@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using WebAPI.Configuration;
 using WebAPI.Mappings;
 using WebAPI.Repositories;
 using Server;
@@ -22,8 +21,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//dodata konfiguracija 
+builder.Services.AddSingleton<IAppConfiguration, WebApiConfiguration>();
+builder.Services.AddSingleton<EmailSender>();
 //injecting repositories
-builder.Services.AddScoped<Broker>(); // Registracija Brokera
+builder.Services.AddScoped<Broker>(provider =>
+{
+	return new Broker(provider.GetRequiredService<IAppConfiguration>());
+}); // Registracija Brokera
 builder.Services.AddScoped<IRepository<IEntity>>(provider =>
 {
 	//var broker = provider.GetRequiredService<Broker>();
@@ -60,9 +65,6 @@ builder.Services.AddCors(o =>
 	});
 });
 
-//dodata konfiguracija 
-builder.Services.AddSingleton<IAppConfiguration, WebApiConfiguration>();
-builder.Services.AddSingleton<EmailSender>();
 
 var app = builder.Build();
 

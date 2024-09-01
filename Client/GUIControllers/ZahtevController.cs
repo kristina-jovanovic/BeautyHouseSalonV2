@@ -16,7 +16,7 @@ using System.IO;
 using System.Diagnostics;
 using System.Net.Sockets;
 using Common.Communication;
-using Client.Configuration;
+using Common.Configuration;
 
 namespace Client.GUIControllers
 {
@@ -33,8 +33,8 @@ namespace Client.GUIControllers
 		}
 		private ZahtevController()
 		{
-			clientConfig = new ClientConfiguration();
-			emailSender = new EmailSender(clientConfig);
+			configuration = new AppConfigConfiguration();
+			emailSender = new EmailSender(configuration);
 		}
 
 		public delegate void ObradaDogadjaja(Control control);
@@ -47,7 +47,7 @@ namespace Client.GUIControllers
 		ProfilRadnika radnik;
 		Usluga usluga;
 
-		ClientConfiguration clientConfig;
+		IAppConfiguration configuration;
 		EmailSender emailSender;
 
 		internal async Task ZakaziTermin()

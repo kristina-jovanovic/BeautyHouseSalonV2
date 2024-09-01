@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Common.Configuration;
 
 namespace DBBroker
 {
@@ -15,10 +16,11 @@ namespace DBBroker
 		private SqlConnection connection;
 		private SqlTransaction transaction;
 
-		public DBConnection()
+		public DBConnection(IAppConfiguration config)
 		{
 			//connection = new SqlConnection(ConfigurationManager.ConnectionStrings["BeautyHouseBazaV2"].ConnectionString);
-			connection = new SqlConnection("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = BeautyHouseBazaV2; Integrated Security = True;TrustServerCertificate=True;MultipleActiveResultSets=True;");
+			//connection = new SqlConnection("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = BeautyHouseBazaV2; Integrated Security = True;TrustServerCertificate=True;MultipleActiveResultSets=True;");
+			connection = new SqlConnection(config.GetConnectionString("BeautyHouseBazaV2"));
 		}
 
 		public async Task OpenConnectionAsync()

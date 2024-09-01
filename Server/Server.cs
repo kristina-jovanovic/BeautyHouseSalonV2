@@ -15,6 +15,12 @@ namespace Server
     {
         Socket osluskujuciSoket;
         private static List<ClientHandler> clients = new List<ClientHandler>();
+		private readonly Controller controller;
+
+		public Server(Controller controller)
+        {
+			this.controller = controller;
+		}
         public async void Start()
         {
             osluskujuciSoket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -33,7 +39,7 @@ namespace Server
                 while (true)
                 {
                     Socket klijentskiSoket = await osluskujuciSoket.AcceptAsync();
-                    ClientHandler handler = new ClientHandler(klijentskiSoket);
+                    ClientHandler handler = new ClientHandler(controller, klijentskiSoket);
                     clients.Add(handler);
                     HandleClientsAsync(handler); //ne treba await jer je ovo nova 'nit' za sebe, ne treba da cekam na njen zavrsetak
                 }

@@ -1,10 +1,7 @@
 ﻿using Common.Domain;
 using DataAccessLayer;
 using DataAccessLayer.Repositories.DBBroker;
-using DataAccessLayer.Repositories.EFCore;
 using DBBroker;
-using InfrastructureEF;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -27,25 +24,20 @@ namespace Server
 			var services = new ServiceCollection();
 
 			services.AddScoped<Broker>(); // Registracija Brokera
-			//services.AddDbContext<BeautyHouseDbContext>(options => options.UseSqlServer(ConfigurationManager.AppSettings["BeautyHouseBazaV2"]));
-			services.AddDbContext<BeautyHouseDbContext>(options => options.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = BeautyHouseBazaV2; Integrated Security = True;"));
 
-			//services.AddScoped<IRepository<IEntity>>(provider =>
-			//{
-			//	//var broker = provider.GetRequiredService<Broker>();
-			//	return new RepositoryDBB(provider.GetRequiredService<Broker>());
-			//});
 			services.AddScoped<IRepository<IEntity>>(provider =>
 			{
-				return new RepositoryEF(provider.GetRequiredService<BeautyHouseDbContext>());
+				//var broker = provider.GetRequiredService<Broker>();
+				return new RepositoryDBB(provider.GetRequiredService<Broker>());
 			});
 
+			services.AddScoped<Controller>();
 			ServiceProvider = services.BuildServiceProvider();
-			Controller.Initialize(ServiceProvider);
+			//Controller.Initialize(ServiceProvider);
 
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new FrmServer());
+			Application.Run(new FrmServer(ServiceProvider.GetRequiredService<Controller>()));
 		}
 	}
 }

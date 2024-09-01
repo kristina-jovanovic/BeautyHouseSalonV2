@@ -21,36 +21,32 @@ namespace Server
 {
 	public class Controller
 	{
-		private static IServiceProvider serviceProvider;
-		private static Controller instance;
+		//private static IServiceProvider serviceProvider;
+		//private static Controller instance;
 		private IRepository<IEntity> repository;
-		public Controller(IRepository<IEntity> repository) : this()
+		public Controller(IRepository<IEntity> repository)
 		{
 			this.repository = repository;
 		}
-        private Controller()
-        {
-			instance = this;
-        }
 
-        public static Controller Instance
-		{
-			get
-			{
-				if (instance == null) instance = new Controller();
-				return instance;
-			}
-		}
+		//      public static Controller Instance
+		//{
+		//	get
+		//	{
+		//		if (instance == null) instance = new Controller();
+		//		return instance;
+		//	}
+		//}
 
-		public static void Initialize(IServiceProvider provider)
-		{
-			if (instance == null)
-			{
-				serviceProvider = provider;
-				var repository = provider.GetRequiredService<IRepository<IEntity>>();
-				instance = new Controller(repository);
-			}
-		}
+		//public static void Initialize(IServiceProvider provider)
+		//{
+		//	if (instance == null)
+		//	{
+		//		serviceProvider = provider;
+		//		var repository = provider.GetRequiredService<IRepository<IEntity>>();
+		//		instance = new Controller(repository);
+		//	}
+		//}
 		//Method to set the repository for a specific entity type
 		//public void SetRepository<T>() where T : class, IEntity
 		//{

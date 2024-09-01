@@ -1,9 +1,7 @@
 using Common.Communication;
 using Common.Configuration;
 using Common.Domain;
-using DataAccessLayer.Repositories.EFCore;
 using DataAccessLayer;
-using InfrastructureEF;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -24,10 +22,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//injecting DbContext
-builder.Services.AddDbContext<BeautyHouseDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("BeautyHouseBazaV2")));
-
 //injecting repositories
 builder.Services.AddScoped<Broker>(); // Registracija Brokera
 builder.Services.AddScoped<IRepository<IEntity>>(provider =>
@@ -38,8 +32,6 @@ builder.Services.AddScoped<IRepository<IEntity>>(provider =>
 builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 
 builder.Services.AddScoped<Server.Controller>(); // Registracija Controllera
-//initializing controller
-//Controller.Initialize(builder.Services.BuildServiceProvider());
 
 // injecting profiles with automapper
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));

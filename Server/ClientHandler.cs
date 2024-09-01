@@ -20,11 +20,13 @@ namespace Server
 	{
 		Sender sender;
 		Receiver receiver;
+		private readonly Controller controller;
 		Socket socket;
-		public ClientHandler(Socket socket)
+		public ClientHandler(Controller controller, Socket socket)
 		{
 			sender = new Sender(socket);
 			receiver = new Receiver(socket);
+			this.controller = controller;
 			this.socket = socket;
 		}
 
@@ -62,7 +64,7 @@ namespace Server
 					Korisnik kor = Transformer.TransformisiJson<Korisnik>(request.Argument);
 					try
 					{
-						kor = await Controller.Instance.UlogujKorisnikaAsync(kor);
+						kor = await controller.UlogujKorisnikaAsync(kor);
 						if (kor == null)
 						{
 							response.IsSuccessfull = false;
@@ -84,7 +86,7 @@ namespace Server
 					break;
 				case Operation.Registracija:
 					Korisnik k = Transformer.TransformisiJson<Korisnik>(request.Argument);
-					response.Result = await Controller.Instance.DodajKorisnikaAsync(k);
+					response.Result = await controller.DodajKorisnikaAsync(k);
 					if (response.Result == null)
 					{
 						response.IsSuccessfull = false;
@@ -96,7 +98,7 @@ namespace Server
 
 					break;
 				case Operation.VratiTipoveUsluga:
-					response.Result = await Controller.Instance.UcitajListuTipovaUslugaAsync();
+					response.Result = await controller.UcitajListuTipovaUslugaAsync();
 					if (response.Result == null)
 					{
 						response.IsSuccessfull = false;
@@ -108,7 +110,7 @@ namespace Server
 					break;
 				case Operation.DodajUslugu:
 					Usluga usluga = Transformer.TransformisiJson<Usluga>(request.Argument);
-					response.Result = await Controller.Instance.KreirajNovuUsluguAsync(usluga);
+					response.Result = await controller.KreirajNovuUsluguAsync(usluga);
 					if (response.Result == null)
 					{
 						response.IsSuccessfull = false;
@@ -119,7 +121,7 @@ namespace Server
 					}
 					break;
 				case Operation.VratiUsluge:
-					response.Result = await Controller.Instance.UcitajListuUslugaAsync();
+					response.Result = await controller.UcitajListuUslugaAsync();
 					if (response.Result == null)
 					{
 						response.IsSuccessfull = false;
@@ -130,7 +132,7 @@ namespace Server
 					}
 					break;
 				case Operation.NadjiUslugeFilter:
-					response.Result = await Controller.Instance.NadjiUslugeFilterAsync(Transformer.TransformisiJson<string>(request.Argument));
+					response.Result = await controller.NadjiUslugeFilterAsync(Transformer.TransformisiJson<string>(request.Argument));
 					if (response.Result == null)
 					{
 						response.IsSuccessfull = false;
@@ -141,7 +143,7 @@ namespace Server
 					}
 					break;
 				case Operation.UcitajUslugu:
-					response.Result = await Controller.Instance.UcitajUsluguAsync(Transformer.TransformisiJson<Usluga>(request.Argument));
+					response.Result = await controller.UcitajUsluguAsync(Transformer.TransformisiJson<Usluga>(request.Argument));
 					if (response.Result == null)
 					{
 						response.IsSuccessfull = false;
@@ -152,7 +154,7 @@ namespace Server
 					}
 					break;
 				case Operation.IzmeniUslugu:
-					response.Result = await Controller.Instance.IzmeniUsluguAsync(Transformer.TransformisiJson<Usluga>(request.Argument));
+					response.Result = await controller.IzmeniUsluguAsync(Transformer.TransformisiJson<Usluga>(request.Argument));
 					if (response.Result == null)
 					{
 						response.IsSuccessfull = false;
@@ -163,7 +165,7 @@ namespace Server
 					}
 					break;
 				case Operation.ObrisiUslugu:
-					if (await Controller.Instance.ObrisiUsluguAsync(Transformer.TransformisiJson<Usluga>(request.Argument)))
+					if (await controller.ObrisiUsluguAsync(Transformer.TransformisiJson<Usluga>(request.Argument)))
 					{
 						response.IsSuccessfull = true;
 					}
@@ -174,7 +176,7 @@ namespace Server
 					break;
 				case Operation.DodajProfilRadnika:
 					ProfilRadnika radnik = Transformer.TransformisiJson<ProfilRadnika>(request.Argument);
-					response.Result = await Controller.Instance.KreirajProfilRadnikaAsync(radnik);
+					response.Result = await controller.KreirajProfilRadnikaAsync(radnik);
 					if (response.Result == null)
 					{
 						response.IsSuccessfull = false;
@@ -185,7 +187,7 @@ namespace Server
 					}
 					break;
 				case Operation.VratiProfileRadnika:
-					response.Result = await Controller.Instance.UcitajListuProfilaRadnikaAsync();
+					response.Result = await controller.UcitajListuProfilaRadnikaAsync();
 					if (response.Result == null)
 					{
 						response.IsSuccessfull = false;
@@ -196,7 +198,7 @@ namespace Server
 					}
 					break;
 				case Operation.NadjiProfileRadnikaFilter:
-					response.Result = await Controller.Instance.NadjiProfileRadnikaFilterAsync(Transformer.TransformisiJson<string>(request.Argument));
+					response.Result = await controller.NadjiProfileRadnikaFilterAsync(Transformer.TransformisiJson<string>(request.Argument));
 					if (response.Result == null)
 					{
 						response.IsSuccessfull = false;
@@ -207,7 +209,7 @@ namespace Server
 					}
 					break;
 				case Operation.UcitajProfilRadnika:
-					response.Result = await Controller.Instance.UcitajProfilRadnikaAsync(Transformer.TransformisiJson<ProfilRadnika>(request.Argument));
+					response.Result = await controller.UcitajProfilRadnikaAsync(Transformer.TransformisiJson<ProfilRadnika>(request.Argument));
 					if (response.Result == null)
 					{
 						response.IsSuccessfull = false;
@@ -218,7 +220,7 @@ namespace Server
 					}
 					break;
 				case Operation.ProveriRaspolozivostTermina:
-					response.Result = await Controller.Instance.ProveriRaspolozivostTerminaAsync(Transformer.TransformisiJson<ZahtevZaRezervacijuTermina>(request.Argument));
+					response.Result = await controller.ProveriRaspolozivostTerminaAsync(Transformer.TransformisiJson<ZahtevZaRezervacijuTermina>(request.Argument));
 					if (((List<ZahtevZaRezervacijuTermina>)response.Result).Count == 0)
 					{
 						//znaci nije nasao takav zahtev, dostupan je
@@ -233,7 +235,7 @@ namespace Server
 					//ZahtevZaRezervacijuTermina zahtev = (ZahtevZaRezervacijuTermina)request.Argument;
 					////probaj da nadjes sa tim radnikom i tim vremenom i odobren - proveri dostupnost OK
 					List<ZahtevZaRezervacijuTermina> zahtevi = Transformer.TransformisiJson<List<ZahtevZaRezervacijuTermina>>(request.Argument);
-					response.Result = await Controller.Instance.KreirajZahteveZaRezervacijuTerminaAsync(zahtevi);
+					response.Result = await controller.KreirajZahteveZaRezervacijuTerminaAsync(zahtevi);
 					if (((List<ZahtevZaRezervacijuTermina>)response.Result).Count == 0)
 					{
 						response.IsSuccessfull = false;
@@ -245,7 +247,7 @@ namespace Server
 					break;
 				case Operation.NadjiZahteveZaRadnika:
 					ProfilRadnika r = Transformer.TransformisiJson<ProfilRadnika>(request.Argument);
-					response.Result = await Controller.Instance.NadjiZahteveZaRezervacijuTerminaAsync(r);
+					response.Result = await controller.NadjiZahteveZaRezervacijuTerminaAsync(r);
 					if (response.Result == null)
 					{
 						response.IsSuccessfull = false;
@@ -258,7 +260,7 @@ namespace Server
 				case Operation.NadjiZahteve:
 					ZahtevZaRezervacijuTermina z = Transformer.TransformisiJson<ZahtevZaRezervacijuTermina>(request.Argument);
 					//radnik i vreme i na cekanju OK
-					response.Result = await Controller.Instance.UcitajZahteveZaRezervacijuTerminaAsync(z);
+					response.Result = await controller.UcitajZahteveZaRezervacijuTerminaAsync(z);
 					if (response.Result == null)
 					{
 						response.IsSuccessfull = false;
@@ -270,7 +272,7 @@ namespace Server
 					break;
 				case Operation.OdobriTermine:
 					List<ZahtevZaRezervacijuTermina> zahteviOdobreni = Transformer.TransformisiJson<List<ZahtevZaRezervacijuTermina>>(request.Argument);
-					response.Result = await Controller.Instance.ZakaziTermineAsync(zahteviOdobreni, StatusZahteva.Odobren);
+					response.Result = await controller.ZakaziTermineAsync(zahteviOdobreni, StatusZahteva.Odobren);
 					if (((List<ZahtevZaRezervacijuTermina>)response.Result).Count == 0)
 					{
 						response.IsSuccessfull = false;
@@ -282,7 +284,7 @@ namespace Server
 					break;
 				case Operation.OdbijTermine:
 					List<ZahtevZaRezervacijuTermina> zahteviOdbijeni = Transformer.TransformisiJson<List<ZahtevZaRezervacijuTermina>>(request.Argument);
-					response.Result = await Controller.Instance.ZakaziTermineAsync(zahteviOdbijeni, StatusZahteva.Odbijen);
+					response.Result = await controller.ZakaziTermineAsync(zahteviOdbijeni, StatusZahteva.Odbijen);
 					if (((List<ZahtevZaRezervacijuTermina>)response.Result).Count == 0)
 					{
 						response.IsSuccessfull = false;

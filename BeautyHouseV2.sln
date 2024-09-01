@@ -12,9 +12,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBBroker", "DBBroker\DBBrok
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{EF788F75-F8D4-4A3C-AA83-63A8633D7F19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{D3207EFE-43E1-40A5-A316-0368793CE4AC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfrastructureEF", "InfrastructureEF\InfrastructureEF.csproj", "{67A19F9B-B83F-4D37-950C-21097964C421}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{D3207EFE-43E1-40A5-A316-0368793CE4AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,10 +44,6 @@ Global
 		{D3207EFE-43E1-40A5-A316-0368793CE4AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3207EFE-43E1-40A5-A316-0368793CE4AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3207EFE-43E1-40A5-A316-0368793CE4AC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{67A19F9B-B83F-4D37-950C-21097964C421}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{67A19F9B-B83F-4D37-950C-21097964C421}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{67A19F9B-B83F-4D37-950C-21097964C421}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{67A19F9B-B83F-4D37-950C-21097964C421}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -12,16 +12,17 @@ namespace Server
 {
     public partial class FrmServer : Form
     {
-        private Server server;
-        public FrmServer()
+		private readonly Controller controller;
+		private Server server;
+        public FrmServer(Controller controller)
         {
+			this.controller = controller;
             InitializeComponent();
-            
-        }
+		}
 
         private void BtnStart_Click(object sender, EventArgs e)
         {
-            server = new Server();
+            server = new Server(controller);
             server.Start();
             lblPoruka.Text = "Server je pokrenut!";
             btnStart.Enabled = false;

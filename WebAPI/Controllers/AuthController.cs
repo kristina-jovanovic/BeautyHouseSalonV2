@@ -75,6 +75,10 @@ namespace WebAPI.Controllers
 			{
 				return Ok(new { Success = false, Message = "Korisnik sa unetim korisnickim imenom ne postoji. Pokusajte ponovo." });
 			}
+			if (korisnik.Vlasnik)
+			{
+				return Ok(new { Success = false, Message = "Ova aplikacija je namenjena samo klijentima. Vlasnici se prijavljuju na desktop aplikaciju." });
+			}
 			//napravi token i vrati ga
 			var jwtToken = tokenRepository.CreateJWTToken(korisnik);
 			return Ok(new { Success = true, User = mapper.Map<KorisnikDto>(korisnik), JwtToken = jwtToken });

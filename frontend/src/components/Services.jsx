@@ -78,7 +78,22 @@ function Services({ addService }) {
             vratiSveUsluge();
         }
         else {
-            setServiceChunks(chunkServices(services, 6));
+            // setServiceChunks(chunkServices(services, 6));
+
+            if (services.length > 0) {
+                setServiceChunks(chunkServices(services, 6));
+            } else {
+                setServiceChunks([]);
+            }
+
+            const carouselElement = document.querySelector('#carouselExampleIndicators');
+            if (carouselElement && serviceChunks?.length > 0) {
+                const carouselInstance = window.bootstrap.Carousel.getInstance(carouselElement);
+                if (carouselInstance) {
+                    carouselInstance.dispose(); // Uništi trenutnu instancu
+                }
+                new window.bootstrap.Carousel(carouselElement); // Kreiraj novu instancu
+            }
         }
 
     }, [services]);
@@ -95,7 +110,7 @@ function Services({ addService }) {
                         onInput={handleInput} name='filter' />
                     <button type="submit" className="btn btn-outline-primary" disabled><i className="fa-solid fa-magnifying-glass"></i></button>
                 </form>
-                <div id="carouselExampleIndicators" className="carousel slide">
+                <div id="carouselExampleIndicators" className="carousel slide" key={serviceChunks?.length}>
                     <div className="carousel-indicators" style={{ marginBottom: 0 }}>
                         {serviceChunks?.map((chunk, index) => (
                             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={index} className={`bg-dark ${index === 0 ? "active" : ""}`} aria-current={index === 0 ? "true" : "false"} aria-label={`Slide ${index + 1}`}></button>

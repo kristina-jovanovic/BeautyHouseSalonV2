@@ -68,7 +68,7 @@ function ReservationPage({ token, user, service, addService }) {
             maxBodyLength: Infinity,
             url: `api/Usluge?filterQuery=${tip}`
         };
-        console.log(config.url);
+        // console.log(config.url);
         axios.request(config)
             .then((response) => {
                 // console.log(JSON.stringify(response.data));
@@ -89,7 +89,7 @@ function ReservationPage({ token, user, service, addService }) {
             maxBodyLength: Infinity,
             url: `api/Radnici?filterQuery=${tip}`
         };
-        console.log(config.url);
+        // console.log(config.url);
 
         axios.request(config)
             .then((response) => {
@@ -114,7 +114,7 @@ function ReservationPage({ token, user, service, addService }) {
                 ...prevData,
                 [name]: value
             };
-            console.log('Updated reservationData:', updatedData);
+            // console.log('Updated reservationData:', updatedData);
             return updatedData;
         });
     }
@@ -228,17 +228,17 @@ function ReservationPage({ token, user, service, addService }) {
         }
         else {
             const termin = Date.parse(reservationData.datumIVremeTermina);
-            console.log(termin);
+            // console.log(termin);
             const formatiranTermin = format(termin, "yyyy-MM-dd'T'HH:mm");
             // const formatiranTermin = formatISO(termin, { representation: 'complete' });
-            console.log(formatiranTermin);
+            // console.log(formatiranTermin);
             reservationData.datumIVremeTermina = formatiranTermin;
 
             const datum = new Date();
-            console.log(datum);
+            // console.log(datum);
             const formatiranDatum = format(datum, "yyyy-MM-dd'T'HH:mm:ss");
             // const formatiranDatum = formatISO(datum, { representation: 'complete' });
-            console.log(formatiranDatum);
+            // console.log(formatiranDatum);
 
             const data = {
                 usluga: { "uslugaID": reservationData.usluga },
@@ -263,7 +263,7 @@ function ReservationPage({ token, user, service, addService }) {
 
             axios.request(config)
                 .then((response) => {
-                    console.log(JSON.stringify(response.data));
+                    // console.log(JSON.stringify(response.data));
                     if (response.data === true) {
                         //termin kod izabranog radnika je za sada slobodan, dodaj ga u listu
 
@@ -307,7 +307,7 @@ function ReservationPage({ token, user, service, addService }) {
             handleShow();
         }
         else {
-            console.log(listaTermina);
+            // console.log(listaTermina);
             let config = {
                 method: 'post',
                 maxBodyLength: Infinity,
@@ -320,7 +320,7 @@ function ReservationPage({ token, user, service, addService }) {
             };
             axios.request(config)
                 .then((response) => {
-                    console.log(JSON.stringify(response.data));
+                    // console.log(JSON.stringify(response.data));
                     if (response.data.success === true) {
                         setMessage("Zahtev za rezervaciju je uspešno poslat! Kada se rezervacija potvrdi ili odbije, stići će ti poruka na email adresu koju si navela prilikom kreiranja naloga.");
                         setTitle("Potvrda");

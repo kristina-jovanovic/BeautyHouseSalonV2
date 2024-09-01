@@ -60,7 +60,7 @@ function Services({ addService }) {
 
             axios.request(config)
                 .then((response) => {
-                    console.log(JSON.stringify(response.data));
+                    // console.log(JSON.stringify(response.data));
                     if (response.data.notFound) {
                         setNotFound(true);
                     }

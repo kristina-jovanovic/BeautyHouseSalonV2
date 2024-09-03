@@ -139,9 +139,6 @@ namespace Client.GUIControllers
 
 		private async Task PostaviRadnikaAsync(ProfilRadnika radnik)
 		{
-			//Image loader = Image.FromFile(@"D:\kao desktop\FAKS\DIPLOMSKI\BeautyHouseV2\Client\Resources\spinner.gif");
-			//ucPrikaziRadnika.PbFoto.Image = ResizeImage(loader, 249, 193);
-			//gif nece da se pomera
 			await LoadImageAsync(radnik.Fotografija);
 			ucPrikaziRadnika.LblImePrezime.Text = $"{radnik.Ime} {radnik.Prezime}";
 			ucPrikaziRadnika.LblTipUsluge.Text = $"Tip usluge: {radnik.TipUsluge.NazivTipaUsluge}";

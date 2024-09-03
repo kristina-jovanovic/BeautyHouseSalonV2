@@ -22,175 +22,188 @@ namespace Client.UserControls
             base.Dispose(disposing);
         }
 
-        #region Component Designer generated code
+		#region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCLogin));
-            this.txtKorisnickoIme = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtLozinka = new System.Windows.Forms.TextBox();
-            this.btnPrijava = new System.Windows.Forms.Button();
-            this.btnRegistracija = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lblErrorUsername = new System.Windows.Forms.Label();
-            this.lblErrorPassword = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox1.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // txtKorisnickoIme
-            // 
-            this.txtKorisnickoIme.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtKorisnickoIme.BackColor = System.Drawing.Color.LavenderBlush;
-            this.txtKorisnickoIme.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtKorisnickoIme.ForeColor = System.Drawing.Color.DarkSlateBlue;
-            this.txtKorisnickoIme.Location = new System.Drawing.Point(181, 45);
-            this.txtKorisnickoIme.Name = "txtKorisnickoIme";
-            this.txtKorisnickoIme.Size = new System.Drawing.Size(174, 33);
-            this.txtKorisnickoIme.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.DarkSlateBlue;
-            this.label1.Location = new System.Drawing.Point(33, 45);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(140, 26);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Korisničko ime:";
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.DarkSlateBlue;
-            this.label2.Location = new System.Drawing.Point(33, 127);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(84, 26);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Lozinka:";
-            // 
-            // txtLozinka
-            // 
-            this.txtLozinka.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtLozinka.BackColor = System.Drawing.Color.LavenderBlush;
-            this.txtLozinka.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLozinka.ForeColor = System.Drawing.Color.DarkSlateBlue;
-            this.txtLozinka.Location = new System.Drawing.Point(179, 124);
-            this.txtLozinka.Name = "txtLozinka";
-            this.txtLozinka.PasswordChar = '*';
-            this.txtLozinka.Size = new System.Drawing.Size(174, 33);
-            this.txtLozinka.TabIndex = 3;
-            // 
-            // btnPrijava
-            // 
-            this.btnPrijava.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnPrijava.BackColor = System.Drawing.Color.LavenderBlush;
-            this.btnPrijava.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPrijava.ForeColor = System.Drawing.Color.DarkSlateBlue;
-            this.btnPrijava.Location = new System.Drawing.Point(54, 229);
-            this.btnPrijava.Name = "btnPrijava";
-            this.btnPrijava.Size = new System.Drawing.Size(146, 46);
-            this.btnPrijava.TabIndex = 4;
-            this.btnPrijava.Text = "Prijavi se";
-            this.btnPrijava.UseVisualStyleBackColor = false;
-            // 
-            // btnRegistracija
-            // 
-            this.btnRegistracija.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnRegistracija.BackColor = System.Drawing.Color.LavenderBlush;
-            this.btnRegistracija.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRegistracija.ForeColor = System.Drawing.Color.DarkSlateBlue;
-            this.btnRegistracija.Location = new System.Drawing.Point(225, 229);
-            this.btnRegistracija.Name = "btnRegistracija";
-            this.btnRegistracija.Size = new System.Drawing.Size(146, 46);
-            this.btnRegistracija.TabIndex = 5;
-            this.btnRegistracija.Text = "Registruj se";
-            this.btnRegistracija.UseVisualStyleBackColor = false;
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.DarkSlateBlue;
-            this.label3.Location = new System.Drawing.Point(229, 200);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(129, 26);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Nemaš nalog?";
-            // 
-            // lblErrorUsername
-            // 
-            this.lblErrorUsername.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblErrorUsername.AutoSize = true;
-            this.lblErrorUsername.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblErrorUsername.ForeColor = System.Drawing.Color.Red;
-            this.lblErrorUsername.Location = new System.Drawing.Point(176, 81);
-            this.lblErrorUsername.Name = "lblErrorUsername";
-            this.lblErrorUsername.Size = new System.Drawing.Size(61, 26);
-            this.lblErrorUsername.TabIndex = 7;
-            this.lblErrorUsername.Text = "label4";
-            this.lblErrorUsername.Visible = false;
-            // 
-            // lblErrorPassword
-            // 
-            this.lblErrorPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblErrorPassword.AutoSize = true;
-            this.lblErrorPassword.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblErrorPassword.ForeColor = System.Drawing.Color.Red;
-            this.lblErrorPassword.Location = new System.Drawing.Point(176, 160);
-            this.lblErrorPassword.Name = "lblErrorPassword";
-            this.lblErrorPassword.Size = new System.Drawing.Size(61, 26);
-            this.lblErrorPassword.TabIndex = 7;
-            this.lblErrorPassword.Text = "label4";
-            this.lblErrorPassword.Visible = false;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.groupBox1.BackColor = System.Drawing.Color.Pink;
-            this.groupBox1.Controls.Add(this.lblErrorPassword);
-            this.groupBox1.Controls.Add(this.txtKorisnickoIme);
-            this.groupBox1.Controls.Add(this.lblErrorUsername);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.btnRegistracija);
-            this.groupBox1.Controls.Add(this.txtLozinka);
-            this.groupBox1.Controls.Add(this.btnPrijava);
-            this.groupBox1.Location = new System.Drawing.Point(210, 140);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(444, 293);
-            this.groupBox1.TabIndex = 8;
-            this.groupBox1.TabStop = false;
-            // 
-            // UCLogin
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.Controls.Add(this.groupBox1);
-            this.Name = "UCLogin";
-            this.Size = new System.Drawing.Size(895, 584);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.ResumeLayout(false);
+		/// <summary> 
+		/// Required method for Designer support - do not modify 
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCLogin));
+			txtKorisnickoIme = new TextBox();
+			label1 = new Label();
+			label2 = new Label();
+			txtLozinka = new TextBox();
+			btnPrijava = new Button();
+			btnRegistracija = new Button();
+			label3 = new Label();
+			lblErrorUsername = new Label();
+			lblErrorPassword = new Label();
+			groupBox1 = new GroupBox();
+			groupBox1.SuspendLayout();
+			SuspendLayout();
+			// 
+			// txtKorisnickoIme
+			// 
+			txtKorisnickoIme.Anchor = AnchorStyles.None;
+			txtKorisnickoIme.BackColor = System.Drawing.Color.LavenderBlush;
+			txtKorisnickoIme.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			txtKorisnickoIme.ForeColor = System.Drawing.Color.DarkSlateBlue;
+			txtKorisnickoIme.Location = new System.Drawing.Point(211, 52);
+			txtKorisnickoIme.Margin = new Padding(4, 3, 4, 3);
+			txtKorisnickoIme.Name = "txtKorisnickoIme";
+			txtKorisnickoIme.Size = new System.Drawing.Size(202, 33);
+			txtKorisnickoIme.TabIndex = 0;
+			// 
+			// label1
+			// 
+			label1.Anchor = AnchorStyles.None;
+			label1.AutoSize = true;
+			label1.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			label1.ForeColor = System.Drawing.Color.DarkSlateBlue;
+			label1.Location = new System.Drawing.Point(38, 52);
+			label1.Margin = new Padding(4, 0, 4, 0);
+			label1.Name = "label1";
+			label1.Size = new System.Drawing.Size(140, 26);
+			label1.TabIndex = 1;
+			label1.Text = "Korisničko ime:";
+			// 
+			// label2
+			// 
+			label2.Anchor = AnchorStyles.None;
+			label2.AutoSize = true;
+			label2.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			label2.ForeColor = System.Drawing.Color.DarkSlateBlue;
+			label2.Location = new System.Drawing.Point(38, 147);
+			label2.Margin = new Padding(4, 0, 4, 0);
+			label2.Name = "label2";
+			label2.Size = new System.Drawing.Size(84, 26);
+			label2.TabIndex = 2;
+			label2.Text = "Lozinka:";
+			// 
+			// txtLozinka
+			// 
+			txtLozinka.Anchor = AnchorStyles.None;
+			txtLozinka.BackColor = System.Drawing.Color.LavenderBlush;
+			txtLozinka.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			txtLozinka.ForeColor = System.Drawing.Color.DarkSlateBlue;
+			txtLozinka.Location = new System.Drawing.Point(209, 143);
+			txtLozinka.Margin = new Padding(4, 3, 4, 3);
+			txtLozinka.Name = "txtLozinka";
+			txtLozinka.PasswordChar = '*';
+			txtLozinka.Size = new System.Drawing.Size(202, 33);
+			txtLozinka.TabIndex = 3;
+			// 
+			// btnPrijava
+			// 
+			btnPrijava.Anchor = AnchorStyles.None;
+			btnPrijava.BackColor = System.Drawing.Color.LavenderBlush;
+			btnPrijava.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			btnPrijava.ForeColor = System.Drawing.Color.DarkSlateBlue;
+			btnPrijava.Location = new System.Drawing.Point(63, 264);
+			btnPrijava.Margin = new Padding(4, 3, 4, 3);
+			btnPrijava.Name = "btnPrijava";
+			btnPrijava.Size = new System.Drawing.Size(170, 53);
+			btnPrijava.TabIndex = 4;
+			btnPrijava.Text = "Prijavi se";
+			btnPrijava.UseVisualStyleBackColor = false;
+			// 
+			// btnRegistracija
+			// 
+			btnRegistracija.Anchor = AnchorStyles.None;
+			btnRegistracija.BackColor = System.Drawing.Color.LavenderBlush;
+			btnRegistracija.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			btnRegistracija.ForeColor = System.Drawing.Color.DarkSlateBlue;
+			btnRegistracija.Location = new System.Drawing.Point(262, 264);
+			btnRegistracija.Margin = new Padding(4, 3, 4, 3);
+			btnRegistracija.Name = "btnRegistracija";
+			btnRegistracija.Size = new System.Drawing.Size(170, 53);
+			btnRegistracija.TabIndex = 5;
+			btnRegistracija.Text = "Registruj se";
+			btnRegistracija.UseVisualStyleBackColor = false;
+			// 
+			// label3
+			// 
+			label3.Anchor = AnchorStyles.None;
+			label3.AutoSize = true;
+			label3.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			label3.ForeColor = System.Drawing.Color.DarkSlateBlue;
+			label3.Location = new System.Drawing.Point(267, 231);
+			label3.Margin = new Padding(4, 0, 4, 0);
+			label3.Name = "label3";
+			label3.Size = new System.Drawing.Size(129, 26);
+			label3.TabIndex = 6;
+			label3.Text = "Nemaš nalog?";
+			// 
+			// lblErrorUsername
+			// 
+			lblErrorUsername.Anchor = AnchorStyles.None;
+			lblErrorUsername.AutoSize = true;
+			lblErrorUsername.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			lblErrorUsername.ForeColor = System.Drawing.Color.Red;
+			lblErrorUsername.Location = new System.Drawing.Point(205, 93);
+			lblErrorUsername.Margin = new Padding(4, 0, 4, 0);
+			lblErrorUsername.Name = "lblErrorUsername";
+			lblErrorUsername.Size = new System.Drawing.Size(61, 26);
+			lblErrorUsername.TabIndex = 7;
+			lblErrorUsername.Text = "label4";
+			lblErrorUsername.Visible = false;
+			// 
+			// lblErrorPassword
+			// 
+			lblErrorPassword.Anchor = AnchorStyles.None;
+			lblErrorPassword.AutoSize = true;
+			lblErrorPassword.Font = new System.Drawing.Font("Palatino Linotype", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			lblErrorPassword.ForeColor = System.Drawing.Color.Red;
+			lblErrorPassword.Location = new System.Drawing.Point(205, 185);
+			lblErrorPassword.Margin = new Padding(4, 0, 4, 0);
+			lblErrorPassword.Name = "lblErrorPassword";
+			lblErrorPassword.Size = new System.Drawing.Size(61, 26);
+			lblErrorPassword.TabIndex = 7;
+			lblErrorPassword.Text = "label4";
+			lblErrorPassword.Visible = false;
+			// 
+			// groupBox1
+			// 
+			groupBox1.Anchor = AnchorStyles.None;
+			groupBox1.BackColor = System.Drawing.Color.Pink;
+			groupBox1.Controls.Add(lblErrorPassword);
+			groupBox1.Controls.Add(txtKorisnickoIme);
+			groupBox1.Controls.Add(lblErrorUsername);
+			groupBox1.Controls.Add(label1);
+			groupBox1.Controls.Add(label3);
+			groupBox1.Controls.Add(label2);
+			groupBox1.Controls.Add(btnRegistracija);
+			groupBox1.Controls.Add(txtLozinka);
+			groupBox1.Controls.Add(btnPrijava);
+			groupBox1.Location = new System.Drawing.Point(245, 162);
+			groupBox1.Margin = new Padding(4, 3, 4, 3);
+			groupBox1.Name = "groupBox1";
+			groupBox1.Padding = new Padding(4, 3, 4, 3);
+			groupBox1.Size = new System.Drawing.Size(518, 338);
+			groupBox1.TabIndex = 8;
+			groupBox1.TabStop = false;
+			// 
+			// UCLogin
+			// 
+			AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			BackgroundImage = (System.Drawing.Image)resources.GetObject("$this.BackgroundImage");
+			BackgroundImageLayout = ImageLayout.Stretch;
+			Controls.Add(groupBox1);
+			DoubleBuffered = true;
+			Margin = new Padding(4, 3, 4, 3);
+			Name = "UCLogin";
+			Size = new System.Drawing.Size(1044, 674);
+			groupBox1.ResumeLayout(false);
+			groupBox1.PerformLayout();
+			ResumeLayout(false);
+		}
 
-        }
+		#endregion
 
-        #endregion
-
-        private System.Windows.Forms.TextBox txtKorisnickoIme;
+		private System.Windows.Forms.TextBox txtKorisnickoIme;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtLozinka;

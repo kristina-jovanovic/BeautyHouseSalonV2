@@ -22,333 +22,357 @@ namespace Client.UserControls.UCZahtevZaRezTermina
             base.Dispose(disposing);
         }
 
-        #region Component Designer generated code
+		#region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
-        {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCZahtev));
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnIzmeni = new System.Windows.Forms.Button();
-            this.btnIzbaci = new System.Windows.Forms.Button();
-            this.btnDodaj = new System.Windows.Forms.Button();
-            this.dgvTermini = new System.Windows.Forms.DataGridView();
-            this.lblErrorTipUsluge = new System.Windows.Forms.Label();
-            this.cbTipUsluge = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.lblErrorTermin = new System.Windows.Forms.Label();
-            this.lblErrorRadnik = new System.Windows.Forms.Label();
-            this.lblErrorUsluga = new System.Windows.Forms.Label();
-            this.btnZakazi = new System.Windows.Forms.Button();
-            this.txtNapomena = new System.Windows.Forms.RichTextBox();
-            this.cbTermin = new System.Windows.Forms.ComboBox();
-            this.cbRadnik = new System.Windows.Forms.ComboBox();
-            this.cbUsluga = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.btnNazad = new System.Windows.Forms.Button();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTermini)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.groupBox1.BackColor = System.Drawing.Color.LightPink;
-            this.groupBox1.Controls.Add(this.btnIzmeni);
-            this.groupBox1.Controls.Add(this.btnIzbaci);
-            this.groupBox1.Controls.Add(this.btnDodaj);
-            this.groupBox1.Controls.Add(this.dgvTermini);
-            this.groupBox1.Controls.Add(this.lblErrorTipUsluge);
-            this.groupBox1.Controls.Add(this.cbTipUsluge);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.lblErrorTermin);
-            this.groupBox1.Controls.Add(this.lblErrorRadnik);
-            this.groupBox1.Controls.Add(this.lblErrorUsluga);
-            this.groupBox1.Controls.Add(this.btnZakazi);
-            this.groupBox1.Controls.Add(this.txtNapomena);
-            this.groupBox1.Controls.Add(this.cbTermin);
-            this.groupBox1.Controls.Add(this.cbRadnik);
-            this.groupBox1.Controls.Add(this.cbUsluga);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.ForeColor = System.Drawing.Color.DarkSlateBlue;
-            this.groupBox1.Location = new System.Drawing.Point(46, 110);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(841, 588);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Rezervacija termina";
-            // 
-            // btnIzmeni
-            // 
-            this.btnIzmeni.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnIzmeni.BackColor = System.Drawing.Color.LavenderBlush;
-            this.btnIzmeni.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIzmeni.Location = new System.Drawing.Point(164, 536);
-            this.btnIzmeni.Name = "btnIzmeni";
-            this.btnIzmeni.Size = new System.Drawing.Size(146, 46);
-            this.btnIzmeni.TabIndex = 12;
-            this.btnIzmeni.Text = "Izmeni termin";
-            this.btnIzmeni.UseVisualStyleBackColor = false;
-            // 
-            // btnIzbaci
-            // 
-            this.btnIzbaci.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnIzbaci.BackColor = System.Drawing.Color.LavenderBlush;
-            this.btnIzbaci.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIzbaci.Location = new System.Drawing.Point(12, 536);
-            this.btnIzbaci.Name = "btnIzbaci";
-            this.btnIzbaci.Size = new System.Drawing.Size(146, 46);
-            this.btnIzbaci.TabIndex = 11;
-            this.btnIzbaci.Text = "Izbaci termin";
-            this.btnIzbaci.UseVisualStyleBackColor = false;
-            // 
-            // btnDodaj
-            // 
-            this.btnDodaj.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnDodaj.BackColor = System.Drawing.Color.LavenderBlush;
-            this.btnDodaj.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDodaj.Location = new System.Drawing.Point(682, 209);
-            this.btnDodaj.Name = "btnDodaj";
-            this.btnDodaj.Size = new System.Drawing.Size(146, 46);
-            this.btnDodaj.TabIndex = 10;
-            this.btnDodaj.Text = "Dodaj termin";
-            this.btnDodaj.UseVisualStyleBackColor = false;
-            // 
-            // dgvTermini
-            // 
-            this.dgvTermini.AllowUserToAddRows = false;
-            this.dgvTermini.AllowUserToDeleteRows = false;
-            this.dgvTermini.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.dgvTermini.BackgroundColor = System.Drawing.Color.LavenderBlush;
-            this.dgvTermini.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTermini.Location = new System.Drawing.Point(12, 261);
-            this.dgvTermini.Name = "dgvTermini";
-            this.dgvTermini.ReadOnly = true;
-            this.dgvTermini.Size = new System.Drawing.Size(816, 269);
-            this.dgvTermini.TabIndex = 9;
-            // 
-            // lblErrorTipUsluge
-            // 
-            this.lblErrorTipUsluge.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblErrorTipUsluge.AutoSize = true;
-            this.lblErrorTipUsluge.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblErrorTipUsluge.ForeColor = System.Drawing.Color.Red;
-            this.lblErrorTipUsluge.Location = new System.Drawing.Point(117, 83);
-            this.lblErrorTipUsluge.Name = "lblErrorTipUsluge";
-            this.lblErrorTipUsluge.Size = new System.Drawing.Size(41, 17);
-            this.lblErrorTipUsluge.TabIndex = 8;
-            this.lblErrorTipUsluge.Text = "label5";
-            this.lblErrorTipUsluge.Visible = false;
-            // 
-            // cbTipUsluge
-            // 
-            this.cbTipUsluge.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.cbTipUsluge.BackColor = System.Drawing.Color.LavenderBlush;
-            this.cbTipUsluge.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbTipUsluge.ForeColor = System.Drawing.Color.DarkSlateBlue;
-            this.cbTipUsluge.FormattingEnabled = true;
-            this.cbTipUsluge.Location = new System.Drawing.Point(114, 49);
-            this.cbTipUsluge.Name = "cbTipUsluge";
-            this.cbTipUsluge.Size = new System.Drawing.Size(299, 31);
-            this.cbTipUsluge.TabIndex = 7;
-            // 
-            // label6
-            // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(6, 49);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(94, 23);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "Tip usluge:";
-            // 
-            // lblErrorTermin
-            // 
-            this.lblErrorTermin.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblErrorTermin.AutoSize = true;
-            this.lblErrorTermin.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblErrorTermin.ForeColor = System.Drawing.Color.Red;
-            this.lblErrorTermin.Location = new System.Drawing.Point(555, 83);
-            this.lblErrorTermin.Name = "lblErrorTermin";
-            this.lblErrorTermin.Size = new System.Drawing.Size(41, 17);
-            this.lblErrorTermin.TabIndex = 5;
-            this.lblErrorTermin.Text = "label5";
-            this.lblErrorTermin.Visible = false;
-            // 
-            // lblErrorRadnik
-            // 
-            this.lblErrorRadnik.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblErrorRadnik.AutoSize = true;
-            this.lblErrorRadnik.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblErrorRadnik.ForeColor = System.Drawing.Color.Red;
-            this.lblErrorRadnik.Location = new System.Drawing.Point(117, 201);
-            this.lblErrorRadnik.Name = "lblErrorRadnik";
-            this.lblErrorRadnik.Size = new System.Drawing.Size(41, 17);
-            this.lblErrorRadnik.TabIndex = 5;
-            this.lblErrorRadnik.Text = "label5";
-            this.lblErrorRadnik.Visible = false;
-            // 
-            // lblErrorUsluga
-            // 
-            this.lblErrorUsluga.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblErrorUsluga.AutoSize = true;
-            this.lblErrorUsluga.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblErrorUsluga.ForeColor = System.Drawing.Color.Red;
-            this.lblErrorUsluga.Location = new System.Drawing.Point(117, 141);
-            this.lblErrorUsluga.Name = "lblErrorUsluga";
-            this.lblErrorUsluga.Size = new System.Drawing.Size(41, 17);
-            this.lblErrorUsluga.TabIndex = 5;
-            this.lblErrorUsluga.Text = "label5";
-            this.lblErrorUsluga.Visible = false;
-            // 
-            // btnZakazi
-            // 
-            this.btnZakazi.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnZakazi.BackColor = System.Drawing.Color.LavenderBlush;
-            this.btnZakazi.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnZakazi.Location = new System.Drawing.Point(682, 536);
-            this.btnZakazi.Name = "btnZakazi";
-            this.btnZakazi.Size = new System.Drawing.Size(146, 46);
-            this.btnZakazi.TabIndex = 4;
-            this.btnZakazi.Text = "Zakaži termine";
-            this.btnZakazi.UseVisualStyleBackColor = false;
-            // 
-            // txtNapomena
-            // 
-            this.txtNapomena.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.txtNapomena.BackColor = System.Drawing.Color.LavenderBlush;
-            this.txtNapomena.Font = new System.Drawing.Font("Palatino Linotype", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNapomena.ForeColor = System.Drawing.Color.DarkSlateBlue;
-            this.txtNapomena.Location = new System.Drawing.Point(552, 116);
-            this.txtNapomena.Name = "txtNapomena";
-            this.txtNapomena.Size = new System.Drawing.Size(274, 82);
-            this.txtNapomena.TabIndex = 3;
-            this.txtNapomena.Text = "";
-            // 
-            // cbTermin
-            // 
-            this.cbTermin.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.cbTermin.BackColor = System.Drawing.Color.LavenderBlush;
-            this.cbTermin.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbTermin.ForeColor = System.Drawing.Color.DarkSlateBlue;
-            this.cbTermin.FormattingEnabled = true;
-            this.cbTermin.Location = new System.Drawing.Point(552, 49);
-            this.cbTermin.Name = "cbTermin";
-            this.cbTermin.Size = new System.Drawing.Size(274, 31);
-            this.cbTermin.TabIndex = 2;
-            // 
-            // cbRadnik
-            // 
-            this.cbRadnik.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.cbRadnik.BackColor = System.Drawing.Color.LavenderBlush;
-            this.cbRadnik.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbRadnik.ForeColor = System.Drawing.Color.DarkSlateBlue;
-            this.cbRadnik.FormattingEnabled = true;
-            this.cbRadnik.Location = new System.Drawing.Point(114, 167);
-            this.cbRadnik.Name = "cbRadnik";
-            this.cbRadnik.Size = new System.Drawing.Size(299, 31);
-            this.cbRadnik.TabIndex = 2;
-            // 
-            // cbUsluga
-            // 
-            this.cbUsluga.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.cbUsluga.BackColor = System.Drawing.Color.LavenderBlush;
-            this.cbUsluga.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbUsluga.ForeColor = System.Drawing.Color.DarkSlateBlue;
-            this.cbUsluga.FormattingEnabled = true;
-            this.cbUsluga.Location = new System.Drawing.Point(114, 107);
-            this.cbUsluga.Name = "cbUsluga";
-            this.cbUsluga.Size = new System.Drawing.Size(299, 31);
-            this.cbUsluga.TabIndex = 1;
-            // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(448, 116);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(98, 23);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Napomena:";
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(448, 52);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(69, 23);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Termin:";
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(10, 170);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(68, 23);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Radnik:";
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(10, 110);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 23);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Usluga:";
-            // 
-            // btnNazad
-            // 
-            this.btnNazad.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnNazad.BackColor = System.Drawing.Color.LavenderBlush;
-            this.btnNazad.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNazad.ForeColor = System.Drawing.Color.DarkSlateBlue;
-            this.btnNazad.Location = new System.Drawing.Point(56, 704);
-            this.btnNazad.Name = "btnNazad";
-            this.btnNazad.Size = new System.Drawing.Size(146, 46);
-            this.btnNazad.TabIndex = 13;
-            this.btnNazad.Text = "Nazad";
-            this.btnNazad.UseVisualStyleBackColor = false;
-            this.btnNazad.Visible = false;
-            // 
-            // UCZahtev
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.Controls.Add(this.btnNazad);
-            this.Controls.Add(this.groupBox1);
-            this.Name = "UCZahtev";
-            this.Size = new System.Drawing.Size(936, 783);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvTermini)).EndInit();
-            this.ResumeLayout(false);
+		/// <summary> 
+		/// Required method for Designer support - do not modify 
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCZahtev));
+			groupBox1 = new GroupBox();
+			btnIzmeni = new Button();
+			btnIzbaci = new Button();
+			btnDodaj = new Button();
+			dgvTermini = new DataGridView();
+			lblErrorTipUsluge = new Label();
+			cbTipUsluge = new ComboBox();
+			label6 = new Label();
+			lblErrorTermin = new Label();
+			lblErrorRadnik = new Label();
+			lblErrorUsluga = new Label();
+			btnZakazi = new Button();
+			txtNapomena = new RichTextBox();
+			cbTermin = new ComboBox();
+			cbRadnik = new ComboBox();
+			cbUsluga = new ComboBox();
+			label4 = new Label();
+			label3 = new Label();
+			label2 = new Label();
+			label1 = new Label();
+			btnNazad = new Button();
+			groupBox1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)dgvTermini).BeginInit();
+			SuspendLayout();
+			// 
+			// groupBox1
+			// 
+			groupBox1.Anchor = AnchorStyles.None;
+			groupBox1.BackColor = System.Drawing.Color.LightPink;
+			groupBox1.Controls.Add(btnIzmeni);
+			groupBox1.Controls.Add(btnIzbaci);
+			groupBox1.Controls.Add(btnDodaj);
+			groupBox1.Controls.Add(dgvTermini);
+			groupBox1.Controls.Add(lblErrorTipUsluge);
+			groupBox1.Controls.Add(cbTipUsluge);
+			groupBox1.Controls.Add(label6);
+			groupBox1.Controls.Add(lblErrorTermin);
+			groupBox1.Controls.Add(lblErrorRadnik);
+			groupBox1.Controls.Add(lblErrorUsluga);
+			groupBox1.Controls.Add(btnZakazi);
+			groupBox1.Controls.Add(txtNapomena);
+			groupBox1.Controls.Add(cbTermin);
+			groupBox1.Controls.Add(cbRadnik);
+			groupBox1.Controls.Add(cbUsluga);
+			groupBox1.Controls.Add(label4);
+			groupBox1.Controls.Add(label3);
+			groupBox1.Controls.Add(label2);
+			groupBox1.Controls.Add(label1);
+			groupBox1.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			groupBox1.ForeColor = System.Drawing.Color.DarkSlateBlue;
+			groupBox1.Location = new System.Drawing.Point(54, 127);
+			groupBox1.Margin = new Padding(4, 3, 4, 3);
+			groupBox1.Name = "groupBox1";
+			groupBox1.Padding = new Padding(4, 3, 4, 3);
+			groupBox1.Size = new System.Drawing.Size(981, 678);
+			groupBox1.TabIndex = 0;
+			groupBox1.TabStop = false;
+			groupBox1.Text = "Rezervacija termina";
+			// 
+			// btnIzmeni
+			// 
+			btnIzmeni.Anchor = AnchorStyles.None;
+			btnIzmeni.BackColor = System.Drawing.Color.LavenderBlush;
+			btnIzmeni.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			btnIzmeni.Location = new System.Drawing.Point(191, 618);
+			btnIzmeni.Margin = new Padding(4, 3, 4, 3);
+			btnIzmeni.Name = "btnIzmeni";
+			btnIzmeni.Size = new System.Drawing.Size(170, 53);
+			btnIzmeni.TabIndex = 12;
+			btnIzmeni.Text = "Izmeni termin";
+			btnIzmeni.UseVisualStyleBackColor = false;
+			// 
+			// btnIzbaci
+			// 
+			btnIzbaci.Anchor = AnchorStyles.None;
+			btnIzbaci.BackColor = System.Drawing.Color.LavenderBlush;
+			btnIzbaci.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			btnIzbaci.Location = new System.Drawing.Point(14, 618);
+			btnIzbaci.Margin = new Padding(4, 3, 4, 3);
+			btnIzbaci.Name = "btnIzbaci";
+			btnIzbaci.Size = new System.Drawing.Size(170, 53);
+			btnIzbaci.TabIndex = 11;
+			btnIzbaci.Text = "Izbaci termin";
+			btnIzbaci.UseVisualStyleBackColor = false;
+			// 
+			// btnDodaj
+			// 
+			btnDodaj.Anchor = AnchorStyles.None;
+			btnDodaj.BackColor = System.Drawing.Color.LavenderBlush;
+			btnDodaj.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			btnDodaj.Location = new System.Drawing.Point(796, 241);
+			btnDodaj.Margin = new Padding(4, 3, 4, 3);
+			btnDodaj.Name = "btnDodaj";
+			btnDodaj.Size = new System.Drawing.Size(170, 53);
+			btnDodaj.TabIndex = 10;
+			btnDodaj.Text = "Dodaj termin";
+			btnDodaj.UseVisualStyleBackColor = false;
+			// 
+			// dgvTermini
+			// 
+			dgvTermini.AllowUserToAddRows = false;
+			dgvTermini.AllowUserToDeleteRows = false;
+			dgvTermini.Anchor = AnchorStyles.None;
+			dgvTermini.BackgroundColor = System.Drawing.Color.LavenderBlush;
+			dgvTermini.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			dgvTermini.Location = new System.Drawing.Point(14, 301);
+			dgvTermini.Margin = new Padding(4, 3, 4, 3);
+			dgvTermini.Name = "dgvTermini";
+			dgvTermini.ReadOnly = true;
+			dgvTermini.Size = new System.Drawing.Size(952, 310);
+			dgvTermini.TabIndex = 9;
+			// 
+			// lblErrorTipUsluge
+			// 
+			lblErrorTipUsluge.Anchor = AnchorStyles.None;
+			lblErrorTipUsluge.AutoSize = true;
+			lblErrorTipUsluge.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			lblErrorTipUsluge.ForeColor = System.Drawing.Color.Red;
+			lblErrorTipUsluge.Location = new System.Drawing.Point(136, 96);
+			lblErrorTipUsluge.Margin = new Padding(4, 0, 4, 0);
+			lblErrorTipUsluge.Name = "lblErrorTipUsluge";
+			lblErrorTipUsluge.Size = new System.Drawing.Size(41, 17);
+			lblErrorTipUsluge.TabIndex = 8;
+			lblErrorTipUsluge.Text = "label5";
+			lblErrorTipUsluge.Visible = false;
+			// 
+			// cbTipUsluge
+			// 
+			cbTipUsluge.Anchor = AnchorStyles.None;
+			cbTipUsluge.BackColor = System.Drawing.Color.LavenderBlush;
+			cbTipUsluge.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			cbTipUsluge.ForeColor = System.Drawing.Color.DarkSlateBlue;
+			cbTipUsluge.FormattingEnabled = true;
+			cbTipUsluge.Location = new System.Drawing.Point(133, 57);
+			cbTipUsluge.Margin = new Padding(4, 3, 4, 3);
+			cbTipUsluge.Name = "cbTipUsluge";
+			cbTipUsluge.Size = new System.Drawing.Size(348, 31);
+			cbTipUsluge.TabIndex = 7;
+			// 
+			// label6
+			// 
+			label6.Anchor = AnchorStyles.None;
+			label6.AutoSize = true;
+			label6.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			label6.Location = new System.Drawing.Point(7, 57);
+			label6.Margin = new Padding(4, 0, 4, 0);
+			label6.Name = "label6";
+			label6.Size = new System.Drawing.Size(94, 23);
+			label6.TabIndex = 6;
+			label6.Text = "Tip usluge:";
+			// 
+			// lblErrorTermin
+			// 
+			lblErrorTermin.Anchor = AnchorStyles.None;
+			lblErrorTermin.AutoSize = true;
+			lblErrorTermin.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			lblErrorTermin.ForeColor = System.Drawing.Color.Red;
+			lblErrorTermin.Location = new System.Drawing.Point(648, 96);
+			lblErrorTermin.Margin = new Padding(4, 0, 4, 0);
+			lblErrorTermin.Name = "lblErrorTermin";
+			lblErrorTermin.Size = new System.Drawing.Size(41, 17);
+			lblErrorTermin.TabIndex = 5;
+			lblErrorTermin.Text = "label5";
+			lblErrorTermin.Visible = false;
+			// 
+			// lblErrorRadnik
+			// 
+			lblErrorRadnik.Anchor = AnchorStyles.None;
+			lblErrorRadnik.AutoSize = true;
+			lblErrorRadnik.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			lblErrorRadnik.ForeColor = System.Drawing.Color.Red;
+			lblErrorRadnik.Location = new System.Drawing.Point(136, 232);
+			lblErrorRadnik.Margin = new Padding(4, 0, 4, 0);
+			lblErrorRadnik.Name = "lblErrorRadnik";
+			lblErrorRadnik.Size = new System.Drawing.Size(41, 17);
+			lblErrorRadnik.TabIndex = 5;
+			lblErrorRadnik.Text = "label5";
+			lblErrorRadnik.Visible = false;
+			// 
+			// lblErrorUsluga
+			// 
+			lblErrorUsluga.Anchor = AnchorStyles.None;
+			lblErrorUsluga.AutoSize = true;
+			lblErrorUsluga.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			lblErrorUsluga.ForeColor = System.Drawing.Color.Red;
+			lblErrorUsluga.Location = new System.Drawing.Point(136, 163);
+			lblErrorUsluga.Margin = new Padding(4, 0, 4, 0);
+			lblErrorUsluga.Name = "lblErrorUsluga";
+			lblErrorUsluga.Size = new System.Drawing.Size(41, 17);
+			lblErrorUsluga.TabIndex = 5;
+			lblErrorUsluga.Text = "label5";
+			lblErrorUsluga.Visible = false;
+			// 
+			// btnZakazi
+			// 
+			btnZakazi.Anchor = AnchorStyles.None;
+			btnZakazi.BackColor = System.Drawing.Color.LavenderBlush;
+			btnZakazi.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			btnZakazi.Location = new System.Drawing.Point(796, 618);
+			btnZakazi.Margin = new Padding(4, 3, 4, 3);
+			btnZakazi.Name = "btnZakazi";
+			btnZakazi.Size = new System.Drawing.Size(170, 53);
+			btnZakazi.TabIndex = 4;
+			btnZakazi.Text = "Zakaži termine";
+			btnZakazi.UseVisualStyleBackColor = false;
+			// 
+			// txtNapomena
+			// 
+			txtNapomena.Anchor = AnchorStyles.None;
+			txtNapomena.BackColor = System.Drawing.Color.LavenderBlush;
+			txtNapomena.Font = new System.Drawing.Font("Palatino Linotype", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			txtNapomena.ForeColor = System.Drawing.Color.DarkSlateBlue;
+			txtNapomena.Location = new System.Drawing.Point(644, 134);
+			txtNapomena.Margin = new Padding(4, 3, 4, 3);
+			txtNapomena.Name = "txtNapomena";
+			txtNapomena.Size = new System.Drawing.Size(319, 94);
+			txtNapomena.TabIndex = 3;
+			txtNapomena.Text = "";
+			// 
+			// cbTermin
+			// 
+			cbTermin.Anchor = AnchorStyles.None;
+			cbTermin.BackColor = System.Drawing.Color.LavenderBlush;
+			cbTermin.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			cbTermin.ForeColor = System.Drawing.Color.DarkSlateBlue;
+			cbTermin.FormattingEnabled = true;
+			cbTermin.Location = new System.Drawing.Point(644, 57);
+			cbTermin.Margin = new Padding(4, 3, 4, 3);
+			cbTermin.Name = "cbTermin";
+			cbTermin.Size = new System.Drawing.Size(319, 31);
+			cbTermin.TabIndex = 2;
+			// 
+			// cbRadnik
+			// 
+			cbRadnik.Anchor = AnchorStyles.None;
+			cbRadnik.BackColor = System.Drawing.Color.LavenderBlush;
+			cbRadnik.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			cbRadnik.ForeColor = System.Drawing.Color.DarkSlateBlue;
+			cbRadnik.FormattingEnabled = true;
+			cbRadnik.Location = new System.Drawing.Point(133, 193);
+			cbRadnik.Margin = new Padding(4, 3, 4, 3);
+			cbRadnik.Name = "cbRadnik";
+			cbRadnik.Size = new System.Drawing.Size(348, 31);
+			cbRadnik.TabIndex = 2;
+			// 
+			// cbUsluga
+			// 
+			cbUsluga.Anchor = AnchorStyles.None;
+			cbUsluga.BackColor = System.Drawing.Color.LavenderBlush;
+			cbUsluga.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			cbUsluga.ForeColor = System.Drawing.Color.DarkSlateBlue;
+			cbUsluga.FormattingEnabled = true;
+			cbUsluga.Location = new System.Drawing.Point(133, 123);
+			cbUsluga.Margin = new Padding(4, 3, 4, 3);
+			cbUsluga.Name = "cbUsluga";
+			cbUsluga.Size = new System.Drawing.Size(348, 31);
+			cbUsluga.TabIndex = 1;
+			// 
+			// label4
+			// 
+			label4.Anchor = AnchorStyles.None;
+			label4.AutoSize = true;
+			label4.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			label4.Location = new System.Drawing.Point(523, 134);
+			label4.Margin = new Padding(4, 0, 4, 0);
+			label4.Name = "label4";
+			label4.Size = new System.Drawing.Size(98, 23);
+			label4.TabIndex = 0;
+			label4.Text = "Napomena:";
+			// 
+			// label3
+			// 
+			label3.Anchor = AnchorStyles.None;
+			label3.AutoSize = true;
+			label3.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			label3.Location = new System.Drawing.Point(523, 60);
+			label3.Margin = new Padding(4, 0, 4, 0);
+			label3.Name = "label3";
+			label3.Size = new System.Drawing.Size(69, 23);
+			label3.TabIndex = 0;
+			label3.Text = "Termin:";
+			// 
+			// label2
+			// 
+			label2.Anchor = AnchorStyles.None;
+			label2.AutoSize = true;
+			label2.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			label2.Location = new System.Drawing.Point(12, 196);
+			label2.Margin = new Padding(4, 0, 4, 0);
+			label2.Name = "label2";
+			label2.Size = new System.Drawing.Size(68, 23);
+			label2.TabIndex = 0;
+			label2.Text = "Radnik:";
+			// 
+			// label1
+			// 
+			label1.Anchor = AnchorStyles.None;
+			label1.AutoSize = true;
+			label1.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			label1.Location = new System.Drawing.Point(12, 127);
+			label1.Margin = new Padding(4, 0, 4, 0);
+			label1.Name = "label1";
+			label1.Size = new System.Drawing.Size(68, 23);
+			label1.TabIndex = 0;
+			label1.Text = "Usluga:";
+			// 
+			// btnNazad
+			// 
+			btnNazad.Anchor = AnchorStyles.None;
+			btnNazad.BackColor = System.Drawing.Color.LavenderBlush;
+			btnNazad.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			btnNazad.ForeColor = System.Drawing.Color.DarkSlateBlue;
+			btnNazad.Location = new System.Drawing.Point(65, 812);
+			btnNazad.Margin = new Padding(4, 3, 4, 3);
+			btnNazad.Name = "btnNazad";
+			btnNazad.Size = new System.Drawing.Size(170, 53);
+			btnNazad.TabIndex = 13;
+			btnNazad.Text = "Nazad";
+			btnNazad.UseVisualStyleBackColor = false;
+			btnNazad.Visible = false;
+			// 
+			// UCZahtev
+			// 
+			AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+			AutoScaleMode = AutoScaleMode.Font;
+			BackgroundImage = (System.Drawing.Image)resources.GetObject("$this.BackgroundImage");
+			BackgroundImageLayout = ImageLayout.Stretch;
+			Controls.Add(btnNazad);
+			Controls.Add(groupBox1);
+			DoubleBuffered = true;
+			Margin = new Padding(4, 3, 4, 3);
+			Name = "UCZahtev";
+			Size = new System.Drawing.Size(1092, 903);
+			groupBox1.ResumeLayout(false);
+			groupBox1.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)dgvTermini).EndInit();
+			ResumeLayout(false);
+		}
 
-        }
+		#endregion
 
-        #endregion
-
-        private System.Windows.Forms.GroupBox groupBox1;
+		private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox cbRadnik;
         private System.Windows.Forms.ComboBox cbUsluga;
         private System.Windows.Forms.Label label1;

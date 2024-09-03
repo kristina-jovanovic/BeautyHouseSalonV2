@@ -302,7 +302,9 @@ namespace Client.UserControls.UCProfilRadnika
 			AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			BackgroundImage = (System.Drawing.Image)resources.GetObject("$this.BackgroundImage");
+			BackgroundImageLayout = ImageLayout.Stretch;
 			Controls.Add(groupBox1);
+			DoubleBuffered = true;
 			Margin = new Padding(4, 3, 4, 3);
 			Name = "UCKreirajProfilRadnika";
 			Size = new System.Drawing.Size(1092, 752);

@@ -36,6 +36,9 @@ namespace Client.UserControls
 			label3 = new Label();
 			label4 = new Label();
 			groupBox1 = new GroupBox();
+			lblErrorFoto = new Label();
+			txtFotoUsluge = new TextBox();
+			lblFoto = new Label();
 			btnZakazi = new Button();
 			btnIzmeni = new Button();
 			btnObrisi = new Button();
@@ -50,9 +53,6 @@ namespace Client.UserControls
 			txtNaziv = new TextBox();
 			label5 = new Label();
 			btnNazad = new Button();
-			lblErrorFoto = new Label();
-			txtFotoUsluge = new TextBox();
-			lblFoto = new Label();
 			groupBox1.SuspendLayout();
 			SuspendLayout();
 			// 
@@ -140,6 +140,45 @@ namespace Client.UserControls
 			groupBox1.TabIndex = 1;
 			groupBox1.TabStop = false;
 			groupBox1.Text = "Usluga";
+			// 
+			// lblErrorFoto
+			// 
+			lblErrorFoto.Anchor = AnchorStyles.None;
+			lblErrorFoto.AutoSize = true;
+			lblErrorFoto.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			lblErrorFoto.ForeColor = System.Drawing.Color.Red;
+			lblErrorFoto.Location = new System.Drawing.Point(208, 377);
+			lblErrorFoto.Margin = new Padding(4, 0, 4, 0);
+			lblErrorFoto.Name = "lblErrorFoto";
+			lblErrorFoto.Size = new System.Drawing.Size(41, 17);
+			lblErrorFoto.TabIndex = 12;
+			lblErrorFoto.Text = "label6";
+			lblErrorFoto.Visible = false;
+			// 
+			// txtFotoUsluge
+			// 
+			txtFotoUsluge.Anchor = AnchorStyles.None;
+			txtFotoUsluge.BackColor = System.Drawing.Color.LavenderBlush;
+			txtFotoUsluge.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			txtFotoUsluge.ForeColor = System.Drawing.Color.DarkSlateBlue;
+			txtFotoUsluge.Location = new System.Drawing.Point(211, 339);
+			txtFotoUsluge.Margin = new Padding(4, 3, 4, 3);
+			txtFotoUsluge.Name = "txtFotoUsluge";
+			txtFotoUsluge.Size = new System.Drawing.Size(331, 30);
+			txtFotoUsluge.TabIndex = 11;
+			// 
+			// lblFoto
+			// 
+			lblFoto.Anchor = AnchorStyles.None;
+			lblFoto.AutoSize = true;
+			lblFoto.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
+			lblFoto.ForeColor = System.Drawing.Color.DarkSlateBlue;
+			lblFoto.Location = new System.Drawing.Point(78, 339);
+			lblFoto.Margin = new Padding(4, 0, 4, 0);
+			lblFoto.Name = "lblFoto";
+			lblFoto.Size = new System.Drawing.Size(96, 23);
+			lblFoto.TabIndex = 10;
+			lblFoto.Text = "Fotografija:";
 			// 
 			// btnZakazi
 			// 
@@ -333,52 +372,15 @@ namespace Client.UserControls
 			btnNazad.UseVisualStyleBackColor = false;
 			btnNazad.Visible = false;
 			// 
-			// lblErrorFoto
-			// 
-			lblErrorFoto.Anchor = AnchorStyles.None;
-			lblErrorFoto.AutoSize = true;
-			lblErrorFoto.Font = new System.Drawing.Font("Palatino Linotype", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-			lblErrorFoto.ForeColor = System.Drawing.Color.Red;
-			lblErrorFoto.Location = new System.Drawing.Point(208, 377);
-			lblErrorFoto.Margin = new Padding(4, 0, 4, 0);
-			lblErrorFoto.Name = "lblErrorFoto";
-			lblErrorFoto.Size = new System.Drawing.Size(41, 17);
-			lblErrorFoto.TabIndex = 12;
-			lblErrorFoto.Text = "label6";
-			lblErrorFoto.Visible = false;
-			// 
-			// txtFotoUsluge
-			// 
-			txtFotoUsluge.Anchor = AnchorStyles.None;
-			txtFotoUsluge.BackColor = System.Drawing.Color.LavenderBlush;
-			txtFotoUsluge.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-			txtFotoUsluge.ForeColor = System.Drawing.Color.DarkSlateBlue;
-			txtFotoUsluge.Location = new System.Drawing.Point(211, 339);
-			txtFotoUsluge.Margin = new Padding(4, 3, 4, 3);
-			txtFotoUsluge.Name = "txtFotoUsluge";
-			txtFotoUsluge.Size = new System.Drawing.Size(331, 30);
-			txtFotoUsluge.TabIndex = 11;
-			// 
-			// lblFoto
-			// 
-			lblFoto.Anchor = AnchorStyles.None;
-			lblFoto.AutoSize = true;
-			lblFoto.Font = new System.Drawing.Font("Palatino Linotype", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0);
-			lblFoto.ForeColor = System.Drawing.Color.DarkSlateBlue;
-			lblFoto.Location = new System.Drawing.Point(78, 339);
-			lblFoto.Margin = new Padding(4, 0, 4, 0);
-			lblFoto.Name = "lblFoto";
-			lblFoto.Size = new System.Drawing.Size(96, 23);
-			lblFoto.TabIndex = 10;
-			lblFoto.Text = "Fotografija:";
-			// 
 			// UCUsluga
 			// 
 			AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			AutoScaleMode = AutoScaleMode.Font;
 			BackgroundImage = (System.Drawing.Image)resources.GetObject("$this.BackgroundImage");
+			BackgroundImageLayout = ImageLayout.Stretch;
 			Controls.Add(btnNazad);
 			Controls.Add(groupBox1);
+			DoubleBuffered = true;
 			Margin = new Padding(4, 3, 4, 3);
 			Name = "UCUsluga";
 			Size = new System.Drawing.Size(942, 691);

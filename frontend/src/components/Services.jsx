@@ -111,7 +111,7 @@ function Services({ addService }) {
                     <h2 className="section-heading text-uppercase">Usluge</h2>
                     <h3 className="section-subheading text-muted">Izaberi i zakaži tretman za sebe.</h3>
                 </div>
-                <form className="d-flex" style={{ marginTop: '1rem', marginBottom: '1rem', alignItems: 'center', justifyContent: 'center' }}>
+                <form className="d-flex" style={{ marginTop: '1rem', marginBottom: '2rem', alignItems: 'center', justifyContent: 'center' }}>
                     <input className="form-control search" type="search" placeholder="Pretraži usluge po nazivu ili tipu usluge" aria-label="Search"
                         onInput={handleInput} name='filter' />
                     <button type="submit" className="btn btn-outline-primary" disabled><i className="fa-solid fa-magnifying-glass"></i></button>
@@ -122,7 +122,7 @@ function Services({ addService }) {
                             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to={index} className={`bg-dark ${index === 0 ? "active" : ""}`} aria-current={index === 0 ? "true" : "false"} aria-label={`Slide ${index + 1}`}></button>
                         ))}
                     </div>
-                    <div className="carousel-inner">
+                    <div className="carousel-inner" style={{ overflow: 'visible' }}>
                         {loading ? (
                             <div className='d-flex justify-content-center align-items-center'>
                                 <Loader />

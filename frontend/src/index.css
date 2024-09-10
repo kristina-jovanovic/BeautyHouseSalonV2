@@ -4742,3 +4742,20 @@ section#contact form#contactForm :-ms-input-placeholder {
   padding-top: 10vh;
   --bs-modal-width: 50vw;
 }
+
+.scale-transition {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 1;
+  z-index: 1;
+  /* Postavljamo veći z-index */
+  position: relative;
+  /* Z-index radi samo kada je element relativan ili apsolutni */
+}
+
+.scale-transition:hover {
+  transform: scale(1.1);
+  /* Povećaj element za 10% */
+  opacity: 1;
+  z-index: 100;
+  /* Povećaj z-index kako bi bio iznad drugih elemenata */
+}

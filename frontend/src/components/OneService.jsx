@@ -22,7 +22,7 @@ function OneService({ service, addService }) {
     const handleShow = () => setShow(true);
 
     return (
-        <div className="col-lg-4 col-sm-6 mb-4">
+        <div className="col-lg-4 col-sm-6 mb-4 scale-transition">
             <div className="portfolio-item">
                 <a className="portfolio-link"
                 //  data-bs-toggle="modal" href="#portfolioModal1"

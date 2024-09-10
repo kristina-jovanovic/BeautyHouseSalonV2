@@ -7,7 +7,7 @@ function Home() {
                 <div className="container">
                     <div className="masthead-subheading">Dobro došla u naš salon!</div>
                     <div className="masthead-heading text-uppercase">Radujemo se da te upoznamo</div>
-                    <a className="btn btn-primary btn-xl text-uppercase" href="#services">Saznaj više</a>
+                    <a className="btn btn-primary btn-xl text-uppercase scale-transition" href="#services">Saznaj više</a>
                 </div>
             </header>
         </div>

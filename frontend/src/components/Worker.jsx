@@ -2,7 +2,7 @@ import React from 'react'
 
 function Worker({ worker }) {
     return (
-        <div className="col-lg-4">
+        <div className="col-lg-4 scale-transition">
             <div className="team-member"
                 style={{ height: "100%", 
                     // alignContent: "center"

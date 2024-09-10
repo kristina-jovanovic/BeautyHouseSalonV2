@@ -50,7 +50,7 @@ function Team() {
                     <h3 className="section-subheading text-muted">Upoznajte ljude koji čine da zablistate spolja i iznutra.</h3>
                 </div>
                 <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel">
-                    <div className="carousel-inner">
+                    <div className="carousel-inner" style={{ overflow: 'visible' }}>
                         {loading ? (
                             <div className='d-flex justify-content-center align-items-center'>
                                 <Loader />

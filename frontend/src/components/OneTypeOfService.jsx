@@ -5,7 +5,7 @@ function OneTypeOfService({ type, iconClass }) {
 
 
     return (
-        <div className="col-md-20">
+        <div className="col-md-20 scale-transition">
             <span className="fa-stack fa-4x">
                 {/* krug kao pozadina za ikonicu */}
                 <i className="fas fa-circle fa-stack-2x text-primary"></i>

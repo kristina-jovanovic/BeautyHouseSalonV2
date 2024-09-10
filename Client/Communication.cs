@@ -42,23 +42,21 @@ namespace Client
 		Request request;
 		Response response;
 
+
+		public void Close()
+		{
+			socket?.Close();
+		}
 		private async Task ConnectAsync()
 		{
 			if (socket == null || !socket.Connected)
 			{
 				socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 				await socket.ConnectAsync(configuration.GetValue("ip"), int.Parse(configuration.GetValue("port")));
-				//await socket.ConnectAsync(ConfigurationManager.AppSettings["ip"], int.Parse(ConfigurationManager.AppSettings["port"]));
-				//Debug.WriteLine("KLIJENT POVEZAN");
 				sender = new Sender(socket);
 				receiver = new Receiver(socket);
 				request = new Request();
 			}
-		}
-
-		public void Close()
-		{
-			socket?.Close();
 		}
 
 		public async Task<Korisnik> LoginAsync(string username, string password)

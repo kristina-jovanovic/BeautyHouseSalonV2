@@ -16,7 +16,5 @@ namespace DataAccessLayer
 		Task BeginTransactionAsync();
 		Task CommitAsync();
 		Task RollbackAsync();
-
-
 	}
 }

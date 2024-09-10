@@ -17,7 +17,7 @@ namespace Server.SystemOperations
 		{
 			this.repository = repository;
 		}
-		public async Task ExecuteTemplate()
+		public async Task ExecuteTemplateAsync()
 		{
 			try
 			{

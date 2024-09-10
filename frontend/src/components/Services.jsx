@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import OneService from './OneService'
 import Loader from './Loader'
 import axios from 'axios';
+import { Button, Modal } from 'react-bootstrap';
 
 function Services({ addService }) {
     const [loading, setLoading] = useState(true);
@@ -98,6 +99,11 @@ function Services({ addService }) {
 
     }, [services]);
 
+    // const [show, setShow] = useState(false);
+
+    // const handleClose = () => setShow(false);
+    // const handleShow = () => setShow(true);
+
     return (
         <section className="page-section bg-light" id="portfolio">
             <div className="container">
@@ -138,6 +144,19 @@ function Services({ addService }) {
                     </div>
                 </div>
             </div>
+            {/* <Modal show={show} onHide={handleClose} >
+                <Modal.Header closeButton>
+                    <Modal.Title>Greška</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>{message}</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={() => {
+                        handleClose();
+                    }}>
+                        OK
+                    </Button>
+                </Modal.Footer>
+            </Modal> */}
         </section>
     )
 }

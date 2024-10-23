@@ -12,7 +12,6 @@ function OneService({ service, addService }) {
     }
     function prikazi(e) {
         e.preventDefault();
-        // addService(service);
         handleShow();
     }
 
@@ -25,16 +24,11 @@ function OneService({ service, addService }) {
         <div className="col-lg-4 col-sm-6 mb-4 scale-transition">
             <div className="portfolio-item">
                 <a className="portfolio-link"
-                //  data-bs-toggle="modal" href="#portfolioModal1"
                 >
                     <div className="portfolio-hover">
                         <div className="portfolio-hover-content">
                             <button className="btn btn-primary text-uppercase"
-                                // style={{ cursor: "pointer" }} 
                                 onClick={prikazi}>Prikaži</button>
-                            {/* <button className="btn btn-primary text-uppercase"
-                                // style={{ cursor: "pointer" }} 
-                                onClick={rezervisi}>Rezerviši</button> */}
                         </div>
                     </div>
                     <div style={{
@@ -45,13 +39,9 @@ function OneService({ service, addService }) {
                         minHeight: '200px'
                     }}>
                     </div>
-                    {/* <img className="img-fluid" src={service.fotografijaUsluge} alt="fotografija usluge" /> */}
                 </a>
                 <div className="portfolio-caption">
                     <div className="portfolio-caption-heading">{service.naziv}</div>
-                    {/* <div className="portfolio-caption-subheading text-muted">{service.tipUsluge.nazivTipaUsluge}</div> */}
-                    {/* <p style={{ margin: 0 }}>Cena: {service.cena} €</p>
-                    <p style={{ margin: 0 }}>Trajanje termina: {service.trajanjeUMinutima} minuta</p> */}
                 </div>
             </div>
             <Modal show={show} onHide={handleClose} className='modal-modified'>
@@ -61,7 +51,6 @@ function OneService({ service, addService }) {
                 <Modal.Body>
                     <div className="portfolio-item">
                         <a className="portfolio-link"
-                        //  data-bs-toggle="modal" href="#portfolioModal1"
                         >
                             <div style={{
                                 backgroundImage: `url(${service.fotografijaUsluge})`,

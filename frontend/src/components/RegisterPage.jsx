@@ -93,7 +93,6 @@ function RegisterPage({ addToken, addUser, token }) {
 
                                         <div className="text-center">
                                             <h4 className="mt-1 mb-5 pb-1"
-                                            // style={{color:"#ff6eb7"}}
                                             >BEAUTY HOUSE</h4>
                                         </div>
 

@@ -40,13 +40,6 @@ namespace WebAPI.Controllers
 			}
 			return Ok(mapper.Map<List<ZahtevZaRezervacijuTerminaDto>>(zahtevi));
 
-			//ovo je kad izaberem radnika i vreme i treba da se vrate zahtevi koji su na cekanju - ovo sam napisala al nisam ni koristila ? 
-			//List<ZahtevZaRezervacijuTermina> zahtevi = await Server.Controller.Instance.UcitajZahteveZaRezervacijuTerminaAsync(new ZahtevZaRezervacijuTermina());
-			//if (zahtevi == null)
-			//{
-			//	return NotFound();
-			//}
-			//return Ok(mapper.Map<List<ZahtevZaRezervacijuTerminaDto>>(zahtevi));
 		}
 
 		[HttpPost]

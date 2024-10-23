@@ -50,8 +50,6 @@ namespace DBBroker
 			using SqlCommand cmd = connection.CreateCommand();
 			cmd.CommandText = $"insert into {entity.TableName()} values ({entity.Values()})";
 			await cmd.ExecuteNonQueryAsync();
-
-			//Debug.WriteLine("--------INSERT USPESAN");
 		}
 		public async Task UpdateAsync(IEntity entity)
 		{

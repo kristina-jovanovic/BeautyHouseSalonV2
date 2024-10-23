@@ -22,7 +22,7 @@ namespace Server.SystemOperations.UslugaSO
 		{
 			try
 			{
-				//dodato naknadno - provera da li postoji ta usluga
+				//provera da li postoji ta usluga
 				if (await repository.GetByIdAsync(usluga) == null)
 				{
 					result = false;

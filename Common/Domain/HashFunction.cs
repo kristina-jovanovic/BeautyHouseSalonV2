@@ -44,7 +44,6 @@ namespace Common.Domain
         {
             HashFunction hashFunction = new HashFunction();
             byte[] salt = hashFunction.GenerateSalt();
-            //return Convert.ToBase64String(salt);
             return salt;
         }
 

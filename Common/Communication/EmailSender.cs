@@ -27,14 +27,11 @@ namespace Common.Communication
 				MailMessage message = new MailMessage();
 				SmtpClient smtp = new SmtpClient();
 
-				//smtp.Port = int.Parse(ConfigurationManager.AppSettings["portSmtp"]);
 				smtp.Port = int.Parse(appConfiguration.GetValue("PortSmtp"));
-				//smtp.Host = ConfigurationManager.AppSettings["hostSmtp"];
 				smtp.Host = appConfiguration.GetValue("HostSmtp");
 				smtp.EnableSsl = true;
 				smtp.UseDefaultCredentials = false;
 				smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-				//smtp.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["salonEmail"], ConfigurationManager.AppSettings["salonPass"]);
 				smtp.Credentials = new NetworkCredential(appConfiguration.GetValue("SalonEmail"), appConfiguration.GetValue("SalonPass"));
 				message.From = new MailAddress(appConfiguration.GetValue("SalonEmail"));
 

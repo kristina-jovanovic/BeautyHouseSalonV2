@@ -75,22 +75,18 @@ namespace Client.GUIControllers
 		{
 			this.radnik = radnik;
 			await ZakaziTermin();
-			//Debug.WriteLine($"{radnik},{radnik.TipUsluge}");
-			//Debug.WriteLine($"{ucZahtev.CbRadnik.SelectedItem},{ucZahtev.CbTipUsluge.SelectedItem}");
-			ucZahtev.CbTipUsluge.SelectedItem = radnik.TipUsluge; //ovo hoce da postavi
-			ucZahtev.CbRadnik.SelectedItem = radnik; //ovo nece ?????
+			ucZahtev.CbTipUsluge.SelectedItem = radnik.TipUsluge; 
+			ucZahtev.CbRadnik.SelectedItem = radnik; //...
 			ucZahtev.BtnNazad.Visible = true;
 			ucZahtev.BtnNazad.Click += BtnNazad_Click;
-			//Debug.WriteLine($"{radnik},{radnik.TipUsluge}");
-			//Debug.WriteLine($"{ucZahtev.CbRadnik.SelectedItem},{ucZahtev.CbTipUsluge.SelectedItem}");
 		}
 
 		internal async Task ZakaziTermin(Usluga usluga)
 		{
 			this.usluga = usluga;
 			await ZakaziTermin();
-			ucZahtev.CbTipUsluge.SelectedItem = usluga.TipUsluge; //ovo hoce da postavi
-			ucZahtev.CbUsluga.SelectedItem = usluga; //ovo nece ???
+			ucZahtev.CbTipUsluge.SelectedItem = usluga.TipUsluge;
+			ucZahtev.CbUsluga.SelectedItem = usluga; //...
 			ucZahtev.BtnNazad.Visible = true;
 			ucZahtev.BtnNazad.Click += BtnNazad_Click1;
 		}
@@ -134,14 +130,6 @@ namespace Client.GUIControllers
 			ucZahtev.DgvTermini.Columns["DatumIVremeTermina"].DisplayIndex = 1;
 			ucZahtev.DgvTermini.Columns["Radnik"].DisplayIndex = 2;
 			ucZahtev.DgvTermini.Columns["Napomena"].DisplayIndex = 3;
-
-			//ucZahtev.DgvTermini.Columns["Values"].Visible = false;
-			//ucZahtev.DgvTermini.Columns["PrimaryKey"].Visible = false;
-			//ucZahtev.DgvTermini.Columns["TableName"].Visible = false;
-			//ucZahtev.DgvTermini.Columns["GetById"].Visible = false;
-			//ucZahtev.DgvTermini.Columns["JoinQuery"].Visible = false;
-			//ucZahtev.DgvTermini.Columns["UpdateQuery"].Visible = false;
-			//ucZahtev.DgvTermini.Columns["Aliaces"].Visible = false;
 		}
 
 		private bool IzvuciZahtev()
@@ -412,11 +400,10 @@ namespace Client.GUIControllers
 				//dodaj da li ste sigurni
 				if (Communication.Instance.ZakaziTermineAsync(zahteviZaSlanje.ToList<ZahtevZaRezervacijuTermina>(), StatusZahteva.Odobren) == null)
 				{
-					MessageBox.Show("Sistem ne može da izvrši odobravanje zahteve.", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					MessageBox.Show("Sistem ne može da izvrši odobravanje zahteva.", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 				else
 				{
-					//SendEmail(zahteviZaSlanje.ToList<ZahtevZaRezervacijuTermina>(), StatusZahteva.Odobren);
 					emailSender.SendEmail(zahteviZaSlanje.ToList<ZahtevZaRezervacijuTermina>(), StatusZahteva.Odobren);
 					MessageBox.Show("Sistem je uspešno odobrio zahteve.", "Uspešno");
 					RefreshDGV();
@@ -463,7 +450,6 @@ namespace Client.GUIControllers
 				}
 				else
 				{
-					//SendEmail(zahteviZaSlanje.ToList<ZahtevZaRezervacijuTermina>(), StatusZahteva.Odbijen);
 					emailSender.SendEmail(zahteviZaSlanje.ToList<ZahtevZaRezervacijuTermina>(), StatusZahteva.Odbijen);
 					MessageBox.Show("Sistem je uspešno izvršio odbijanje zahteva.", "Uspešno");
 					RefreshDGV();
@@ -514,14 +500,6 @@ namespace Client.GUIControllers
 			ucZakazivanje.DgvZahtevi.Columns["DatumIVremeTermina"].DisplayIndex = 1;
 			ucZakazivanje.DgvZahtevi.Columns["Napomena"].DisplayIndex = 2;
 			ucZakazivanje.DgvZahtevi.Columns["VremeKreiranja"].DisplayIndex = 3;
-
-			//ucZakazivanje.DgvZahtevi.Columns["Values"].Visible = false;
-			//ucZakazivanje.DgvZahtevi.Columns["PrimaryKey"].Visible = false;
-			//ucZakazivanje.DgvZahtevi.Columns["TableName"].Visible = false;
-			//ucZakazivanje.DgvZahtevi.Columns["GetById"].Visible = false;
-			//ucZakazivanje.DgvZahtevi.Columns["JoinQuery"].Visible = false;
-			//ucZakazivanje.DgvZahtevi.Columns["UpdateQuery"].Visible = false;
-			//ucZakazivanje.DgvZahtevi.Columns["Aliaces"].Visible = false;
 		}
 
 		private async Task UcitajDGV()
@@ -541,14 +519,6 @@ namespace Client.GUIControllers
 				ucZakazivanje.DgvPodaci.Columns["DatumIVremeTermina"].DisplayIndex = 1;
 				ucZakazivanje.DgvPodaci.Columns["Napomena"].DisplayIndex = 2;
 				ucZakazivanje.DgvPodaci.Columns["VremeKreiranja"].DisplayIndex = 3;
-
-				//ucZakazivanje.DgvPodaci.Columns["Values"].Visible = false;
-				//ucZakazivanje.DgvPodaci.Columns["PrimaryKey"].Visible = false;
-				//ucZakazivanje.DgvPodaci.Columns["TableName"].Visible = false;
-				//ucZakazivanje.DgvPodaci.Columns["GetById"].Visible = false;
-				//ucZakazivanje.DgvPodaci.Columns["JoinQuery"].Visible = false;
-				//ucZakazivanje.DgvPodaci.Columns["UpdateQuery"].Visible = false;
-				//ucZakazivanje.DgvPodaci.Columns["Aliaces"].Visible = false;
 			}
 			catch (IOException)
 			{

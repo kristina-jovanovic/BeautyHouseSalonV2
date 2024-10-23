@@ -31,8 +31,6 @@ namespace Common.Domain
 
 		public string FilterQuery(string filter)
 		{
-			//return $"lower(naziv) like concat('%',lower('{filter}'),'%')" +
-			//    $"or TipUsluge in (select TipUslugeID from TipUsluge where lower(NazivTipaUsluge) like concat('%',lower('{filter}'),'%'))";
 			return $"lower(naziv) like concat('%',lower('{filter}'),'%')" +
 				$"or TipUsluge in (select TipUslugeID from TipUsluge where lower(NazivTipaUsluge) like concat(lower('{filter}'),'%'))";
 		}

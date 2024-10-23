@@ -54,7 +54,6 @@ namespace WebAPI.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Create([FromBody] ProfilRadnikaDto radnikDto)
 		{
-			//mora prethodno logika za fotografiju da se izmeni
 			ProfilRadnika radnik = mapper.Map<ProfilRadnika>(radnikDto);
 			radnik = await controller.KreirajProfilRadnikaAsync(radnik);
 			if (radnik == null)

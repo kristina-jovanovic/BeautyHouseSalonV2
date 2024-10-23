@@ -42,7 +42,6 @@ namespace Client
 		Request request;
 		Response response;
 
-
 		public void Close()
 		{
 			socket?.Close();

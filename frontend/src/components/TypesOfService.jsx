@@ -35,7 +35,6 @@ function TypesOfService() {
         "fa-paintbrush",
         "fa-hand-sparkles",
         "fa-spray-can-sparkles",
-        // "fa-wand-magic-sparkles",
     ];
 
     return (

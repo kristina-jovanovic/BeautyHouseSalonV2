@@ -232,8 +232,7 @@ namespace Server
 					}
 					break;
 				case Operation.DodajZahteve:
-					//ZahtevZaRezervacijuTermina zahtev = (ZahtevZaRezervacijuTermina)request.Argument;
-					////probaj da nadjes sa tim radnikom i tim vremenom i odobren - proveri dostupnost OK
+					//probaj da nadjes sa tim radnikom i tim vremenom i odobren - proveri dostupnost OK
 					List<ZahtevZaRezervacijuTermina> zahtevi = Transformer.TransformisiJson<List<ZahtevZaRezervacijuTermina>>(request.Argument);
 					response.Result = await controller.KreirajZahteveZaRezervacijuTerminaAsync(zahtevi);
 					if (((List<ZahtevZaRezervacijuTermina>)response.Result).Count == 0)

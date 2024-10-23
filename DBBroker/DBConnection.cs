@@ -18,8 +18,6 @@ namespace DBBroker
 
 		public DBConnection(IAppConfiguration config)
 		{
-			//connection = new SqlConnection(ConfigurationManager.ConnectionStrings["BeautyHouseBazaV2"].ConnectionString);
-			//connection = new SqlConnection("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = BeautyHouseBazaV2; Integrated Security = True;TrustServerCertificate=True;MultipleActiveResultSets=True;");
 			connection = new SqlConnection(config.GetConnectionString("BeautyHouseBazaV2"));
 		}
 

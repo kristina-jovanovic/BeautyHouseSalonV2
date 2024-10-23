@@ -230,14 +230,12 @@ function ReservationPage({ token, user, service, addService }) {
             const termin = Date.parse(reservationData.datumIVremeTermina);
             // console.log(termin);
             const formatiranTermin = format(termin, "yyyy-MM-dd'T'HH:mm");
-            // const formatiranTermin = formatISO(termin, { representation: 'complete' });
             // console.log(formatiranTermin);
             reservationData.datumIVremeTermina = formatiranTermin;
 
             const datum = new Date();
             // console.log(datum);
             const formatiranDatum = format(datum, "yyyy-MM-dd'T'HH:mm:ss");
-            // const formatiranDatum = formatISO(datum, { representation: 'complete' });
             // console.log(formatiranDatum);
 
             const data = {
@@ -295,7 +293,6 @@ function ReservationPage({ token, user, service, addService }) {
                     handleShow();
                 });
 
-            // navigate('/');
         }
 
     }
@@ -369,7 +366,6 @@ function ReservationPage({ token, user, service, addService }) {
 
                                         <div className="text-center">
                                             <h4 className="mt-1 mb-5 pb-1"
-                                            // style={{color:"#ff6eb7"}}
                                             >BEAUTY HOUSE</h4>
                                         </div>
 
@@ -462,8 +458,6 @@ function ReservationPage({ token, user, service, addService }) {
                                     </div>
                                 </div>
                                 <div className="col-12 col-lg-4 d-flex align-items-center round-edges" style={{
-                                    // backgroundColor: "#ff6eb7" 
-                                    // backgroundImage: `url(${photo})`,
                                     backgroundImage: 'url(https://i.shgcdn.com/96050615-b80f-4062-8a1f-643472712403/-/format/auto/-/preview/3000x3000/-/quality/lighter/)',
                                     backgroundSize: 'cover', // Osigurava da se slika skalira
                                     backgroundPosition: 'center', // Centriranje slike
